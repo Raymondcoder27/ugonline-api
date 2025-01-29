@@ -108,14 +108,14 @@ function deleteCategory(id: string) {
               <td class="text-xs text-center">
                 <i
                   v-if="category.icon_url.includes('form.icon')"
-                  class="fa-solid fa-image dummy-icon"
+                  class="fa-solid fa-image -icon"
                 ></i>
                 <img
                   v-else-if="category.icon_url.length > 0"
                   :src="category.icon_url"
                   class="w-8 mx-auto bg-primary-700 p-1 text-center rounded"
                 />
-                <i v-else class="fa-solid fa-image dummy-icon"></i>
+                <i v-else class="fa-solid fa-image -icon"></i>
               </td>
               <td class="text-xs">
                 <span class="font-bold uppercase">{{ category.name }}</span>
@@ -172,7 +172,7 @@ function deleteCategory(id: string) {
 @import "@/assets/styles/ring.css";
 @import "@/assets/styles/ripple.css";
 
-.dummy-icon {
+.-icon {
   @apply p-1 text-primary-700 mx-auto;
   font-size: 30px;
 }

@@ -19,8 +19,8 @@ export const useAccounts = defineStore("user-management", () => {
 
   const branchStore = useBranchStore();
 
-  // Dummy Data for testing
-  const dummyUserAccounts: Account[] = [
+  //  Data for testing
+  const UserAccounts: Account[] = [
     {
       firstName: "John", lastName: "Doe", middleNames: "M", username: "john.doe@example.com",
       phone: "123-456-7890", role: "public", createdAt: "2021-01-01",
@@ -41,7 +41,7 @@ export const useAccounts = defineStore("user-management", () => {
   // <!-- <th class="text-center">Activation</th> -->
   // <th class="text-center">Date</th>
 
-  const dummyManagerAccounts: ManagerAccount[] = [
+  const ManagerAccounts: ManagerAccount[] = [
     {
       firstName: "Kalungu", lastName: "Kevin", middleNames: "M", username: "James Doe",
       phone: "123-456-7890", role: "manager", createdAt: "2021-01-01",
@@ -62,7 +62,7 @@ export const useAccounts = defineStore("user-management", () => {
     }
   ];
 
-  const dummyBackofficeAccounts: Account[] = [
+  const BackofficeAccounts: Account[] = [
     // {
     //   firstName: "Jack", lastName: "Tumwine", middleNames: "B", username: "jacktumwine.user@example.com",
     //   phone: "345-678-9012", role: "admin", createdAt: "2021-03-01",
@@ -97,9 +97,9 @@ export const useAccounts = defineStore("user-management", () => {
 
 
   const response: Ref<AccountResponse | undefined> = ref();
-  const userAccounts: Ref<Account[]> = ref([dummyUserAccounts]);
-  const backofficeAccounts: Ref<Account[]> = ref([dummyBackofficeAccounts]);
-  const managerAccounts: Ref<ManagerAccount[]> = ref([dummyManagerAccounts]);
+  const userAccounts: Ref<Account[]> = ref([UserAccounts]);
+  const backofficeAccounts: Ref<Account[]> = ref([BackofficeAccounts]);
+  const managerAccounts: Ref<ManagerAccount[]> = ref([ManagerAccounts]);
   const managerAllocations: Ref<AllocateManager[]> = ref([]);
 
 
@@ -224,22 +224,22 @@ export const useAccounts = defineStore("user-management", () => {
   //   managerAccounts.value.push(newManager); // Directly add the manager to the array
   // }
 
-  // Fetch dummy user accounts
+  // Fetch  user accounts
   const fetchUserAccounts = async (filter: IGoFilter) => {
     // Here you would normally process the filter if you had real data
-    userAccounts.value = dummyUserAccounts;
+    userAccounts.value = UserAccounts;
   }
 
-  // Fetch dummy backoffice accounts
+  // Fetch  backoffice accounts
   const fetchBackofficeAccounts = async (filter: IGoFilter) => {
     // Here you would normally process the filter if you had real data
-    backofficeAccounts.value = dummyBackofficeAccounts;
+    backofficeAccounts.value = BackofficeAccounts;
   }
 
-  // Fetch dummy manager accounts
+  // Fetch  manager accounts
   const fetchManagerAccounts = async (filter: IGoFilter) => {
     // Here you would normally process the filter if you had real data
-    managerAccounts.value = dummyManagerAccounts;
+    managerAccounts.value = ManagerAccounts;
   }
 
   // Simulating resend account verification

@@ -6,8 +6,8 @@ import type { AssignManager } from "@/types";
 
 export const useBranchStore = defineStore("useBranch", () => {
 
-  // Dummy data for testing purposes
-  const dummyBranches: Branch[] = [
+  //  data for testing purposes
+  const Branches: Branch[] = [
     { id: 1, name: "Branch 1", location: "Location 1", manager: "", status: "Active" },
     { id: 2, name: "Branch 2", location: "Location 2", manager: "", status: "Inactive" },
     { id: 3, name: "Branch 3", location: "Location 3", manager: "", status: "Active" },
@@ -40,7 +40,7 @@ export const useBranchStore = defineStore("useBranch", () => {
   //   });
 
   // state variables
-  const branches: Ref<Branch[] | undefined> = ref(dummyBranches);
+  const branches: Ref<Branch[] | undefined> = ref(Branches);
   const branch: Ref<Branch | undefined> = ref();
   const isLoading: Ref<boolean> = ref(false);
   const managerAssignments: Ref<AssignManager[]> = ref([]);
@@ -119,8 +119,8 @@ export const useBranchStore = defineStore("useBranch", () => {
       // Uncomment the following line to fetch data from the API once ready
       // const { data } = await api.get(`/branches?page=${page}&limit=${limit}`);
       
-      // For now, use the dummy data for testing
-      branches.value = dummyBranches; // Use dummy data for testing
+      // For now, use the  data for testing
+      branches.value = Branches; // Use  data for testing
 
       // Uncomment below to assign the API data when it's available
       // branches.value = data;

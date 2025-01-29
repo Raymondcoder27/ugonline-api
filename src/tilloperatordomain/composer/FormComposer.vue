@@ -159,8 +159,8 @@ watch(
         <div class="flex">
           <div class="w-11/12 border border-blue-200 bg-blue-50 p-3 text-sm rounded text-blue-600">
             <p class="my-auto"> <i class="fa-solid fa-info-circle"></i> <label class="font-bold">Form Builder</label> <br/>
-              <span class="text-xs">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-              dummy text ever since the 1500s, when an unknown printer took a galley of type. remaining essentially unchanged.
+              <span class="text-xs">Lorem Ipsum is simply  text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+               text ever since the 1500s, when an unknown printer took a galley of type. remaining essentially unchanged.
               </span>
             </p>
           </div>

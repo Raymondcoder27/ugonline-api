@@ -70,7 +70,7 @@ export const useServicesStore = defineStore("services", () => {
 
 
 
-  const dummyServices: Service[] = [
+  const Services: Service[] = [
     // {id: "1", name: "Post Office Account", description: "Open a Post Office Account", accessibilityTier: "Public", featureId: "1", requirements: ["National ID", "Passport"], providerId: "1", providerName: "Posta Uganda", createdAt: {Time: "2021-09-01", Valid: true}, status: "Active", currentVersionId: "1"},
     // {id: "2", name: "Agricultural Research", description: "Request for Agricultural Research", accessibilityTier: "Public", featureId: "2", requirements: ["National ID", "Passport"], providerId: "2", providerName: "National Agricultural Research Organization", createdAt: {Time: "2021-09-02", Valid: true}, status: "Active", currentVersionId: "2"},
     // {id: "3", name: "National ID Registration", description: "Apply for a National ID", accessibilityTier: "Public", featureId: "3", requirements: ["National ID", "Passport"], providerId: "3", providerName: "National Identification & Registration Authority", createdAt: {Time: "2021-09-03", Valid: true}, status: "Active", currentVersionId: "3"},
@@ -88,9 +88,9 @@ export const useServicesStore = defineStore("services", () => {
     // ministry of internal affairs work permit application
   ];
 
-  // const dummySubscribedServices: Ref<Service[]> = ref([]);
+  // const SubscribedServices: Ref<Service[]> = ref([]);
 
-  const dummySubscribedServices: Service[] = [
+  const SubscribedServices: Service[] = [
     { id: "5b", thumbnail: epostaThumbnail, name: "Post Office Account Creation", description: "Open a Post Office Account", accessibilityTier: "Public", featureId: "5", requirements: ["National ID", "Passport"], providerId: "5", providerName: "Posta Uganda", createdAt: { Time: "2021-09-01", Valid: true }, status: "subscribed", currentVersionId: "5" },
     { id: "7d", thumbnail: ursbThumbnail, name: "Company Dissolution", description: "Dissolve a Company", accessibilityTier: "Public", featureId: "7", requirements: ["National ID", "Passport"], providerId: "7", providerName: "URSB", createdAt: { Time: "2021-09-03", Valid: true }, status: "subscribed", currentVersionId: "7" },
     { id: "8d", thumbnail: ursbThumbnail, name: "National ID Registration", description: "Apply for a National ID", accessibilityTier: "Public", featureId: "7", requirements: ["National ID", "Passport"], providerId: "7", providerName: "National Identification & Registration Authority", createdAt: { Time: "2021-09-03", Valid: true }, status: "subscribed", currentVersionId: "7" },
@@ -104,8 +104,8 @@ export const useServicesStore = defineStore("services", () => {
 
 
   // const services: Ref<Service[] | undefined> = ref()
-  const services: Ref<Service[] | undefined> = ref(dummyServices)
-  const subscribedServices: Ref<Service[] | undefined> = ref(dummySubscribedServices)
+  const services: Ref<Service[] | undefined> = ref(Services)
+  const subscribedServices: Ref<Service[] | undefined> = ref(SubscribedServices)
 
   const service: Ref<Service | undefined> = ref()
   const serviceSpecification: Ref<ServiceSpecification | undefined> = ref()
@@ -134,23 +134,23 @@ export const useServicesStore = defineStore("services", () => {
   // async function fetchFloatRequests(filter: any) {
   //   // Simulate API call
   //   // You can adjust this based on the filtering criteria or paging
-  //   floatRequests.value = dummyFloatRequests;
+  //   floatRequests.value = FloatRequests;
   // }
 
   async function fetchServices(filter: any) {
     // Simulate API call
     // const response = await fetch(`/api/services?limit=${limit}&page=${page}`);
     // const data = await response.json();
-    // Use dummy data for now
-    services.value = dummyServices;
+    // Use  data for now
+    services.value = Services;
   }
 
   async function fetchSubscribedServices(filter: any) {
     // Simulate API call
     // const response = await fetch(`/api/services?limit=${limit}&page=${page}`);
     // const data = await response.json();
-    // Use dummy data for now
-    subscribedServices.value = dummySubscribedServices;
+    // Use  data for now
+    subscribedServices.value = SubscribedServices;
   }
 
   // function subscribe(serviceId: string) {
@@ -170,8 +170,8 @@ export const useServicesStore = defineStore("services", () => {
   //   //set the status of the service to active
   //   // services.value?.find((service) => service.id === serviceId)?.status === "subscribed";
   //   services.value?.find((service) => service.id === serviceId)!.status === "subscribed";
-  //   // Use dummy data for now
-  //   subscribedServices.value?.push(dummyServices.find((service) => service.id === serviceId));
+  //   // Use  data for now
+  //   subscribedServices.value?.push(Services.find((service) => service.id === serviceId));
   //   // filter it out of the services
   //   services.value = services.value?.filter((service) => service.id !== serviceId);
   // }
@@ -184,15 +184,15 @@ export const useServicesStore = defineStore("services", () => {
   //   //set the status of the service to inactive
   //   // subscribedServices.value?.find((service) => service.id === serviceId)?.status === "listed";
   //   subscribedServices.value?.find((service) => service.id === serviceId)!.status === "listed";
-  //   // Use dummy data for now
-  //   services.value?.push(dummySubscribedServices.find((service) => service.id === serviceId));
+  //   // Use  data for now
+  //   services.value?.push(SubscribedServices.find((service) => service.id === serviceId));
   //   // filter it out of the subscribed services
   //   subscribedServices.value = subscribedServices.value?.filter((service) => service.id !== serviceId);
   // }
 
 
   // function subscribeToService(serviceId: string) {
-  //   const service = dummyServices.find((s) => s.id === serviceId);
+  //   const service = Services.find((s) => s.id === serviceId);
   //   if (service) {
   //     service.status = "subscribed"; // Update status
   //     subscribedServices.value?.push(service);
@@ -237,7 +237,7 @@ export const useServicesStore = defineStore("services", () => {
   }
 
   // function unsubscribeFromService(serviceId: string) {
-  //   const service = dummySubscribedServices.find((s) => s.id === serviceId);
+  //   const service = SubscribedServices.find((s) => s.id === serviceId);
   //   if (service) {
   //     service.status = "listed"; // Update status
   //     services.value?.push(service);

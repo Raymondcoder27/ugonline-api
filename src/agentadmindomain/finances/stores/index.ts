@@ -6,9 +6,9 @@ import type { Transaction, FloatLedger, BackofficeUser, BranchManager, FloatAllo
 import type { AllocateFloat } from "@/types";
 
 export const useBilling = defineStore("billing", () => {
-  // Dummy data for testing
+  //  data for testing
 
-  // use this for dummy transactions
+  // use this for  transactions
   // <tr class="text-left">
   //           <!-- <th>#</th> -->
   //           <th>Tracking Number</th>
@@ -22,7 +22,7 @@ export const useBilling = defineStore("billing", () => {
   //           <!-- <th>Actions</th> -->
   //         </tr>
 
-  // const dummyTransactions: Transaction[] = [
+  // const Transactions: Transaction[] = [
   //   { id: 1, trackingNumber: "TA123456",
   //     service: "Company Name Reservation", provider: "URSB", till: "Till 001",
   //     fee: 25000, date: "2021-09-01", status: "success" 
@@ -36,7 +36,7 @@ export const useBilling = defineStore("billing", () => {
   //      till: "Till 003", fee: 35000, date: "2021-09-03", status: "pending" },
   // ];
 
-  const dummyTransactions: Transaction[] = [
+  const Transactions: Transaction[] = [
     {
       id: 1, trackingNumber: "TA123456",
       service: "Company Name Reservation", provider: "URSB", till: "Till 001", transactionID: "TR23183",
@@ -55,40 +55,40 @@ export const useBilling = defineStore("billing", () => {
   ];
 
 
-  // use this for dummy float requests
+  // use this for  float requests
   // <th class="text-left">Date</th>
   // <th class="text-left">Name</th>
   // <th class="text-left">Branch</th>
   // <th class="text-left">Amount</th>
   // <th class="text-left">Actions</th>
 
-  const dummyFloatRequests: FloatRequest[] = [
+  const FloatRequests: FloatRequest[] = [
     { id: 1, requestDate: "2021-09-01", amount: 10000000, status: "pending", branch: "Branch 1", approvedBy: null },
     { id: 4, requestDate: "2021-09-04", amount: 40000000, status: "pending", branch: "Branch 4", approvedBy: null },
     { id: 2, requestDate: "2021-09-02", amount: 20000000, status: "approved", branch: "Branch 2", approvedBy: "Manager One" },
     { id: 3, requestDate: "2021-09-03", amount: 30000000, status: "rejected", branch: "Branch 3", approvedBy: null },
   ];
 
-  const dummyFloatLedgers: FloatLedger[] = [
+  const FloatLedgers: FloatLedger[] = [
     { id: 1, date: "2021-09-01", description: "Recharge", amount: 120000000, balance: 120000000 },
     // { id: 2, date: "2021-09-02", description: "Branch 1", amount: -20000000, balance: 300000000 },
   ];
 
-  const dummyBackofficeUsers: BackofficeUser[] = [
+  const BackofficeUsers: BackofficeUser[] = [
     { id: 1, username: "admin1", fullName: "Jack Mwebe", role: "Administrator", branch: "Branch 1", status: "Active" },
     { id: 2, username: "manager1", fullName: "Katamba Johnson", role: "Manager", branch: "Branch 2", status: "Active" },
     { id: 3, username: "admin2", fullName: "Kasule Ronald", role: "Administrator", branch: "Branch 3", status: "Inactive" },
   ];
 
-  // dummy branch manager data
-  const dummyBranchManagers: BranchManager[] = [
+  //  branch manager data
+  const BranchManagers: BranchManager[] = [
     { id: 1, username: "manager1", fullName: "Manager User One", role: "Manager", branch: "Branch 1", status: "Active" },
     { id: 2, username: "manager2", fullName: "Manager User Two", role: "Manager", branch: "Branch 2", status: "Active" },
     { id: 3, username: "manager3", fullName: "Manager User Three", role: "Manager", branch: "Branch 3", status: "Inactive" },
   ];
 
-  // dummy float assignment data
-  const dummyFloatAllocations: FloatAllocation[] = [
+  //  float assignment data
+  const FloatAllocations: FloatAllocation[] = [
     { id: 1, dateAssigned: "2021-09-01", amount: 20000000, status: "Allocated", branch: "Branch 1" },
     { id: 2, dateAssigned: "2021-09-02", amount: 21000000, status: "pending", branch: "Branch 2" },
     { id: 3, dateAssigned: "2021-09-03", amount: 37000000, status: "failed", branch: "Branch 3" },
@@ -96,14 +96,14 @@ export const useBilling = defineStore("billing", () => {
 
 
   // State variables
-  const transactions = ref<Transaction[]>(dummyTransactions); // Use dummy data for now
+  const transactions = ref<Transaction[]>(Transactions); // Use  data for now
   const totalAmount = ref(600); // Set a test value
   const totalBalance = ref(3000); // Set a test value
-  const floatLedgers = ref<FloatLedger[]>(dummyFloatLedgers); // Use dummy data for now
-  const backofficeUsers = ref<BackofficeUser[]>(dummyBackofficeUsers);
-  const branchManagers = ref<BranchManager[]>(dummyBranchManagers);
-  const floatAllocations = ref<FloatAllocation[]>(dummyFloatAllocations);
-  const floatRequests = ref<FloatRequest[]>(dummyFloatRequests);
+  const floatLedgers = ref<FloatLedger[]>(FloatLedgers); // Use  data for now
+  const backofficeUsers = ref<BackofficeUser[]>(BackofficeUsers);
+  const branchManagers = ref<BranchManager[]>(BranchManagers);
+  const floatAllocations = ref<FloatAllocation[]>(FloatAllocations);
+  const floatRequests = ref<FloatRequest[]>(FloatRequests);
 
 
   // const floatRequests = JSON.parse(localStorage.getItem('floatRequestToBranchManagerLocalStorage') || '[]');
@@ -118,8 +118,8 @@ export const useBilling = defineStore("billing", () => {
     // Simulate API call
     // const response = await fetch(`/api/transactions?limit=${filter.limit}&page=${filter.page}`);
     // const data = await response.json();
-    // Use dummy data for now
-    transactions.value = dummyTransactions;
+    // Use  data for now
+    transactions.value = Transactions;
     // totalAmount.value = 600;  // Set a test value
     // totalBalance.value = 300000000; // Set a test value
   }
@@ -128,32 +128,32 @@ export const useBilling = defineStore("billing", () => {
     // Simulate API call
     // const response = await fetch(`/api/float-ledgers?limit=${filter.limit}&page=${filter.page}`);
     // const data = await response.json();
-    // Use dummy data for now
-    floatLedgers.value = dummyFloatLedgers;
+    // Use  data for now
+    floatLedgers.value = FloatLedgers;
   }
 
   async function fetchBackofficeUsers(filter: any) {
     // Simulate API call
     // You can adjust this based on the filtering criteria or paging
-    backofficeUsers.value = dummyBackofficeUsers;
+    backofficeUsers.value = BackofficeUsers;
   }
 
   async function fetchBranchManagers(filter: any) {
     // Simulate API call
     // You can adjust this based on the filtering criteria or paging
-    branchManagers.value = dummyBranchManagers;
+    branchManagers.value = BranchManagers;
   }
 
   async function fetchFloatAllocations(filter: any) {
     // Simulate API call
     // You can adjust this based on the filtering criteria or paging
-    floatAllocations.value = dummyFloatAllocations;
+    floatAllocations.value = FloatAllocations;
   }
 
   async function fetchFloatRequests(filter: any) {
     // Simulate API call
     // You can adjust this based on the filtering criteria or paging
-    floatRequests.value = dummyFloatRequests;
+    floatRequests.value = FloatRequests;
   }
 
   // function submit() {

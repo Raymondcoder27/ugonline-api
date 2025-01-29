@@ -25,7 +25,7 @@ export const useServicesStore = defineStore("services", () => {
 
   // services
 
-  const dummyServices = ref<Service[]>([
+  const Services = ref<Service[]>([
     {
       id: 1,
       service: "Post Office Account",
@@ -211,7 +211,7 @@ export const useServicesStore = defineStore("services", () => {
   //   subscribedServicesFromLocalStorage.value = subscribedServicesFromLocalStorage;
   // }
 
-  const services: Ref<Service[] | undefined> = ref(dummyServices)
+  const services: Ref<Service[] | undefined> = ref(Services)
 
   // const services: Ref<Service[] | undefined> = ref(subscribedServicesFromLocalStorage);
 

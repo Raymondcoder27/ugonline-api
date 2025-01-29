@@ -7,17 +7,17 @@ export interface TotalBalance {
 }
 
 export const useBalance = defineStore("balance", () => {
-  // Initial dummy data for total balance
+  // Initial  data for total balance
 
   const totalBalance = reactive<TotalBalance>({
     prevBalance: 0,
     currentBalance: 15405000, // Initial balance
   });
 
-  // Fetch the total balance (dummy data for now)
+  // Fetch the total balance ( data for now)
   // async function fetchTotalBalance() {
   //   // Simulate API call
-  //   totalBalance.value = { ...dummyTotalBalance };
+  //   totalBalance.value = { ...TotalBalance };
   // }
 
   // Increase the total balance and update the "prev" value
@@ -52,9 +52,9 @@ export const useBalance = defineStore("balance", () => {
   //   console.log("Updated:", totalBalance.value);
   // }
 
-  // dummyTotalBalance.current = totalBalance.value.current;
+  // TotalBalance.current = totalBalance.value.current;
 
-  // totalBalance.value = { ...dummyTotalBalance };
+  // totalBalance.value = { ...TotalBalance };
 
     // Increase the total balance and update the "prev" value
     async function increaseTotalBalance(amount: number) {

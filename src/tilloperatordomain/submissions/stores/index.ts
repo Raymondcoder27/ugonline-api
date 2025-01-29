@@ -6,14 +6,14 @@ import type { Transaction, FloatLedger } from "@/tilloperatordomain/billing/type
 import type { Submission } from "@/tilloperatordomain/submissions/types";
 
 export const useSubmissions = defineStore("submissions", () => {
-  // Dummy data for testing
-  const dummyTransactions: Transaction[] = [
+  //  data for testing
+  const Transactions: Transaction[] = [
     { id: 1, amount: 100, description: "Sample Transaction 1" },
     { id: 2, amount: 200, description: "Sample Transaction 2" },
     { id: 3, amount: 300, description: "Sample Transaction 3" },
   ];
 
-  const dummyFloatLedgers: FloatLedger[] = [
+  const FloatLedgers: FloatLedger[] = [
     { id: 1, name: "Sample FloatLedger 1", balance: 500 },
     { id: 2, name: "Sample FloatLedger 2", balance: 1000 },
     { id: 3, name: "Sample FloatLedger 3", balance: 1500 },
@@ -29,14 +29,14 @@ export const useSubmissions = defineStore("submissions", () => {
 //             </tr>
 //           </thead>
 
-  // const dummySubmissions: Submission[] = [
+  // const Submissions: Submission[] = [
   //   { id: 1, service: "National ID Registration", provider: "NIRA", fee: 100, date: "2021-10-01" },
   //   { id: 2, service: "Company Name Reservation", provider: "URSB", fee: 200, date: "2021-10-02" },
   //   { id: 3, service: "Company Incorporation", provider: "URSB", fee: 300, date: "2021-10-03" },
   //   ];
 
-  // use this to generate new dummy submissions
-  // const dummyTransactions: Transaction[] = [
+  // use this to generate new  submissions
+  // const Transactions: Transaction[] = [
   //   { id: 1, trackingNumber: "TA123456",
   //     service: "Name Reservation", provider: "URSB", till: "Till 001",
   //     fee: 25000, date: "2021-09-01" 
@@ -50,7 +50,7 @@ export const useSubmissions = defineStore("submissions", () => {
   //      till: "Till 003", fee: 35000, date: "2021-09-03" },
   // ];
 
-  const dummySubmissions: Submission[] = [
+  const Submissions: Submission[] = [
     { id: 1, trackingNumber: "TA123456",
       service: "Name Reservation", status: "rejected", provider: "URSB", till: "Till 001",
       fee: 25000, date: "2021-09-01" 
@@ -91,19 +91,19 @@ export const useSubmissions = defineStore("submissions", () => {
 
 
   // State variables
-  const transactions = ref<Transaction[]>(dummyTransactions); // Use dummy data for now
+  const transactions = ref<Transaction[]>(Transactions); // Use  data for now
   const totalAmount = ref(600); // Set a test value
   const totalBalance = ref(3000); // Set a test value
-  const floatLedgers = ref<FloatLedger[]>(dummyFloatLedgers); // Use dummy data for now
-    const submissions = ref<Submission[]>(dummySubmissions); // Use dummy data for now
+  const floatLedgers = ref<FloatLedger[]>(FloatLedgers); // Use  data for now
+    const submissions = ref<Submission[]>(Submissions); // Use  data for now
 
   // Actions to fetch data
   async function fetchTransactions(filter: any) {
     // Simulate API call
     // const response = await fetch(`/api/transactions?limit=${filter.limit}&page=${filter.page}`);
     // const data = await response.json();
-    // Use dummy data for now
-    transactions.value = dummyTransactions;
+    // Use  data for now
+    transactions.value = Transactions;
     totalAmount.value = 600;  // Set a test value
     totalBalance.value = 3000; // Set a test value
   }
@@ -112,16 +112,16 @@ export const useSubmissions = defineStore("submissions", () => {
     // Simulate API call
     // const response = await fetch(`/api/float-ledgers?limit=${filter.limit}&page=${filter.page}`);
     // const data = await response.json();
-    // Use dummy data for now
-    floatLedgers.value = dummyFloatLedgers;
+    // Use  data for now
+    floatLedgers.value = FloatLedgers;
   }
 
   async function fetchSubmissions(filter: any) {
     // Simulate API call
     // const response = await fetch(`/api/submissions?limit=${filter.limit}&page=${filter.page}`);
     // const data = await response.json();
-    // Use dummy data for now
-    submissions.value = dummySubmissions;
+    // Use  data for now
+    submissions.value = Submissions;
   }
 
   return {

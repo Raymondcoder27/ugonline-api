@@ -6,8 +6,8 @@ import type { AssignManager } from "@/types";
 
 export const useTillStore = defineStore("useTill", () => {
 
-  // Dummy data for testing purposes
-  const dummyTills: Till[] = [
+  //  data for testing purposes
+  const Tills: Till[] = [
     { id: 1, name: "Till 1", location: "Location 1", operator: "", status: "Active" },
     { id: 2, name: "Till 2", location: "Location 2", operator: "", status: "Inactive" },
     { id: 3, name: "Till 3", location: "Location 3", operator: "", status: "Active" },
@@ -40,7 +40,7 @@ export const useTillStore = defineStore("useTill", () => {
   //   });
 
   // state variables
-  const tills: Ref<Till[] | undefined> = ref(dummyTills);
+  const tills: Ref<Till[] | undefined> = ref(Tills);
   const till: Ref<Till | undefined> = ref();
   const isLoading: Ref<boolean> = ref(false);
   const managerAssignments: Ref<AssignManager[]> = ref([]);
@@ -119,8 +119,8 @@ export const useTillStore = defineStore("useTill", () => {
       // Uncomment the following line to fetch data from the API once ready
       // const { data } = await api.get(`/tills?page=${page}&limit=${limit}`);
       
-      // For now, use the dummy data for testing
-      tills.value = dummyTills; // Use dummy data for testing
+      // For now, use the  data for testing
+      tills.value = Tills; // Use  data for testing
 
       // Uncomment below to assign the API data when it's available
       // tills.value = data;
