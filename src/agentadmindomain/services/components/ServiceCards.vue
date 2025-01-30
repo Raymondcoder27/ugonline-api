@@ -30,7 +30,7 @@ function fetch() {
   // Fetch the services based on the page and limit
   const startIndex = (page.value - 1) * limit.value;
   const endIndex = startIndex + limit.value;
-  services.value = store.services.slice(startIndex, endIndex);
+  services.value = store.services?.slice(startIndex, endIndex);
   loading.value = false;
 }
 
@@ -53,7 +53,7 @@ const subscribe = (serviceId: string) => {
 const paginatedServices = computed(() => {
   const start = (page.value - 1) * limit.value;
   const end = start + limit.value;
-  return store.services.slice(start, end); // Adjust according to your page & limit
+  return store.services?.slice(start, end); // Adjust according to your page & limit
 });
 
 onMounted(() => {
@@ -98,7 +98,7 @@ onMounted(() => {
     <button
       class="px-1 text-sm text-red-600 rounded-md hover:bg-red-700 hover:text-white focus:outline-none focus:ring focus:ring-red-300 disabled:opacity-50 disabled:cursor-not-allowed"
       :class="{
-        'opacity-50 cursor-not-allowed': services.length < limit,
+        'opacity-50 cursor-not-allowed': services?.length < limit,
       }"
       :disabled="services.length < limit"
       @click="next"

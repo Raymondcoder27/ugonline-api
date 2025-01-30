@@ -36,7 +36,7 @@ function close() {
 const pageInput = ref(1);
 const changePageSize = () => {
   page.value = 1;
-  fetchManagerAccounts();
+  fetchBranchManagers();
 };
 const showPagination = computed(() => totalRecords.value >= limit.value);
 
@@ -48,11 +48,11 @@ const jumpToPage = () => {
   } else {
     page.value = pageInput.value;
   }
-  fetchManagerAccounts();
+  fetchBranchManagers();
 };
-function fetchManagerAccounts() {
+function fetchBranchManagers() {
   // store
-  //   .fetchManagerAccounts(page.value, limit.value)
+  //   .fetchBranchManagers(page.value, limit.value)
   //   .then(() => (loading.value = false))
   //   .catch((error: ApiError) => {
   //     loading.value = false;
@@ -118,7 +118,7 @@ onMounted(() => {
 function fetch() {
   filter.limit = limit.value;
   filter.page = page.value;
-  store.fetchManagerAccounts(filter);
+  store.fetchBranchManagers(filter);
 }
 function open() {
   modalOpen.value = true;
@@ -179,7 +179,7 @@ watch(
 );
 
 onMounted(() => {
-  store.fetchManagerAccounts(), branchStore.fetchBranches();
+  store.fetchBranchManagers(), branchStore.fetchBranches();
   // store.fetchRoles()
 });
 </script>
