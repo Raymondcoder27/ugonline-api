@@ -81,7 +81,7 @@ export const useAccounts = defineStore("user-management", () => {
     isLoading.value = true;
     try {
       const { data } = await api.get("/agent-admin/back-office-accounts");
-      backofficeAccounts.value = data;
+      backofficeAccounts.value = data.data;
     } catch (err) {
       error.value = "Failed to fetch back office accounts";
       throw err;
