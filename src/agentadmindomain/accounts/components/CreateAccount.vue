@@ -42,6 +42,11 @@ function submit() {
     lastName: form.lastName,
     email: form.email,
     phone: form.phone,
+  role: "",
+  createdAt: "",
+  emailVerified: false,
+  phoneVerified: false,
+  activatedAt: "",
     // role: form.role,
     // branchId: form.branchId,
   };
