@@ -77,12 +77,12 @@ function submit() {
             required />
         </div>
       </div> 
-       <div class="flex">
+       <!-- <div class="flex">
         <div class="cell-full">
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1">Middle Name</label>
           <input autocomplete="off" type="text" v-model="form.middleName" class="noFocus form-element e-input w-full" />
         </div>
-      </div>
+      </div> -->
 
       <div class="flex">
         <div class="cell">
