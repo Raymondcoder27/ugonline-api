@@ -58,9 +58,11 @@ const jumpToPage = () => {
 // Helper function to get manager by branch
 const getManagerByBranch = (branchName) => {
   // return accountStore.managerAccounts.find(
-    return accountStore.managerAccounts?.find(
-    (manager) => manager.branch === branchName
-  );
+    console.log(accountStore.managerAccounts);
+
+  //   return accountStore.managerAccounts?.find(
+  //   (manager) => manager.branch === branchName
+  // );
 };
 
 //Helper function to get manager by backoffice account
