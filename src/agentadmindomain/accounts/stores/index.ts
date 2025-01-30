@@ -33,6 +33,48 @@ export const useAccounts = defineStore("user-management", () => {
     }
   };
 
+   // allocate manager to a branch using managerId
+  //  const allocateManager = (payload: AllocateManager) => {
+  //   managerAllocations.value.push({
+  //     id: managerAllocations.value.length + 1,
+  //     dateAssigned: new Date().toISOString(),
+  //     branch: payload.branchId,
+  //     manager: payload.managerId,
+  //     status: "Assigned"
+  //   });
+
+  //   // Update the manager's branch
+  //   const manager = managerAccounts.value.find((manager) => manager.id === payload.managerId);
+  //   if (manager) {
+  //     manager.branch = payload.branchId;
+  //     localStorageManagerAccount.value = manager; // Update the local storage variable
+  //     // }
+  //   }
+
+  //   // Update the branch's manager
+  //   const branch = branches?.value.find((branch) => branch.id === payload.branchId);
+  //   if (branch) {
+  //     branch.manager = payload.managerId;
+  //   }
+
+  //   saveManagerToLocalStorage();
+  // }
+
+  const allocateManager = async (payload: AssignManager) => {
+    isLoading.value = true;
+    try {
+      await api.post("/agent-admin/assign-branch-manager", payload);
+      // Update local state if needed
+      const branch = branchStore.branches?.find(b => b.id === payload.branchId);
+      if (branch) branch.manager = payload.managerId;
+    } catch (err) {
+      error.value = "Failed to assign branch manager";
+      throw err;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   // Branch Manager Accounts
   const createBranchManagerAccount = async (payload: ManagerAccount) => {
     isLoading.value = true;
