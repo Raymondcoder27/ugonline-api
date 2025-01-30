@@ -14,7 +14,7 @@ export const useBranchStore = defineStore("useBranch", () => {
     isLoading.value = true;
     try {
       const { data } = await api.get("/agent-admin/branches");
-      branches.value = data;
+      branches.value = data.data;
     } catch (error) {
       console.error("Error fetching branches:", error);
     } finally {

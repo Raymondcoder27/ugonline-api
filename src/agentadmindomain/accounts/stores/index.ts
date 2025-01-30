@@ -2,24 +2,24 @@ import { defineStore } from "pinia";
 import { ref, type Ref } from "vue";
 import api from "@/config/api";
 import { useBranchStore } from "@/agentadmindomain/branches/stores"; // Add this import
-import type { 
-  Account, 
-  ManagerAccount, 
+import type {
+  Account,
+  ManagerAccount,
   BackOfficeAccount,
-  AssignManager 
+  AssignManager
 } from "@/types";
 
 export const useAccounts = defineStore("user-management", () => {
   const branchStore = useBranchStore(); // Initialize branch store
   const isLoading: Ref<boolean> = ref(false);
   const error: Ref<string | null> = ref(null);
-  
+
   // State
   const backofficeAccounts: Ref<Account[]> = ref([]);
   const managerAccounts: Ref<ManagerAccount[]> = ref([]);
 
   // Back Office Accounts
-  const createBackOfficeAccount = async (payload: BackOfficeAccount) => {
+  const addBackOfficeAccount = async (payload: BackOfficeAccount) => {
     isLoading.value = true;
     try {
       const { data } = await api.post("/agent-admin/create-back-office-account", payload);
@@ -124,7 +124,7 @@ export const useAccounts = defineStore("user-management", () => {
     error,
     backofficeAccounts,
     managerAccounts,
-    createBackOfficeAccount,
+    addBackOfficeAccount,
     createBranchManagerAccount,
     updateBranchManagerAccount,
     deleteBranchManagerAccount,
