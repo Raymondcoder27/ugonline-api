@@ -146,13 +146,35 @@ export const useAccounts = defineStore("user-management", () => {
   };
 
   // Assign Manager to Branch
-  const assignBranchManager = async (payload: AssignManager) => {
+  // const assignBranchManager = async (payload: AssignManager) => {
+  //   isLoading.value = true;
+  //   try {
+  //     await api.post("/agent-admin/assign-branch-manager", payload);
+  //     // Update local state if needed
+  //     const branch = branchStore.branches?.find(b => b.id === payload.branchId);
+  //     if (branch) branch.manager = payload.managerId;
+  //   } catch (err) {
+  //     error.value = "Failed to assign branch manager";
+  //     throw err;
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // };
+
+  //accept 2 parameters, branchId and managerId
+  const assignBranchManager = async (userId: string, branchId: string) => {
+    console.log("assignBranchManager", userId, branchId);
     isLoading.value = true;
+    const user = managerAccounts.value.find((user) => user.id === userId);
+    const branch = branchStore.branches?.find((branch) => branch.id === branchId);
+
+    if (user && branch) {
+      user.branch = branchId;
+      branch.manager = userId;
+    }
+
     try {
-      await api.post("/agent-admin/assign-branch-manager", payload);
-      // Update local state if needed
-      const branch = branchStore.branches?.find(b => b.id === payload.branchId);
-      if (branch) branch.manager = payload.managerId;
+      await api.post("/agent-admin/assign-branch-manager", { branchId, managerId: userId });
     } catch (err) {
       error.value = "Failed to assign branch manager";
       throw err;
