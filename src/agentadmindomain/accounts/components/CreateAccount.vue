@@ -12,7 +12,7 @@ const branchStore = useBranchStore();
 let form: CreateAccount = reactive({
   firstName: "",
   lastName: "",
-  middleName: "",
+  // middleName: "",
   // role: "admin",
   // username: "",
   email: "",
