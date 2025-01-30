@@ -92,7 +92,7 @@ async function fetchBranches() {
   loading.value = true;
   try {
     await branchStore.fetchBranches();
-    branches.value = branchStore.branches.slice((page.value - 1) * limit.value, page.value * limit.value);
+    branches.value = branchStore.branches?.slice((page.value - 1) * limit.value, page.value * limit.value);
   } catch (error) {
     notify.error(error.response?.data?.message || "Error fetching branches");
   } finally {
