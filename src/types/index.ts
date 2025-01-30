@@ -57,7 +57,8 @@ export interface Account {
 export interface CreateAccount {
   firstName: string;
   lastName: string;
-  middleName: string;
+  // middleName: string;
+  email: string;
   role: string;
   username: string;
   phone: string;
