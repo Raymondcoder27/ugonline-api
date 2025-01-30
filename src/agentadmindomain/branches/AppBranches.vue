@@ -172,7 +172,7 @@ const paginatedBranches = computed(() => {
 
 // Helper function to assign managers to branches
 const assignManagersToBranches = () => {
-  branchStore.branches.forEach((branch) => {
+  branchStore.branches?.forEach((branch) => {
     const manager = getManagerByBranch(branch.name);
     if (manager) {
       branch.manager = manager;
