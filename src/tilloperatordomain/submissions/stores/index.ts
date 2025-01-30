@@ -52,24 +52,24 @@ export const useSubmissions = defineStore("submissions", () => {
 
   const Submissions: Submission[] = [
     { id: 1, trackingNumber: "TA123456",
-      service: "Name Reservation", status: "rejected", provider: "URSB", till: "Till 001",
+      service: "Name Reservation", status: "rejected", provider: "URSB", applicant:"Mwebe Raymond", till: "Till 001",
       fee: 25000, date: "2021-09-01" 
     },
     { id: 2, trackingNumber: "TB123457",
-      service: "Create Postal Account", status: "draft", provider: "Posta Uganda",
+      service: "Create Postal Account", status: "draft", provider: "Posta Uganda", applicant:"Tumuhairwe Rodgers",
        till: "Till 002", fee: 20000, date: "2021-09-02"
       },
     { id: 3, trackingNumber: "TC123458",
-      service: "National ID registration", status: "processing", provider: "NIRA",
+      service: "National ID registration", status: "processing", provider: "NIRA", applicant:"Kasigwa Isabelle",
        till: "Till 003", fee: 35000, date: "2021-09-03" },
        {
         id: 4, trackingNumber: "TD123459",
-        service: "Name Reservation", status: "rejected", provider: "URSB", till: "Till 001",
+        service: "Name Reservation", status: "rejected", provider: "URSB", applicant:"Ssentomero Jason", till: "Till 001",
         fee: 25000, date: "2021-09-01"
        },
        {
         id: 5, trackingNumber: "TE123460",
-        service: "Create Postal Account", status: "processing", provider: "Posta Uganda",
+        service: "Create Postal Account", status: "processing", provider: "Posta Uganda", applicant:"Nkiinzi Elizabeth",
          till: "Till 002", fee: 20000, date: "2021-09-02"
         },
       {

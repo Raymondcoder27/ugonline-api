@@ -346,7 +346,7 @@ watch(
               <th>Tracking Number</th>
               <th>Service</th>
               <th>Provider</th>
-              <!-- <th>Till</th> -->
+              <th>Applicant</th>
               <!-- <th>Transaction Type</th> -->
               <th>Fee</th>
               <th>Status</th>
@@ -383,7 +383,7 @@ watch(
               </td>
               <td>{{ transaction.service }}</td>
               <td class="text-left">{{ transaction.provider }}</td>
-              <!-- <td>{{ transaction.till }}</td> -->
+              <td>{{ transaction.applicant }}</td>
               <!-- <td class="text-left">{{ transaction.transactionType }}</td> -->
               <td class="text-left">{{ transaction.fee.toLocaleString() }}</td>
               <td class="text-left">
