@@ -166,6 +166,7 @@ export const useAccounts = defineStore("user-management", () => {
     error,
     backofficeAccounts,
     managerAccounts,
+    allocateManager,
     addBackOfficeAccount,
     createBranchManagerAccount,
     updateBranchManagerAccount,
