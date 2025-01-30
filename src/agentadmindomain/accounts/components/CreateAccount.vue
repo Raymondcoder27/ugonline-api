@@ -5,6 +5,7 @@ import { useAccounts } from "@/agentadmindomain/accounts/stores";
 import { useNotificationsStore } from "@/stores/notifications";
 import { defineEmits } from "vue";
 import { useBranchStore } from "@/agentadmindomain/branches/stores";
+import { idText } from "typescript";
 
 const branchStore = useBranchStore();
 
@@ -41,6 +42,9 @@ function submit() {
     lastName: form.lastName,
     email: form.email,
     phone: form.phone,
+    status: "active",
+    id: "",
+    middleNames: "",
     role: "",
     createdAt: "",
     emailVerified: false,
