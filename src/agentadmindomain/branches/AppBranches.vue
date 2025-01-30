@@ -58,7 +58,7 @@ const jumpToPage = () => {
 // Helper function to get manager by branch
 const getManagerByBranch = (branchName) => {
   // return accountStore.managerAccounts.find(
-    return accountStore.managerAccounts.find(
+    return accountStore.managerAccounts?.find(
     (manager) => manager.branch === branchName
   );
 };
@@ -70,23 +70,36 @@ const getManagerByBranch = (branchName) => {
 //   );
 // };
 
-function fetchBranches() {
-  // branchStore
-  //   .fetchBranches(page.value, limit.value)
-  //   .then(() => (loading.value = false))
-  //   .catch((error: ApiError) => {
-  //     loading.value = false;
-  //     notify.error(error.response.data.message);
-  //   });
+// function fetchBranches() {
+//   // branchStore
+//   //   .fetchBranches(page.value, limit.value)
+//   //   .then(() => (loading.value = false))
+//   //   .catch((error: ApiError) => {
+//   //     loading.value = false;
+//   //     notify.error(error.response.data.message);
+//   //   });
 
+//   loading.value = true;
+//   // Fetch the services based on the page and limit
+//   const startIndex = (page.value - 1) * limit.value;
+//   const endIndex = startIndex + limit.value;
+//   // branches.value = branchStore.branches?.slice(startIndex, endIndex);
+//   branches.value = branchStore.fetchBranches();
+//   loading.value = false;
+// }
+
+async function fetchBranches() {
   loading.value = true;
-  // Fetch the services based on the page and limit
-  const startIndex = (page.value - 1) * limit.value;
-  const endIndex = startIndex + limit.value;
-  // branches.value = branchStore.branches?.slice(startIndex, endIndex);
-  branches.value = branchStore.fetchBranches();
-  loading.value = false;
+  try {
+    await branchStore.fetchBranches();
+    branches.value = branchStore.branches.slice((page.value - 1) * limit.value, page.value * limit.value);
+  } catch (error) {
+    notify.error(error.response?.data?.message || "Error fetching branches");
+  } finally {
+    loading.value = false;
+  }
 }
+
 
 function open(branch: Branch) {
   router.push({ name: "branch-details", params: { id: branch.id } });
@@ -109,11 +122,22 @@ function convertDateTime(date: string) {
   return moment(date).format("DD-MM-YYYY HH:mm:ss");
 }
 
-function deleteBranch(branch: Branch) {
-  branchStore.deleteBranch(branch.id);
-  notify.success("Branch Closed");
-  fetchBranches();
+// function deleteBranch(branch: Branch) {
+//   branchStore.deleteBranch(branch.id);
+//   notify.success("Branch Closed");
+//   fetchBranches();
+// }
+
+async function deleteBranch(branch: Branch) {
+  try {
+    await branchStore.deleteBranch(branch.id);
+    branches.value = branches.value.filter(b => b.id !== branch.id);
+    notify.success("Branch Deleted");
+  } catch (error) {
+    notify.error(error.response?.data?.message || "Error deleting branch");
+  }
 }
+
 
 // function deleteBranch(branch: Branch) {
 //     branchStore.deleteBranch(branch.id);
@@ -182,6 +206,23 @@ const assignManagersToBranches = () => {
     }
   });
 };
+
+const branchManagers = computed(() => {
+  return accountStore.managerAccounts.reduce((map, manager) => {
+    map[manager.branch] = manager;
+    return map;
+  }, {} as Record<string, any>);
+});
+
+
+const searchQuery = ref("");
+const filteredBranches = computed(() => {
+  return branches.value.filter(branch => 
+    branch.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+    (branch.manager && branch.manager.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()))
+  );
+});
+
 
 // const branchManagerFloatBalance = ref(0);
 
@@ -293,7 +334,7 @@ onMounted(() => {
         <tbody>
            <tr
             class="body-tr"
-            v-for="(branch, idx) in branchStore.branches"
+            v-for="(branch, idx) in filteredBranches"
             :key="idx"
           >
           <!--
