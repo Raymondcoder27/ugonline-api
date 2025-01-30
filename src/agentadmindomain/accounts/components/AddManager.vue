@@ -69,7 +69,7 @@ function submit() {
 // onMounted fetch branches
 onMounted(() => {
   // loading.value = true;
-   store.fetchManagerAccounts(),
+   store.fetchBranchManagers(),
     branchStore
     .fetchBranches()
   
