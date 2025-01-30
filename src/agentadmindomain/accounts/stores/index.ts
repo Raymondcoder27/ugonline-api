@@ -23,7 +23,7 @@ export const useAccounts = defineStore("user-management", () => {
     isLoading.value = true;
     try {
       const { data } = await api.post("/agent-admin/create-back-office-account", payload);
-      backofficeAccounts.value.push(data);
+      backofficeAccounts.value.push(data.data);
       return data;
     } catch (err) {
       error.value = "Failed to create back office account";
