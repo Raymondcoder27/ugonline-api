@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import type { CreateAccount } from "@/types";
 import { type Ref, ref, reactive } from "vue";
 import { useAccounts } from "@/agentadmindomain/accounts/stores";
@@ -17,11 +16,11 @@ let form: CreateAccount = reactive({
   // username: "",
   email: "",
   phone: "",
-})
-const notify = useNotificationsStore()
+});
+const notify = useNotificationsStore();
 const loading: Ref<boolean> = ref(false);
-const emit = defineEmits(['cancel', 'backOfficeAccountCreated'])
-const store = useAccounts()
+const emit = defineEmits(["cancel", "backOfficeAccountCreated"]);
+const store = useAccounts();
 
 // function submit() {
 //   loading.value = true
@@ -42,11 +41,11 @@ function submit() {
     lastName: form.lastName,
     email: form.email,
     phone: form.phone,
-  role: "",
-  createdAt: "",
-  emailVerified: false,
-  phoneVerified: false,
-  activatedAt: "",
+    role: "",
+    createdAt: "",
+    emailVerified: false,
+    phoneVerified: false,
+    activatedAt: "",
     // role: form.role,
     // branchId: form.branchId,
   };
@@ -60,47 +59,82 @@ function submit() {
 
 <template>
   <div class="bg-white py-5">
-    <p class="text-xl font-bold"> Create a BackOffice Account</p>
-    <p class="text-sm text-gray-500">Administrators who will manage this portal and handle providers and services</p>
+    <p class="text-xl font-bold">Create a BackOffice Account</p>
+    <p class="text-sm text-gray-500">
+      Administrators who will manage this portal and handle providers and
+      services
+    </p>
     <form @submit.prevent="submit" class="pt-5">
       <div class="">
         <!-- <label class="block uppercase text-neutral-600 text-xs font-bold mb-1"
           >Select Branch</label
         > -->
-       
-      <div class="flex">
-        <div class="cell-full">
-          <label class="block uppercase text-neutral-600 text-xs font-bold mb-1">First Name</label>
-          <input autocomplete="off" type="text" v-model="form.firstName" class="noFocus form-element e-input w-full"
-            required />
+
+        <div class="flex">
+          <div class="cell-full">
+            <label
+              class="block uppercase text-neutral-600 text-xs font-bold mb-1"
+              >First Name</label
+            >
+            <input
+              autocomplete="off"
+              type="text"
+              v-model="form.firstName"
+              class="noFocus form-element e-input w-full"
+              required
+            />
+          </div>
         </div>
-      </div>
-      <div class="flex">
-        <div class="cell-full">
-          <label class="block uppercase text-neutral-600 text-xs font-bold mb-1">Last Name</label>
-          <input autocomplete="off" type="text" v-model="form.lastName" class="noFocus form-element e-input w-full"
-            required />
+        <div class="flex">
+          <div class="cell-full">
+            <label
+              class="block uppercase text-neutral-600 text-xs font-bold mb-1"
+              >Last Name</label
+            >
+            <input
+              autocomplete="off"
+              type="text"
+              v-model="form.lastName"
+              class="noFocus form-element e-input w-full"
+              required
+            />
+          </div>
         </div>
-      </div> 
-       <!-- <div class="flex">
+        <!-- <div class="flex">
         <div class="cell-full">
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1">Middle Name</label>
           <input autocomplete="off" type="text" v-model="form.middleName" class="noFocus form-element e-input w-full" />
         </div>
       </div> -->
 
-      <div class="flex">
-        <div class="cell">
-          <label class="block uppercase text-neutral-600 text-xs font-bold mb-1">Email Address</label>
-          <input autocomplete="off" type="email" v-model="form.email" class="noFocus form-element e-input w-full"
-            required />
+        <div class="flex">
+          <div class="cell">
+            <label
+              class="block uppercase text-neutral-600 text-xs font-bold mb-1"
+              >Email Address</label
+            >
+            <input
+              autocomplete="off"
+              type="email"
+              v-model="form.email"
+              class="noFocus form-element e-input w-full"
+              required
+            />
+          </div>
+          <div class="cell">
+            <label
+              class="block uppercase text-neutral-600 text-xs font-bold mb-1"
+              >Phone Number</label
+            >
+            <input
+              autocomplete="off"
+              type="tel"
+              v-model="form.phone"
+              class="noFocus form-element e-input w-full"
+              required
+            />
+          </div>
         </div>
-        <div class="cell">
-          <label class="block uppercase text-neutral-600 text-xs font-bold mb-1">Phone Number</label>
-          <input autocomplete="off" type="tel" v-model="form.phone" class="noFocus form-element e-input w-full"
-            required />
-        </div>
-      </div>
       </div>
 
       <!-- <div class="flex">
@@ -129,7 +163,6 @@ function submit() {
               <div></div>
               <div></div>
             </span>
-
           </button>
         </div>
       </div>
