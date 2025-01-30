@@ -33,6 +33,7 @@ export const useBranchStore = defineStore("useBranch", () => {
   async function addBranch(newBranch: Branch) {
     try {
       const { data } = await api.post("/agent-admin/create-branch", newBranch);
+      // branches.value = response.data
       branches.value?.push(data);
     } catch (error) {
       console.error("Error adding branch:", error);
