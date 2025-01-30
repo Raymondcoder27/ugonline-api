@@ -123,7 +123,7 @@ export interface TillOperatorAccount {
 
 
 export interface BackOfficeAccount {
-  id: string;
+  // id: string;
   status: string;
   firstName: string;
   lastName: string;
