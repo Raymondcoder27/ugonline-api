@@ -160,9 +160,9 @@ const assignManagersToBranches = () => {
 };
 
 onMounted(() => {
-  accountStore.fetchManagerAccounts();
+  accountStore.fetchBranchManagers();
   branchStore.fetchBranches();
-  accountStore.fetchManagerAccounts();
+  accountStore.fetchBranchManagers();
   // allocateManager();
   assignManagersToBranches();
 });
