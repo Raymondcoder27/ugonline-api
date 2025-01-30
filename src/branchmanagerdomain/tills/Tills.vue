@@ -8,7 +8,7 @@ import moment from "moment/moment";
 import router from "@/router";
 import { useProviderStore } from "@/branchmanagerdomain/entities/stores";
 import AssignTillOperator from "@/branchmanagerdomain/tills/components/AssignTillOperator.vue";
-import EditBranch from "@/branchmanagerdomain/tills/components/EditBranch.vue";
+import EditTill from "@/branchmanagerdomain/tills/components/EditTill.vue";
 // import CategorySelector from "@/branchmanagerdomain/settings/components/CategorySelector.vue";
 import { useNotificationsStore } from "@/stores/notifications";
 import type { ApiError } from "@/types";
@@ -548,7 +548,7 @@ onMounted(() => {
 
   <AppModal v-model="editModalOpen" xl2>
     <!-- Put here whatever makes you smile -->
-    <EditBranch @cancel="close" />
+    <EditTill @cancel="close" />
     <!-- That's also okay -->
   </AppModal>
   <!-- /Modal -->
