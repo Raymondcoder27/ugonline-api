@@ -146,7 +146,7 @@ watch(
 const paginatedBranches = computed(() => {
   const start = (page.value - 1) * limit.value;
   const end = start + limit.value;
-  return branchStore.branches.slice(start, end); // Adjust according to your page & limit
+  return branchStore.branches?.slice(start, end); // Adjust according to your page & limit
 });
 
 // Helper function to assign managers to branches
