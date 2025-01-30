@@ -15,10 +15,14 @@ import type { ApiError } from "@/types";
 import { useAccountStore } from "../auth/stores";
 // import TableLoader from "@/components/TableLoader.vue";
 import { useBilling } from "@/branchmanagerdomain/finances/stores";
+import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
+
 
 const billingStore = useBilling();
 
-import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
+const showTillCloseModal = ref(false);
+
+
 const accountStore = useAccounts();
 const tillStore = useTillStore(); // Updated store
 const modalOpen: Ref<boolean> = ref(false);
@@ -179,13 +183,13 @@ const assignOperatorsToTills = () => {
   });
 };
 
-// const branchManagerFloatBalance = ref(0);
+// const tilloperatorFloatBalance = ref(0);
 
 // onMounted(()=>{
-//     const savedFloatManagerBalance = JSON.parse(localStorage.getItem('branchManagerFloatBalance'));
+//     const savedFloatManagerBalance = JSON.parse(localStorage.getItem('tilloperatorFloatBalance'));
 
 //     if (savedFloatManagerBalance) {
-//       branchManagerFloatBalance.value = savedFloatManagerBalance;
+//       tilloperatorFloatBalance.value = savedFloatManagerBalance;
 //     }
 //   })
 
@@ -403,6 +407,19 @@ onMounted(() => {
                 <i class="fa-solid fa-pen" @click="edit(till)"></i>
                 Edit
               </span>
+              <span
+                class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
+              >
+                <!-- <i
+                  class="fa-solid fa-store-slash"
+                  @click="deleteBranch(till)"
+                ></i> -->
+                <i
+                  class="fa-solid fa-store-slash"
+                  @click="showTillCloseModal = true"
+                ></i>
+                Close
+              </span>
 
               <!-- <i
                 class="fa-solid fa-trash p-1 mx-1 text-red-600 bg-red-100 border border-red-200 hover:text-red-700"
@@ -479,6 +496,47 @@ onMounted(() => {
       </div>
     </div>
   </div>
+
+
+   <!-- Approve Modal -->
+   <AppModal v-model="showTillCloseModal" xl>
+    <div class="flex">
+      <div class="w-full">
+        <div class="flex">
+          <span class="mx-auto text-center justify-center">
+            <i
+              class="mx-auto fa-solid fa-exclamation-circle text-3xl text-danger"
+            ></i>
+          </span>
+        </div>
+        <p class="py-5 text-center">
+          Are you sure you want to close this Till?
+        </p>
+        <div class="flex w-1/2 gap-2 justify-center mx-auto">
+          <!-- <button
+              class="bg-gray-600 hover:bg-gray-500 w-1/2 rounded text-white"
+              @click="showApproveModal = false"
+            > -->
+          <button
+            class="bg-gray-600 hover:bg-gray-500 w-1/2 rounded text-white"
+            @click="showTillCloseModal = false"
+          >
+            <i class="fa-solid fa-times-circle mx-1"></i> Cancel
+          </button>
+          <!-- <button
+            class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
+            @click="showTillCloseModal = true"
+          > -->
+          <button
+            class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
+            @click="deleteBranch(till)"
+          >
+            <i class="fa-solid fa-check-circle mx-1"></i> Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </AppModal>
 
   <!-- Modal -->
   <AppModal v-model="modalOpen" xl2>

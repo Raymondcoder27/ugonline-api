@@ -29,7 +29,7 @@ const balanceStore = useBalance();
 branchStore.fetchBranches();
 billingStore.fetchFloatRequests();
 servicesStore.fetchSubscribedServices();
-accountStore.fetchManagerAccounts();
+accountStore.fetchBranchManagers();
 accountStore.fetchBackofficeAccounts();
 balanceStore.fetchTotalBalance();
 // };
