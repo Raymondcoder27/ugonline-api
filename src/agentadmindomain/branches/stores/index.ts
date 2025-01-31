@@ -24,7 +24,7 @@ export const useBranchStore = defineStore("useBranch", () => {
 
   // branches/stores.ts
   // const branches: Ref<Branch[]> = ref([]);
-  
+
   // const fetchBranches = async (filter: any) => {
   //   const { data } = await api.get("/agent-admin/branches", { params: filter });
   //   branches.value = data;
