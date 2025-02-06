@@ -185,15 +185,11 @@ export const useAccounts = defineStore("user-management", () => {
       });
 
       managerAccounts.value?.push(data.data);
-    }
-
-    try {
-      await api.post("/agent-admin/assign-branch-manager", { branchId, managerId: userId });
-    } catch (err) {
-      error.value = "Failed to assign branch manager";
-      throw err;
-    } finally {
-      isLoading.value = false;
+      console.log(`Manager assigned to branch ${branch.name}`);
+      console.log(`Manager assigned to branch ${branchId}`);
+    } else {
+      console.warn(`User with ID ${userId} not found.`);
+      alert(`User with ID ${userId} not found.`);
     }
   };
 
