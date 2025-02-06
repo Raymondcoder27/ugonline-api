@@ -60,9 +60,9 @@ const getManagerByBranch = (branchName) => {
   // return accountStore.managerAccounts.find(
     console.log(accountStore.managerAccounts);
 
-  //   return accountStore.managerAccounts?.find(
-  //   (manager) => manager.branch === branchName
-  // );
+    return accountStore.managerAccounts?.find(
+    (manager) => manager.branch === branchName
+  );
 };
 
 //Helper function to get manager by backoffice account
