@@ -7,6 +7,10 @@ import PieChart from "@/agentadmindomain/analytics/components/PieChart.vue";
 import type {Ref} from "vue";
 import type {GraphData, Statistic} from "@/agentadmindomain/analytics/types/chart";
 import {ref} from "vue";
+import { useAccounts } from "@/agentadmindomain/accounts/stores";
+const accountStore = useAccounts();
+const totalBackOfficeAccounts = accountStore.backofficeAccounts?.length || 0;
+const totalBranchManagers = accountStore.managerAccounts?.length || 0;
 
 const userTypeDistribution: Ref<Array<GraphData>> = ref([
   {
@@ -106,6 +110,7 @@ function labelExtractor(data:Statistic[]){
   return labels;
 }
 
+
 </script>
 
 <template>
@@ -115,11 +120,11 @@ function labelExtractor(data:Statistic[]){
         <div class="w-full">
           <div class="flex my-2">
             <div class="w-2/12 count">
-              <p class="text-xl font-bold py-2">{{Number(360000).toLocaleString()}}</p>
+              <p class="text-xl font-bold py-2">{{ totalBackOfficeAccounts }}</p>
               <p class="text-xs">Total Users</p>
             </div>
             <div class="w-2/12 count">
-              <p class="text-xl font-bold py-2">{{Number(286).toLocaleString()}}</p>
+              <p class="text-xl font-bold py-2">{{totalBackOfficeAccounts}}</p>
               <p class="text-xs">Backoffice Administrators</p>
             </div>
             <div class="w-2/12 count">

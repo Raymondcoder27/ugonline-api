@@ -9,7 +9,10 @@ const totalBranchManagers = accountStore.managerAccounts?.length || 0;
 const totalBackOfficeAccounts = accountStore.backofficeAccounts?.length || 0;
 
 import type { Ref } from "vue";
-import type { GraphData, Statistic } from "@/agentadmindomain/analytics/types/chart";
+import type {
+  GraphData,
+  Statistic,
+} from "@/agentadmindomain/analytics/types/chart";
 import { ref } from "vue";
 
 const userTypeDistribution: Ref<Array<GraphData>> = ref([
@@ -119,7 +122,7 @@ function labelExtractor(data: Statistic[]) {
           <div class="flex my-2">
             <div class="w-2/12 count">
               <p class="text-xl font-bold py-2">
-                {{ Number(21).toLocaleString() }}
+                {{ totalBackOfficeAccounts }}
               </p>
               <p class="text-xs">Total Users</p>
             </div>
