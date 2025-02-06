@@ -175,12 +175,12 @@ export const useAccounts = defineStore("user-management", () => {
         lastName: user.lastName,
         email: user.email,
         phone: user.phone,
-        role: user.role,
-        status: user.status,
-        createdAt: new Date().toISOString(),
-        emailVerified: true,
-        phoneVerified: true,
-        activatedAt: new Date().toISOString(),
+        // role: user.role,
+        // status: user.status,
+        // createdAt: new Date().toISOString(),
+        // emailVerified: true,
+        // phoneVerified: true,
+        // activatedAt: new Date().toISOString(),
         branch: branch.name, // Include branchId
       });
 
