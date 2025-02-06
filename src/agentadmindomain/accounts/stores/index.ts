@@ -95,7 +95,7 @@ export const useAccounts = defineStore("user-management", () => {
     try {
       const { data } = await api.put(`/agent-admin/edit-branch-manager-account/${id}`, payload);
       const index = managerAccounts.value.findIndex(m => m.id === id);
-      if (index !== -1) managerAccounts.value[index] = data;
+      if (index !== -1) managerAccounts.value[index] = data.data;
       return data;
     } catch (err) {
       error.value = "Failed to update branch manager account";
@@ -136,7 +136,7 @@ export const useAccounts = defineStore("user-management", () => {
     isLoading.value = true;
     try {
       const { data } = await api.get("/agent-admin/branch-manager-accounts");
-      managerAccounts.value = data;
+      managerAccounts.value = data.data;
     } catch (err) {
       error.value = "Failed to fetch branch managers";
       throw err;
