@@ -241,7 +241,7 @@ export const useBilling = defineStore("billing", () => {
       console.log("Float ledger entry created:", ledgerResponse.data.data);
 
       // Step 2: Create Float Request (linking it to the ledger ID)
-      const { data } = await api.post("//till-operator/request-float", {
+      const { data } = await api.post("/till-operator/request-float", {
         amount: payload.amount,
         status: "pending",
         till: payload.till,
