@@ -8,6 +8,7 @@ import FloatManagement from "@/branchmanagerdomain/finances/FloatAllocationTabbe
 import Transactions from "@/branchmanagerdomain/finances/Transactions.vue";
 // import FloatRequests from "@/branchmanagerdomain/finances/FloatRequests.vue";
 import FloatRequests from "@/branchmanagerdomain/finances/FloatRequests.vue";
+import FloatRequestsToAdmin from "@/branchmanagerdomain/finances/FloatRequestsToAdmin.vue";
 import { useBalance } from "@/branchmanagerdomain/balance/stores";
 
 const balanceStore = useBalance();
@@ -21,6 +22,15 @@ const activeTab: Ref<string> = ref("floatrequests");
 function select(tab: string) {
   activeTab.value = tab;
 }
+
+// watch(
+//   () => finalFloat.currentFinalFloat,
+//   (newValue, oldValue) => {
+//     if (newValue !== oldValue) {
+//       console.log("finalFloat updated:", newValue);
+//     }
+//   }
+// );
 </script>
 
 <template>
@@ -45,14 +55,27 @@ function select(tab: string) {
           <!-- {{ totalBalance.currentBalance.toLocaleString() }}/= -->
 
           <!-- <span class="px-1">Available Float: {{ availableFloat.toLocaleString() }}/=</span> -->
-          <span class="px-1">Available Float: 
-            <span class="text-gray-500">{{ totalBalance.currentBalance.toLocaleString() }}/=</span></span>
-
-          <span class="px-1">Final Float: 
+          <span class="px-1">Total Available Float: 
             <span class="text-gray-500">
-              <!-- {{ finalFloat.currentFinalFloat.toLocaleString() }}/= -->
-                25,000,000/=
+              {{ finalFloat.currentFinalFloat.toLocaleString() }}/=
+              <!-- {{ totalBalance.currentBalance.toLocaleString() }}/= -->
             </span></span>
+
+          <span class="px-1">
+            <!-- Final Float:  -->
+             Remaining Balance:
+            <!-- <span class="text-gray-500">
+              {{ finalFloat.currentFinalFloat.toLocaleString() }}/=
+                65,000,000/=
+            </span> -->
+            <!-- <span class="text-gray-500"
+              >{{ totalBalance.currentBalance.toLocaleString() }}/=</span
+            ></span
+          > -->
+          <span class="text-gray-500"
+              >{{ totalBalance.currentBalance.toLocaleString() }}/=</span
+            ></span
+          >
           </span>
       </div>
       <!-- <div class="flex">
@@ -69,11 +92,19 @@ function select(tab: string) {
     <div class="flex pt-5">
       <div
         :class="
-          activeTab == 'floatrequests' ? 'w-2/12 tab-active' : 'w-2/12 tab'
+          activeTab == 'floatrequests' ? 'w-3/12 tab-active' : 'w-3/12 tab'
         "
         @click="select('floatrequests')"
       >
-        Float Requests
+        Float Requests From Till
+      </div>
+      <div
+        :class="
+          activeTab == 'floatrequeststoadmin' ? 'w-3/12 tab-active' : 'w-3/12 tab'
+        "
+        @click="select('floatrequeststoadmin')"
+      >
+        Float Requests To Admin
       </div>
       <div
         :class="
@@ -114,6 +145,8 @@ function select(tab: string) {
         <FloatManagement v-if="activeTab == 'floatmanagement'" />
         <FloatLedgers v-if="activeTab == 'floatledgers'" />
         <FloatRequests v-if="activeTab == 'floatrequests'" />
+        <FloatRequestsToAdmin v-if="activeTab == 'floatrequeststoadmin'" />
+
       </div>
     </div>
   </div>
