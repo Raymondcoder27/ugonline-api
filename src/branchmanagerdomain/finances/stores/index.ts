@@ -375,6 +375,8 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Step 2: Approve the Float Request
+      console.log("Approving float request for ID:", requestId);
+
       const { data } = await api.put(`/branch-manager/approve-float-request/${requestId}`, {
         status: "approved",
         approvedBy: "Manager One",

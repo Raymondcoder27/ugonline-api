@@ -49,16 +49,16 @@ export interface FloatLedger {
   createdAt: string; 
 }
 
-export interface FloatRequest {
-  id: number;
-  requestDate: string;
-  amount: number;
-  status: string;
-  requesterName: string;
-  till: string;
-  approvedBy: string | null;
-  createdAt: string; 
-}
+// export interface FloatRequest {
+//   id: string;
+//   requestDate: string;
+//   amount: number;
+//   status: string;
+//   requesterName: string;
+//   till: string;
+//   approvedBy: string | null;
+//   createdAt: string; 
+// }
 
 //float assignment
 export interface FloatAllocation {
@@ -129,12 +129,14 @@ export interface TillOperator {
   // ];
 
   export interface FloatRequest {
-    id: number;
+    id: string;
     date: string;
     amount: number;
     status: string;
     till: string;
     approvedBy: string | null;
+    description: string;
+    ledgerId: string;
   }
 
 export type TAccountVerificationType = (typeof AccountVerificationTypes)[number];
