@@ -27,15 +27,15 @@ export const useBilling = defineStore("billing", () => {
     { id: 1, description: "Recharge", amount: 15000000, balance: 15000000, status: "success", date: "2021-09-01" },
     { id: 2, description: "Service fee", amount: -25000, balance: 14975000, status: "success", date: "2021-09-01" },
     { id: 3, description: "Recharge", amount: 500000, balance: 15475000, status: "success", date: "2021-09-02" },
-    { id: 4, description: "Service fee", amount: -40000, balance: 15435000, status: "pending", date: "2021-09-03" },
-    { id: 5, description: "Service fee", amount: -30000, balance: 15405000, status: "failed", date: "2021-09-04" },
-    { id: 6, description: "Recharge", amount: 2000000, balance: 17405000, status: "success", date: "2021-09-05" },
-    { id: 7, description: "Withdrawal", amount: -5000000, balance: 12405000, status: "success", date: "2021-09-06" },
-    { id: 8, description: "Recharge", amount: 3000000, balance: 15405000, status: "success", date: "2021-09-07" },
-    { id: 9, description: "Service fee", amount: -50000, balance: 15400000, status: "pending", date: "2021-09-08" },
-    { id: 10, description: "Recharge", amount: 1000000, balance: 16400000, status: "success", date: "2021-09-09" },
-    { id: 11, description: "Service fee", amount: -20000, balance: 16380000, status: "success", date: "2021-09-10" },
-];
+    // { id: 4, description: "Service fee", amount: -40000, balance: 15435000, status: "pending", date: "2021-09-03" },
+    // { id: 5, description: "Service fee", amount: -30000, balance: 15405000, status: "failed", date: "2021-09-04" },
+    // { id: 6, description: "Recharge", amount: 2000000, balance: 17405000, status: "success", date: "2021-09-05" },
+    // { id: 7, description: "Withdrawal", amount: -5000000, balance: 12405000, status: "success", date: "2021-09-06" },
+    // { id: 8, description: "Recharge", amount: 3000000, balance: 15405000, status: "success", date: "2021-09-07" },
+    // { id: 9, description: "Service fee", amount: -50000, balance: 15400000, status: "pending", date: "2021-09-08" },
+    // { id: 10, description: "Recharge", amount: 1000000, balance: 16400000, status: "success", date: "2021-09-09" },
+    // { id: 11, description: "Service fee", amount: -20000, balance: 16380000, status: "success", date: "2021-09-10" },
+  ];
 
 
   //  float requests
@@ -51,7 +51,7 @@ export const useBilling = defineStore("billing", () => {
     { id: 9, requestDate: "2021-09-09", amount: 150000, status: "rejected", branchId: 9 },
     { id: 10, requestDate: "2021-09-10", amount: 5000000, status: "approved", branchId: 10 },
     { id: 11, requestDate: "2021-09-11", amount: 250000, status: "pending", branchId: 11 },
-];
+  ];
 
 
   // State variables
@@ -190,25 +190,25 @@ export const useBilling = defineStore("billing", () => {
   // }
 
 
-  const requestFloat = async (payload: RequestFloat) => {
-    return api.post("/till-operator/request-float", payload)
-      .then((response: AxiosResponse<ApiResponse<any>>) => {
-        floatRequest.value = response.data.data
-        console.log("Request Float response:", floatRequest);
-        //push the request to the float requests array
-        // floatRequests.value.push({
-        //   id: floatRequests.value.length + 1,
-        //   requestDate: new Date().toISOString(),
-        //   amount: payload.amount,
-        //   status: "pending",
-        //   // status: "success",
-        //   // tillId: payload.tillId,
-        //         tillId: "Till 1",
-        //   description: "Till " + payload.tillId,
-        // })
-        // floatRequests.value = response.data.data
-      })
-  }
+  // const requestFloat = async (payload: RequestFloat) => {
+  //   return api.post("/till-operator/request-float", payload)
+  //     .then((response: AxiosResponse<ApiResponse<any>>) => {
+  //       floatRequest.value = response.data.data
+  //       console.log("Request Float response:", floatRequest);
+  //       //push the request to the float requests array
+  //       // floatRequests.value.push({
+  //       //   id: floatRequests.value.length + 1,
+  //       //   requestDate: new Date().toISOString(),
+  //       //   amount: payload.amount,
+  //       //   status: "pending",
+  //       //   // status: "success",
+  //       //   // tillId: payload.tillId,
+  //       //         tillId: "Till 1",
+  //       //   description: "Till " + payload.tillId,
+  //       // })
+  //       // floatRequests.value = response.data.data
+  //     })
+  // }
 
   // using the api
   // async function requestFloat(payload: RequestFloat) {
@@ -232,16 +232,50 @@ export const useBilling = defineStore("billing", () => {
   }
 
   // adjust float ledgers with float request
-  function adjustFloatLedger(payload: RequestFloat) {
-    floatLedgers.value.push({
-      id: floatLedgers.value.length + 1,
-      date: new Date().toISOString(),
-      description: payload.description,
-      amount: payload.amount,
-      balance: totalBalance.value + payload.amount,
-      status: "pending",
-      // status: "success",
-    })
+  // function adjustFloatLedger(payload: RequestFloat) {
+  //   floatLedgers.value.push({
+  //     id: floatLedgers.value.length + 1,
+  //     date: new Date().toISOString(),
+  //     description: payload.description,
+  //     amount: payload.amount,
+  //     balance: totalBalance.value + payload.amount,
+  //     status: "pending",
+  //     // status: "success",
+  //   })
+  // }
+  async function requestFloat(payload: RequestFloat) {
+    try {
+      // Step 1: Create Float Ledger Entry first to get the ID
+      const ledgerEntry = {
+        date: new Date().toISOString(),
+        description: payload.description,
+        amount: payload.amount,
+        status: "pending", // Initial status
+        branch: payload.branch,
+      };
+
+      const ledgerResponse = await api.post("/till-operator/request-float", ledgerEntry);
+      const ledgerId = ledgerResponse.data.data.id; // Extracting ledger ID
+
+      floatLedgers.value.push(ledgerResponse.data.data); // Store ledger entry in state
+      console.log("Float ledger entry created:", ledgerResponse.data.data);
+
+      // Step 2: Create Float Request (linking it to the ledger ID)
+      const { data } = await api.post("/branch6-manager-float-requests", {
+        amount: payload.amount,
+        status: "pending",
+        branch: payload.branch,
+        description: payload.description,
+        requestDate: new Date().toISOString(),
+        ledgerId: ledgerId, // Linking the float request to the ledger
+      });
+
+      floatRequestsToAdmin.value?.push(data.data);
+      console.log("Float request created and linked to ledger:", data.data);
+
+    } catch (error) {
+      console.error("Error in requestFloatToAdmin:", error);
+    }
   }
 
 
