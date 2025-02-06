@@ -170,7 +170,7 @@ export const useAccounts = defineStore("user-management", () => {
     const branch = branchStore.branches?.find((branch) => branch.id === branchId);
 
     if (user && branch) {
-      const { data } = await api.post("/create-branch-manager-account", {
+      const { data } = await api.post("/agent-admin/create-branch-manager-account", {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
