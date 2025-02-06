@@ -100,7 +100,9 @@ function submit() {
     name: form.name,
   };
   loading.value = true;
-  store.addBranch(payload); // Simply add the branch
+  store.addBranch(payload).then(()=> {
+    store.fetchBranches();
+  }) // Simply add the branch
   notify.success("Branch Created");
   emit("branchCreated");
   loading.value = false;

@@ -100,7 +100,7 @@ export interface BackofficeUser {
   }
 
 export interface BranchManager {
-    id: number;
+    id: string;
     username: string;
     fullName: string;
     role: string;
