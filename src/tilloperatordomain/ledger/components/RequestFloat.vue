@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CreateAccount } from "@/types";
+import type { RequestFloat } from "@/types";
 import { type Ref, ref, reactive, watch } from "vue";
 import { useAccounts } from "@/tilloperatordomain/accounts/stores";
 import { useNotificationsStore } from "@/stores/notifications";
@@ -10,19 +10,22 @@ import { useBalance } from "@/tilloperatordomain/balance/stores";
 const billingStore = useBilling();
 const balanceStore = useBalance();
 
-// const form: CreateAccount = reactive({
+// const form: RequestFloat = reactive({
 //   amount: "",
 //   branchId: "",
 //   description: "",
 // });
 
-let form: CreateAccount = reactive({
-  firstName: "",
-  lastName: "",
-  middleName: "",
-  role: "admin",
-  username: "",
-  phone: "",
+let form: RequestFloat = reactive({
+  // firstName: "",
+  // lastName: "",
+  // middleName: "",
+  // role: "admin",
+  // username: "",
+  amount: "",
+  till: "Till 1",
+  // phone: "",
+  description: "",
 });
 const notify = useNotificationsStore();
 const loading: Ref<boolean> = ref(false);
@@ -30,7 +33,7 @@ const emit = defineEmits(["cancel", "floatAllocated"]);
 const store = useAccounts();
 // function submit() {
 //   loading.value = true
-//   store.createAccount(form)
+//   store.RequestFloat(form)
 //     .then(() => {
 //       loading.value = false
 //       notify.success(`An account verification email has been sent to ${form.username.toLowerCase()}.`)
@@ -44,7 +47,7 @@ const store = useAccounts();
 function submit() {
   const payload = {
     amount: form.amount,
-    tillId: form.tillId,
+    till: form.till,
     description: form.description,
   };
 
@@ -53,7 +56,7 @@ function submit() {
   loading.value = true;
   billingStore.requestFloat(payload); // API call to allocate float
   // .then(() => {
-  billingStore.adjustFloatLedger(payload); // Adjust ledger
+  // billingStore.adjustFloatLedger(payload); // Adjust ledger
   // balanceStore.decreaseTotalBalance(payload.amount); // Update balance
   balanceStore.increaseTotalBalance(payload.amount); // Update balance
   // notify.success(`Float allocated to branch: ${form.branchId}`);

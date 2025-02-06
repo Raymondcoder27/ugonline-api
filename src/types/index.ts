@@ -218,3 +218,10 @@ export interface IErrorResponse {
   data?: any[]
   fields?: any
 }
+
+export interface RequestFloat {
+  amount:number
+  till:number
+  branch:string
+  description: string
+}
