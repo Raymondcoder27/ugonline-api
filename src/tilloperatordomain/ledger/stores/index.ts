@@ -111,17 +111,24 @@ export const useBilling = defineStore("billing", () => {
   // }
 
   //first make float requests array with statuses: pending, approved, rejected
-  const floatRequests = ref<FloatRequest[]>(FloatRequests);
+  // const floatRequests = ref<FloatRequest[]>(FloatRequests);
+  const floatRequests = ref<FloatRequest[]>([]);
 
   const floatRequest = ref<FloatRequest | null>(null);
 
   //fetch float requests
+  // async function fetchFloatRequests() {
+  //   // Simulate API call
+  //   // const response = await fetch(`/api/float-requests?limit=${filter.limit}&page=${filter.page}`);
+  //   // const data = await response.json();
+  //   // Use  data for now
+  //   floatRequests.value = FloatRequests;
+  // }
+  //   floatRequests.value = FloatRequests;
   async function fetchFloatRequests() {
-    // Simulate API call
-    // const response = await fetch(`/api/float-requests?limit=${filter.limit}&page=${filter.page}`);
-    // const data = await response.json();
-    // Use  data for now
-    floatRequests.value = FloatRequests;
+    const { data } = await api.get("/till-operator/float-requests");
+    floatRequests.value = data.data;
+    console.log("Float Requests:", floatRequests.value);
   }
 
   // allocate float function, push to the float allocation array

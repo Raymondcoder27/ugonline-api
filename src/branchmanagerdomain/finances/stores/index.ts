@@ -153,7 +153,7 @@ export const useBilling = defineStore("billing", () => {
   //     })
   // }
   async function fetchFloatRequests() {
-    const { data } = await api.get("/till-operator/float-requests");
+    const { data } = await api.get("/branch-manager/float-requests");
     floatRequests.value = data.data;
     console.log("Float Requests:", floatRequests.value);
   }
