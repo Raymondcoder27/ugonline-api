@@ -58,7 +58,9 @@ export const useBilling = defineStore("billing", () => {
   const transactions = ref<Transaction[]>(Transactions); // Use  data for now
   const totalAmount = ref(600); // Set a test value
   const totalBalance = ref(3000); // Set a test value
-  const floatLedgers = ref<FloatLedger[]>(FloatLedgers); // Use  data for now
+  // const floatLedgers = ref<FloatLedger[]>(FloatLedgers); // Use  data for now
+  const floatLedgers = ref<FloatLedger[]>([]); // Use  data for now
+
 
   // const allocateFloatFromRequestToLocalStorage = JSON.parse(localStorage.getItem('allocateFloatFromRequestToLocalStorage') || '0');
 
