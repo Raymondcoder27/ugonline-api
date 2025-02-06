@@ -92,51 +92,22 @@ export const useBilling = defineStore("billing", () => {
     console.log("Filtered transactions:", filteredData);
   }
 
-
-
-  // async function fetchFloatLedgers(filter: any) {
-  //   // Simulate API call
-  //   // const response = await fetch(`/api/float-ledgers?limit=${filter.limit}&page=${filter.page}`);
-  //   // const data = await response.json();
-  //   // Use  data for now
-  //   floatLedgers.value = FloatLedgers;
-  // }
-
-  // async function fetchFloatLedgers(filter: any) {
-  //   // Simulate filtering with  data
-  //   const filteredData = FloatLedgers.filter(item => {
-  //     // Example: filter by status
-  //     return !filter.status || item.status === filter.status;
-  //   }).slice(0, filter.limit || FloatLedgers.length);
-
-  //   floatLedgers.value = filteredData;
-  // }
-
-  async function fetchFloatLedgers(filter: any) {
-    console.log("Fetching Float Ledgers with filter:", filter);
-
-    const filteredData = FloatLedgers.filter(item => {
-      // Filter logic...
-    });
-
-    const limitedData = filteredData.slice(0, filter.limit || FloatLedgers.length);
-    floatLedgers.value = limitedData;
-    console.log("Filtered float ledgers:", limitedData);
-    return limitedData;  // Add this return to make the data available for use
+  async function fetchFloatLedgers() {
+    const { data } = await api.get("/branch6-manager-float-ledgers");
+    floatLedgers.value = data.data;
+    console.log("Float Ledgers:", floatLedgers.value);
   }
+  // async function fetchFloatLedgers(filter: any) {
+  //   console.log("Fetching Float Ledgers with filter:", filter);
 
+  //   const filteredData = FloatLedgers.filter(item => {
+  //     // Filter logic...
+  //   });
 
-
-
-  // allocate float function, push to the float allocation array
-  //  function allocateFloat(payload: AllocateFloat) {
-  //   floatAllocations.value.push({
-  //     id: floatAllocations.value.length + 1,
-  //     dateAssigned: new Date().toISOString(),
-  //     amount: payload.amount,
-  //     status: "Allocated",
-  //     branch: payload.branchId,
-  //   })
+  //   const limitedData = filteredData.slice(0, filter.limit || FloatLedgers.length);
+  //   floatLedgers.value = limitedData;
+  //   console.log("Filtered float ledgers:", limitedData);
+  //   return limitedData;  // Add this return to make the data available for use
   // }
 
   //first make float requests array with statuses: pending, approved, rejected
@@ -286,7 +257,7 @@ export const useBilling = defineStore("billing", () => {
     floatLedgers,
     floatRequests,
     requestFloat,
-    adjustFloatLedger,
+    // adjustFloatLedger,
     fetchFloatRequests,
     fetchTransactions,
     fetchFloatLedgers,
