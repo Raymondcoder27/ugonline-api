@@ -231,7 +231,7 @@ export const useBilling = defineStore("billing", () => {
         description: payload.description,
         amount: payload.amount,
         status: "pending", // Initial status
-        branch: payload.branch,
+        till: payload.till,
       };
 
       const ledgerResponse = await api.post("/till-operator/add-float-ledger-record", ledgerEntry);
@@ -244,9 +244,9 @@ export const useBilling = defineStore("billing", () => {
       const { data } = await api.post("//till-operator/request-float", {
         amount: payload.amount,
         status: "pending",
-        branch: payload.branch,
+        till: payload.till,
         description: payload.description,
-        requestDate: new Date().toISOString(),
+        // requestDate: new Date().toISOString(),
         ledgerId: ledgerId, // Linking the float request to the ledger
       });
 
