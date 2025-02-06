@@ -98,7 +98,7 @@ function submit(){
         </div>
         <div class="cell">
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1">Amount</label>
-          <input type="text" v-model="form.amount" class="noFocus form-element e-input w-full"
+          <input type="number" v-model="form.amount" class="noFocus form-element e-input w-full"
                  required />
         </div>
       </div>
