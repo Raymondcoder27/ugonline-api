@@ -33,7 +33,7 @@ export const useAccounts = defineStore("user-management", () => {
     }
   };
 
-   // allocate manager to a branch using managerId
+  // allocate manager to a branch using managerId
   //  const allocateManager = (payload: AllocateManager) => {
   //   managerAllocations.value.push({
   //     id: managerAllocations.value.length + 1,
@@ -165,7 +165,8 @@ export const useAccounts = defineStore("user-management", () => {
   const assignBranchManager = async (userId: string, branchId: string) => {
     console.log("assignBranchManager", userId, branchId);
     isLoading.value = true;
-    const user = managerAccounts.value.find((user) => user.id === userId);
+    // const user = managerAccounts.value.find((user) => user.id === userId);
+    const user = backofficeAccounts.value?.find((account) => account.id === userId); // Find user by `userId`
     const branch = branchStore.branches?.find((branch) => branch.id === branchId);
 
     if (user && branch) {
