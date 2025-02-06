@@ -56,6 +56,13 @@ export const useBilling = defineStore("billing", () => {
     { id: 3, requestDate: "2021-09-03", amount: 9000000, status: "rejected", till: "Till 3", approvedBy: null, requesterName: "", createdAt: "" },
   ];
 
+  const dummyFloatRequestsToAdmin: FloatRequest[] = [
+    { id: 1, requestDate: "2021-09-01", amount: 12000000, status: "pending", approvedBy: null, requesterName: "", createdAt: "", description: "Recharge", branch: "Branch 1" },
+    { id: 4, requestDate: "2021-09-04", amount: 10000000, status: "failed", approvedBy: null, requesterName: "", createdAt: "", description: "Recharge", branch: "Branch 1" },
+    { id: 2, requestDate: "2021-09-02", amount: 18000000, status: "approved", approvedBy: "Manager One", requesterName: "", createdAt: "", date: "", description: "Recharge", branch: "Branch 1" },
+    { id: 3, requestDate: "2021-09-03", amount: 9000000, status: "rejected", approvedBy: null, requesterName: "", createdAt: "", description: "Recharge", branch: "Branch 1" },
+  ];
+
   const FloatLedgers: FloatLedger[] = [
     { id: 1, date: "2021-09-01", description: "Recharge", amount: 20000000, balance: 20000000 },
     // { id: 2, date: "2021-09-02", description: "Till 1", amount: -20000000, balance: 300000000 },
@@ -92,6 +99,7 @@ export const useBilling = defineStore("billing", () => {
   const floatAllocations = ref<FloatAllocation[]>(FloatAllocations);
   // const floatRequests = ref<FloatRequest[]>(FloatRequests);
   const floatRequests = ref<FloatRequest[]>([]);
+  const floatRequestsToAdmin = ref<FloatRequest[]>(dummyFloatRequestsToAdmin);
 
 
   // const floatRequests = JSON.parse(localStorage.getItem('floatRequestToBranchManagerLocalStorage') || '[]');
@@ -157,6 +165,13 @@ export const useBilling = defineStore("billing", () => {
     floatRequests.value = data.data;
     console.log("Float Requests:", floatRequests.value);
   }
+
+  async function fetchFloatRequestsToAdmin() {
+    const { data } = await api.get("/branch6-manager-float-requests");
+    floatRequestsToAdmin.value = data.data;
+    console.log("Float Requests:", floatRequestsToAdmin.value);
+  }
+
 
   // function submit() {
   //   let payload = {
@@ -381,6 +396,8 @@ export const useBilling = defineStore("billing", () => {
     floatAllocations,
     floatRequests,
     tillOperatorFloatBalance,
+    floatRequestsToAdmin,
+    fetchFloatRequestsToAdmin,
     reduceFloatLedger,
     approveFloatRequest,
     adjustFloatLedger,

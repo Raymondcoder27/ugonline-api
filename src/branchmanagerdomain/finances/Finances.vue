@@ -58,8 +58,8 @@ function select(tab: string) {
           <span class="px-1"
             >Total Available Float:
             <span class="text-gray-500">
-              {{ finalFloat.currentFinalFloat.toLocaleString() }}/=
-              <!-- {{ totalBalance.currentBalance.toLocaleString() }}/= -->
+              <!-- {{ finalFloat.currentFinalFloat.toLocaleString() }}/= -->
+              {{ totalBalance.currentBalance.toLocaleString() }}/=
             </span></span
           >
 

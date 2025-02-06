@@ -227,7 +227,7 @@ export const useBilling = defineStore("billing", () => {
     try {
       // Step 1: Create Float Ledger Entry first to get the ID
       const ledgerEntry = {
-        date: new Date().toISOString(),
+        // date: new Date().toISOString(),
         description: payload.description,
         amount: payload.amount,
         status: "pending", // Initial status
