@@ -80,7 +80,7 @@ export const useAccounts = defineStore("user-management", () => {
     isLoading.value = true;
     try {
       const { data } = await api.post("/agent-admin/create-branch-manager-account", payload);
-      managerAccounts.value.push(data);
+      managerAccounts.value.push(data.data);
       return data;
     } catch (err) {
       error.value = "Failed to create branch manager account";
