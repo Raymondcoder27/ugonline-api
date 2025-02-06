@@ -24,13 +24,19 @@ export const useBilling = defineStore("billing", () => {
 
 
   const FloatLedgers: FloatLedger[] = [
-    //15000000 recharge
-    { id: 1, description: "Recharge", amount: 15000000, balance: 15000000, status: "success", date: "2021-09-01", },
-    { id: 1, description: "Service fee", amount: -25000, balance: 5000000, status: "success", date: "2021-09-01", },
-    { id: 2, description: "Recharge", amount: 500000, balance: 5500000, status: "success", date: "2021-09-02", },
-    { id: 3, description: "Service fee", amount: -40000, balance: 5460000, status: "pending", date: "2021-09-03", },
-    { id: 4, description: "Service fee", amount: -30000, balance: 5430000, status: "failed", date: "2021-09-04", },
-  ];
+    { id: 1, description: "Recharge", amount: 15000000, balance: 15000000, status: "success", date: "2021-09-01" },
+    { id: 2, description: "Service fee", amount: -25000, balance: 14975000, status: "success", date: "2021-09-01" },
+    { id: 3, description: "Recharge", amount: 500000, balance: 15475000, status: "success", date: "2021-09-02" },
+    { id: 4, description: "Service fee", amount: -40000, balance: 15435000, status: "pending", date: "2021-09-03" },
+    { id: 5, description: "Service fee", amount: -30000, balance: 15405000, status: "failed", date: "2021-09-04" },
+    { id: 6, description: "Recharge", amount: 2000000, balance: 17405000, status: "success", date: "2021-09-05" },
+    { id: 7, description: "Withdrawal", amount: -5000000, balance: 12405000, status: "success", date: "2021-09-06" },
+    { id: 8, description: "Recharge", amount: 3000000, balance: 15405000, status: "success", date: "2021-09-07" },
+    { id: 9, description: "Service fee", amount: -50000, balance: 15400000, status: "pending", date: "2021-09-08" },
+    { id: 10, description: "Recharge", amount: 1000000, balance: 16400000, status: "success", date: "2021-09-09" },
+    { id: 11, description: "Service fee", amount: -20000, balance: 16380000, status: "success", date: "2021-09-10" },
+];
+
 
   //  float requests
   const FloatRequests: FloatRequest[] = [
@@ -38,7 +44,15 @@ export const useBilling = defineStore("billing", () => {
     { id: 2, requestDate: "2021-09-02", amount: 500000, status: "approved", branchId: 2 },
     { id: 3, requestDate: "2021-09-03", amount: 40000, status: "rejected", branchId: 3 },
     { id: 4, requestDate: "2021-09-04", amount: 30000, status: "pending", branchId: 4 },
-  ];
+    { id: 5, requestDate: "2021-09-05", amount: 2000000, status: "approved", branchId: 5 },
+    { id: 6, requestDate: "2021-09-06", amount: 750000, status: "rejected", branchId: 6 },
+    { id: 7, requestDate: "2021-09-07", amount: 1000000, status: "pending", branchId: 7 },
+    { id: 8, requestDate: "2021-09-08", amount: 300000, status: "approved", branchId: 8 },
+    { id: 9, requestDate: "2021-09-09", amount: 150000, status: "rejected", branchId: 9 },
+    { id: 10, requestDate: "2021-09-10", amount: 5000000, status: "approved", branchId: 10 },
+    { id: 11, requestDate: "2021-09-11", amount: 250000, status: "pending", branchId: 11 },
+];
+
 
   // State variables
   const transactions = ref<Transaction[]>(Transactions); // Use  data for now

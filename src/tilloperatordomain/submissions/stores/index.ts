@@ -69,7 +69,7 @@ export const useSubmissions = defineStore("submissions", () => {
        },
        {
         id: 5, trackingNumber: "TE123460",
-        service: "Create Postal Account", status: "processing", provider: "Posta Uganda", applicant:"Nkiinzi Elizabeth",
+        service: "Create Postal Account", status: "processing", provider: "Posta Uganda", applicant:"Nkinzi Elizabeth",
          till: "Till 002", fee: 20000, date: "2021-09-02"
         },
       {
