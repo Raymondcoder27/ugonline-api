@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { useBranchStore } from "@/branchmanagerdomain/tills/stores";
+import { useTillStore } from "@/branchmanagerdomain/tills/stores";
 import { useBilling } from "@/branchmanagerdomain/finances/stores";
 import { useServicesStore } from "@/branchmanagerdomain/services/stores";
 import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
@@ -10,7 +10,7 @@ import { useBalance } from "@/branchmanagerdomain/balance/stores";
 
 // onMounted(() => {
 // store.fetchDashboardData();
-// branchStore.fetchBranches();
+// tillStore.fetchTills();
 // billingStore.fetchFloatRequests();
 // servicesStore.fetchSubscribedServices();
 // accountStore.fetchManagerAccounts();
@@ -19,14 +19,14 @@ import { useBalance } from "@/branchmanagerdomain/balance/stores";
 // });
 
 // const store = useDashboard();
-const branchStore = useBranchStore();
+const branchStore = useTillStore();
 const billingStore = useBilling();
 const servicesStore = useServicesStore();
 const accountStore = useAccounts();
 const balanceStore = useBalance();
 
 // const fetch = () => {
-branchStore.fetchBranches();
+tillStore.fetchTills();
 billingStore.fetchFloatRequests();
 servicesStore.fetchSubscribedServices();
 accountStore.fetchBranchManagers();
@@ -46,7 +46,7 @@ const totalTransactions = billingStore.transactions?.length || 0;
 
 const totalBalance = balanceStore.totalBalance;
 
-const totalBranches = branchStore.branches?.length || 0;
+const totalTills = tillStore.branches?.length || 0;
 
 const totalBranchManagers = accountStore.managerAccounts?.length || 0;
 
@@ -59,7 +59,7 @@ const limit = ref(15);
 // onMounted(async () => {
 //   try {
 //     await Promise.all([
-//       branchStore.fetchBranches(),
+//       tillStore.fetchTills(),
 //       billingStore.fetchFloatRequests(),
 //       servicesStore.fetchSubscribedServices(),
 //       accountStore.fetchManagerAccounts(),
@@ -100,7 +100,7 @@ onMounted(async () => {
     <div class="w-full">
       <div class="w-12/12 count">
         <!-- <p class="text-xl font-bold py-2">4</p> -->
-        <p class="text-xs font-bold py-2" style="font-size: 18px;">{{ totalBranches }}</p>
+        <p class="text-xs font-bold py-2" style="font-size: 18px;">{{ totalTills }}</p>
 
         <p class="text-xs">Branches</p>
       </div>

@@ -10,7 +10,10 @@ const totalBranches = branchStore.branches?.length || 0;
 branchStore.fetchBranches();
 
 import type { Ref } from "vue";
-import type { GraphData, Statistic } from "@/agentadmindomain/analytics/types/chart";
+import type {
+  GraphData,
+  Statistic,
+} from "@/agentadmindomain/analytics/types/chart";
 import { ref } from "vue";
 
 const providerOnboarding: Ref<Array<GraphData>> = ref([
@@ -59,10 +62,10 @@ function labelExtractor(data: Statistic[]) {
               <!-- <p class="text-xs">Total Providers</p> -->
               <p class="text-xs">Total Branches</p>
             </div>
-            <div class="w-2/12 count">
+            <!-- <div class="w-2/12 count">
               <p class="text-xl font-bold py-2">32</p>
               <p class="text-xs">Total tills</p>
-            </div>
+            </div> -->
             <!-- <div class="w-2/12 count">
               <p class="text-xl font-bold py-2">6</p>
               <p class="text-xs">Offline Providers</p>
