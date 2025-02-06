@@ -254,14 +254,14 @@ export const useBilling = defineStore("billing", () => {
         branch: payload.branch,
       };
 
-      const ledgerResponse = await api.post("/till-operator/request-float", ledgerEntry);
+      const ledgerResponse = await api.post("/till-operator/add-float-ledger-record", ledgerEntry);
       const ledgerId = ledgerResponse.data.data.id; // Extracting ledger ID
 
       floatLedgers.value.push(ledgerResponse.data.data); // Store ledger entry in state
       console.log("Float ledger entry created:", ledgerResponse.data.data);
 
       // Step 2: Create Float Request (linking it to the ledger ID)
-      const { data } = await api.post("/branch6-manager-float-requests", {
+      const { data } = await api.post("//till-operator/request-float", {
         amount: payload.amount,
         status: "pending",
         branch: payload.branch,
@@ -270,7 +270,7 @@ export const useBilling = defineStore("billing", () => {
         ledgerId: ledgerId, // Linking the float request to the ledger
       });
 
-      floatRequestsToAdmin.value?.push(data.data);
+      floatRequests.value?.push(data.data);
       console.log("Float request created and linked to ledger:", data.data);
 
     } catch (error) {
