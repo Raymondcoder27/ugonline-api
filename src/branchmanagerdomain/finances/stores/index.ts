@@ -351,19 +351,66 @@ export const useBilling = defineStore("billing", () => {
   // }
 
   // //approve the float request using the api
-  async function approveFloatRequest(requestId: any) {
-    console.log("Request ID:", requestId); // Debugging
-    // return api.post(`/branch-manager/approve-float-request/${requestId}`)
-    return api.post("/branch-manager/approve-float-request/" + requestId)
-      .then((response: AxiosResponse<ApiResponse<any>>) => {
-        console.log("Approve Float Request response:", response.data);
-        // const responseData = response.data
-        // floatRequests.value = responseData
-        // fetchFloatRequests();
-        // fetchFloatLedgers();
-        // fetchFloatAllocations();
-      })
+  // async function approveFloatRequest(requestId: any) {
+  //   console.log("Request ID:", requestId); // Debugging
+  //   // return api.post(`/branch-manager/approve-float-request/${requestId}`)
+  //   return api.post("/branch-manager/approve-float-request/" + requestId)
+  //     .then((response: AxiosResponse<ApiResponse<any>>) => {
+  //       console.log("Approve Float Request response:", response.data);
+  //       // const responseData = response.data
+  //       // floatRequests.value = responseData
+  //       // fetchFloatRequests();
+  //       // fetchFloatLedgers();
+  //       // fetchFloatAllocations();
+  //     })
+  // }
+  async function approveFloatRequest(requestId: string) {
+    try {
+      // Step 1: Find the float request
+      const floatRequest = floatRequests.value.find(request => request.id === requestId);
+
+      if (!floatRequest) {
+        console.error("Float request not found for ID:", requestId);
+        return;
+      }
+
+      // Step 2: Approve the Float Request
+      const { data } = await api.put(`/branch-manager/approve-float-request/${requestId}`, {
+        status: "approved",
+        approvedBy: "Manager One",
+        amount: floatRequest.amount,
+        till: floatRequest.till,
+        description: floatRequest.description,
+        ledgerId: floatRequest.ledgerId, // Retain the ledger link
+      });
+
+      floatRequest.status = "approved";
+      console.log("Float request approved successfully:", data);
+
+      // Step 3: Approve the Float Ledger Record using `ledgerId`
+      if (floatRequest.ledgerId) {
+        // Retrieve the existing ledger entry to keep all fields
+        const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
+
+        if (ledgerEntry) {
+          await api.put(`/till-operator/float-ledgers/${floatRequest.ledgerId}`, {
+            ...ledgerEntry, // Retain all original fields
+            status: "approved", // Only update status
+          });
+
+          console.log("Float ledger record approved:", ledgerEntry);
+        } else {
+          console.error("Ledger entry not found for ID:", floatRequest.ledgerId);
+        }
+      } else {
+        console.error("Ledger ID not found in float request!");
+      }
+
+    } catch (error) {
+      console.error("Error approving float request:", error);
+    }
   }
+
 
   //approve the float request using the api
   //   async function approveFloatRequest(requestId: any) {
