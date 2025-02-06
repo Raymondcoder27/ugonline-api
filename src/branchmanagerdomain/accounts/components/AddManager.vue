@@ -5,9 +5,9 @@ import { type Ref, ref, reactive, onMounted } from "vue";
 import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
 import { useNotificationsStore } from "@/stores/notifications";
 import { defineEmits } from "vue";
-import { useBranchStore } from "@/branchmanagerdomain/tills/stores";
+import { useTillStore } from "@/branchmanagerdomain/tills/stores";
 
-const branchStore = useBranchStore();
+const tillStore = useTillStore();
 
 
  const form: ManagerAccount = reactive({
@@ -66,13 +66,13 @@ function submit() {
 
 
 
-// onMounted fetch branches
+// onMounted fetch tills
 onMounted(() => {
   // loading.value = true;
    store
     .fetchManagerAccounts(),
-    branchStore
-    .fetchBranches()
+    tillStore
+    .fetchTills()
   
     // .finally(() => (loading.value = false));
 });
@@ -132,12 +132,12 @@ onMounted(() => {
           >Select Branch</label
         >
         <select
-          v-model="form.branchId"
+          v-model="form.tillId"
           class="noFocus form-element e-input w-full"
         >
           <option :value="null">-- Select Branch --</option>
           <option
-            v-for="(branch, idx) in branchStore.branches"
+            v-for="(branch, idx) in tillStore.tills"
             :key="idx"
             :value="branch.name"
           >
