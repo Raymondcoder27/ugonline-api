@@ -427,10 +427,8 @@ export const useBilling = defineStore("billing", () => {
 
       // Approve the ledger entry if applicable
       // if (floatRequest.ledgerId) {
-        const ledgerEntry = tillFloatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
-        if (ledgerEntry) {
-          await api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
-        }
+        api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
+        // }
       // }
     } catch (error) {
       console.error("Error approving float request:", error);
