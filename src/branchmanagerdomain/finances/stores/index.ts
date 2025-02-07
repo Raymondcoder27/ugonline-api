@@ -191,7 +191,7 @@ export const useBilling = defineStore("billing", () => {
         branch: payload.branch,
       };
 
-      const ledgerResponse = await api.post("/branch-manager/float-ledger", ledgerEntry);
+      const ledgerResponse = await api.post("/branch-manager/add-float-ledger-record", ledgerEntry);
       const ledgerId = ledgerResponse.data.data.id; // Extracting ledger ID
 
       floatLedgers.value.push(ledgerResponse.data.data); // Store ledger entry in state
