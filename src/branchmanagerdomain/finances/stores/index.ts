@@ -95,6 +95,7 @@ export const useBilling = defineStore("billing", () => {
   const totalBalance = ref(3000); // Set a test value
   // const floatLedgers = ref<FloatLedger[]>(FloatLedgers); // Use  data for now
   const floatLedgers = ref<FloatLedger[]>([]); // Use  data for now
+  const tillFloatLedgers = ref<FloatLedger[]>([]);
   const backofficeUsers = ref<BackofficeUser[]>(BackofficeUsers);
   const tillOperators = ref<TillOperator[]>(TillOperators);
   const floatAllocations = ref<FloatAllocation[]>(FloatAllocations);
@@ -127,6 +128,12 @@ export const useBilling = defineStore("billing", () => {
     // const data = await response.json();
     // Use  data for now
     floatLedgers.value = FloatLedgers;
+  }
+
+  async function fetchTillFloatLedgers() {
+    const { data } = await api.get("/till-operators/float-ledgers");
+    tillFloatLedgers.value = data.data;
+    console.log("Float Ledgers:", tillFloatLedgers.value);
   }
 
   async function fetchBackofficeUsers(filter: any) {
@@ -420,7 +427,7 @@ export const useBilling = defineStore("billing", () => {
   
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
+        const ledgerEntry = tillFloatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
         if (ledgerEntry) {
           await api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
         }
@@ -474,6 +481,7 @@ export const useBilling = defineStore("billing", () => {
     fetchFloatLedgers,
     fetchBackofficeUsers,
     fetchTillOperators,
+    fetchTillFloatLedgers,
     fetchFloatAllocations,
     allocateFloat,
     allocateFloatFromRequest,
