@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted, reactive, type Ref, ref} from "vue";
+import {onMounted, reactive, type Ref, ref, defineEmits} from "vue";
 // import {useProviderStore} from "@/agentadmindomain/providers/stores";
 import { useBilling } from "@/branchmanagerdomain/finances/stores";
 // import type {CreateServiceProvider} from "@/agentadmindomain/providers/types";
