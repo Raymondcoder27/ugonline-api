@@ -71,8 +71,8 @@ export const useBilling = defineStore("billing", () => {
   ];
 
   const FloatLedgers: FloatLedger[] = [
-    { id: 1, date: "2021-09-01", description: "Recharge", amount: 120000000, balance: 120000000 },
-    // { id: 2, date: "2021-09-02", description: "Branch 1", amount: -20000000, balance: 300000000 },
+    { id: 1, date: "2021-09-01", description: "Recharge", amount: 300000000, balance: 300000000 },
+    // { id: 2, date: "2021-09-02", description: "Branch 1", amount: -20000000, balance: 450000000 },
   ];
 
   const BackofficeUsers: BackofficeUser[] = [
@@ -122,7 +122,7 @@ export const useBilling = defineStore("billing", () => {
     // Use  data for now
     transactions.value = Transactions;
     // totalAmount.value = 600;  // Set a test value
-    // totalBalance.value = 300000000; // Set a test value
+    // totalBalance.value = 450000000; // Set a test value
   }
 
   async function fetchFloatLedgers(filter: any) {
@@ -307,7 +307,7 @@ export const useBilling = defineStore("billing", () => {
   //     date: new Date().toISOString(),
   //     description: floatRequest.branch,
   //     amount: -floatRequest.amount,
-  //     // balance: 300000000 - floatRequest.amount,
+  //     // balance: 450000000 - floatRequest.amount,
   //   });
   // }
 
