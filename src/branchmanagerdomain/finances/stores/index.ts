@@ -420,11 +420,11 @@ export const useBilling = defineStore("billing", () => {
         console.error("Float request not found:", requestId);
         return;
       }
-  
+
       // Approve the float request
       await api.put(`/branch-manager/approve-float-request/${requestId}`, { status: "approved", approvedBy: "Manager One" });
       floatRequest.status = "approved";
-  
+
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
         const ledgerEntry = tillFloatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
@@ -436,7 +436,7 @@ export const useBilling = defineStore("billing", () => {
       console.error("Error approving float request:", error);
     }
   }
-  
+
 
 
   //approve the float request using the api
