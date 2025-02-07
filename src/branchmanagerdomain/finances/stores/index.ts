@@ -466,12 +466,12 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Approve the float request
-      await api.put(`/branch-manager/approve-float-request/${requestId}`, { status: "rejected", approvedBy: "Manager One" });
+      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "rejected", approvedBy: "Manager One" });
       floatRequest.status = "rejected";
 
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, { status: "rejected" });
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "rejected" });
       }
       // }
     } catch (error) {
