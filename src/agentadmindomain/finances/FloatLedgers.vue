@@ -314,7 +314,7 @@ watch(
             > -->
 
           <tr
-            v-for="transaction in computedLedgerWithBalance"
+            v-for="transaction, id in computedLedgerWithBalance"
             :key="transaction.id"
             class="body-tr"
           >
@@ -323,7 +323,7 @@ watch(
                 <span class="hover:underline">{{ transaction.id }}</span>
               </label>
             </td>
-            <!-- <td class="text-left">{{ idx + 1 }}</td> -->
+            <td class="text-left">{{ id + 1 }}</td>
 
             <td class="text-left">
               <span class="text-xs">{{

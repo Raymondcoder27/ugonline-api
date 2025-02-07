@@ -457,12 +457,12 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Approve the float request
-      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "approved", approvedBy: "Manager One" });
+      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "approved", amount: floatRequest.amount, approvedBy: "Manager One" });
       floatRequest.status = "approved";
 
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "approved", amount: floatRequest.amount, });
       }
       // }
     } catch (error) {
@@ -537,12 +537,12 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Approve the float request
-      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "rejected", approvedBy: "Manager One" });
+      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "rejected", amount: floatRequest.amount, approvedBy: "Manager One" });
       floatRequest.status = "rejected";
 
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "rejected" });
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "rejected", amount: floatRequest.amount });
       }
       // }
     } catch (error) {
