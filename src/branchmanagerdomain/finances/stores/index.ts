@@ -490,17 +490,17 @@ export const useBilling = defineStore("billing", () => {
       floatRequests.value = data.data;
       console.log("Float Requests:", floatRequests.value);
 
-        // Approve the ledger entry if applicable
-        if (floatRequest.ledgerId) {
-          api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
-            amount: payload.amount,
-            till: payload.till,
-            // status: "request edited",
-            status: "edited",
-            description: payload.description,
-            approvedBy: "Manager One",
-          });
-        }
+      // Approve the ledger entry if applicable
+      if (floatRequest.ledgerId) {
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
+          amount: payload.amount,
+          till: payload.till,
+          // status: "request edited",
+          status: "edited",
+          description: payload.description,
+          approvedBy: "Manager One",
+        });
+      }
     } catch (error) {
       console.error("Error editing float request:", error);
     }
