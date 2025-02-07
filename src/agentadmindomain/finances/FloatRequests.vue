@@ -261,24 +261,24 @@ function convertDateTimeNullable(date?: string) {
 
 // pass in the requestId
 const approveFloatRequest = (requestId: any) => {
-  if(requestId){
-  billingStore.approveFloatRequest(requestId).then(()=>{
-       // balanceStore.approveFloatRequest(requestId);
-       billingStore.fetchFloatRequests()
-  billingStore.reduceFloatLedger(requestId);
-  billingStore.allocateFloatFromRequest(requestId);
-  console.log(`float request with id ${requestId} approved`);
-  billingStore.fetchFloatRequests();
-  })
+  if (requestId) {
+    billingStore.approveFloatRequest(requestId).then(() => {
+      // balanceStore.approveFloatRequest(requestId);
+      billingStore.fetchFloatRequests();
+      billingStore.reduceFloatLedger(requestId);
+      billingStore.allocateFloatFromRequest(requestId);
+      console.log(`float request with id ${requestId} approved`);
+      billingStore.fetchFloatRequests();
+    });
   }
 };
 
 const rejectFloatRequest = (requestId: any) => {
-  if(requestId){
-  billingStore.rejectFloatRequest(requestId).then(()=>{
-    billingStore.fetchFloatRequests();
-    console.log(`float request with id ${requestId} rejected`);
-  })
+  if (requestId) {
+    billingStore.rejectFloatRequest(requestId).then(() => {
+      billingStore.fetchFloatRequests();
+      console.log(`float request with id ${requestId} rejected`);
+    });
   }
 };
 
