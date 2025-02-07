@@ -437,7 +437,7 @@ export const useBilling = defineStore("billing", () => {
         const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
         if (ledgerEntry) {
-          await api.put(`/agent-admin/float-ledger/${floatRequest.ledgerId}`, {
+          await api.put(`/branch-manager/float-ledger/${floatRequest.ledgerId}`, {
             ...ledgerEntry, // Retain all original fields
             status: "rejected", // Only update status
           });
