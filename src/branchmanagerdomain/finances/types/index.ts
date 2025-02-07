@@ -16,29 +16,29 @@ import { AccountVerificationTypes } from "../constants";
 
 // types/account.ts
 export interface IAccount {
-    firstName: string;
-    lastName: string;
-    middleNames?: string;
-    username: string;
-    phone: string;
-    emailVerified: boolean;
-    phoneVerified: boolean;
-    role: string;
-    createdAt: string;
-    blockedAt?: string;
-    activatedAt?: string;
-  }
-  
+  firstName: string;
+  lastName: string;
+  middleNames?: string;
+  username: string;
+  phone: string;
+  emailVerified: boolean;
+  phoneVerified: boolean;
+  role: string;
+  createdAt: string;
+  blockedAt?: string;
+  activatedAt?: string;
+}
+
 
 export type Transaction = {
-    id: string;
-    branchName: string;
-    manager: string;
-    transactionType: string;
-    status: string;
-    date: string;
-    amount: number;
-  };
+  id: string;
+  branchName: string;
+  manager: string;
+  transactionType: string;
+  status: string;
+  date: string;
+  amount: number;
+};
 
 export interface FloatLedger {
   id: string;
@@ -46,7 +46,7 @@ export interface FloatLedger {
   description: string;
   amount: number;
   balance: number;
-  createdAt: string; 
+  createdAt: string;
 }
 
 // export interface FloatRequest {
@@ -69,7 +69,7 @@ export interface FloatAllocation {
   status: string;
   assignedTo: string;
   assignedBy: string;
-  createdAt: string; 
+  createdAt: string;
 }
 
 export interface FloatManagement {
@@ -92,14 +92,14 @@ export interface AccountsData {
 }
 
 export interface BackofficeUser {
-    id: number;
-    username: string;
-    fullName: string;
-    role: string;
-    branch: string;
-    status: string;
-    dateAssigned: string;
-  }
+  id: number;
+  username: string;
+  fullName: string;
+  role: string;
+  branch: string;
+  status: string;
+  dateAssigned: string;
+}
 
 // export interface BranchManager {
 //     id: number;
@@ -121,23 +121,23 @@ export interface TillOperator {
   dateAssigned: string;
 }
 
-  // const FloatRequests: FloatRequest[] = [
-  //   { id: 1, requestDate: "2021-09-01", amount: 10000000, status: "Pending", branch: "Branch 1", approvedBy: null },
-  //   { id: 2, requestDate: "2021-09-02", amount: 20000000, status: "Approved", branch: "Branch 2", approvedBy: "Manager One" },
-  //   { id: 3, requestDate: "2021-09-03", amount: 30000000, status: "Rejected", branch: "Branch 3", approvedBy: null },
-  //   { id: 4, requestDate: "2021-09-04", amount: 40000000, status: "Pending", branch: "Branch 4", approvedBy: null },
-  // ];
+// const FloatRequests: FloatRequest[] = [
+//   { id: 1, requestDate: "2021-09-01", amount: 10000000, status: "Pending", branch: "Branch 1", approvedBy: null },
+//   { id: 2, requestDate: "2021-09-02", amount: 20000000, status: "Approved", branch: "Branch 2", approvedBy: "Manager One" },
+//   { id: 3, requestDate: "2021-09-03", amount: 30000000, status: "Rejected", branch: "Branch 3", approvedBy: null },
+//   { id: 4, requestDate: "2021-09-04", amount: 40000000, status: "Pending", branch: "Branch 4", approvedBy: null },
+// ];
 
-  export interface FloatRequest {
-    id: string;
-    date: string;
-    amount: number;
-    status: string;
-    till: string;
-    approvedBy: string | null;
-    description: string;
-    ledgerId: string;
-  }
+export interface FloatRequest {
+  id: string;
+  date: string;
+  amount: number;
+  status: string;
+  till: string;
+  approvedBy: string | null;
+  description: string;
+  ledgerId: string;
+}
 
 export type TAccountVerificationType = (typeof AccountVerificationTypes)[number];
 
@@ -148,27 +148,27 @@ export interface IResendVerificationPayload {
 
 
 export type IGoFilter = {
-    limit: number;
-    offset: number;
-    page: number;
-    sort: Array<{
-      field: string;
-      order: string;
-    }>;
-    filter: Array<{
-      field: string;
-      operand: string;
-      operator: string;
-    }>;
-  };
+  limit: number;
+  offset: number;
+  page: number;
+  sort: Array<{
+    field: string;
+    order: string;
+  }>;
+  filter: Array<{
+    field: string;
+    operand: string;
+    operator: string;
+  }>;
+};
 
 
-  // types/resendVerification.ts
+// types/resendVerification.ts
 export interface IResendVerificationPayload {
-    purpose: string;
-    username: string;
-  }
-  
-  export type TAccountVerificationType = "change-password" | "email-verification";
-  
+  purpose: string;
+  username: string;
+}
+
+export type TAccountVerificationType = "change-password" | "email-verification";
+
 

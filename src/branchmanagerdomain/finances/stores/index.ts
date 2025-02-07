@@ -392,10 +392,14 @@ export const useBilling = defineStore("billing", () => {
       // Step 3: Approve the Float Ledger Record using `ledgerId`
       if (floatRequest.ledgerId) {
         // Retrieve the existing ledger entry to keep all fields
+        console.log("Searching for ledger entry with ID:", floatRequest.ledgerId);
+        console.log("Available ledgers:", floatLedgers.value);
+
+
         const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
         if (ledgerEntry) {
-          await api.put(`/till-operator/float-ledgers/${floatRequest.ledgerId}`, {
+          await api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, {
             ...ledgerEntry, // Retain all original fields
             status: "approved", // Only update status
           });
