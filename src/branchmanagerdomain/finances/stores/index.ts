@@ -3,7 +3,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import api from "@/config/api";
-import type { Transaction, FloatLedger, BackofficeUser, TillOperator, FloatAllocation, FloatRequest } from "@/branchmanagerdomain/finances/types";
+import type { Transaction, FloatLedger, BackofficeUser, TillOperator, FloatAllocation, FloatRequest, RequestFloatToAdmin } from "@/branchmanagerdomain/finances/types";
 import type { AllocateFloat } from "@/types";
 
 export const useBilling = defineStore("billing", () => {
@@ -178,6 +178,41 @@ export const useBilling = defineStore("billing", () => {
     const { data } = await api.get("/branch-manager/float-requests");
     floatRequestsToAdmin.value = data.data;
     console.log("Float Requests:", floatRequestsToAdmin.value);
+  }
+
+  async function requestFloatToAdmin(payload: RequestFloatToAdmin) {
+    try {
+      // Step 1: Create Float Ledger Entry first to get the ID
+      const ledgerEntry = {
+        date: new Date().toISOString(),
+        description: payload.description,
+        amount: payload.amount,
+        status: "pending", // Initial status
+        branch: payload.branch,
+      };
+
+      const ledgerResponse = await api.post("/branch-manager/float-ledger", ledgerEntry);
+      const ledgerId = ledgerResponse.data.data.id; // Extracting ledger ID
+
+      floatLedgers.value.push(ledgerResponse.data.data); // Store ledger entry in state
+      console.log("Float ledger entry created:", ledgerResponse.data.data);
+
+      // Step 2: Create Float Request (linking it to the ledger ID)
+      const { data } = await api.post("/branch-manager/request-float", {
+        amount: payload.amount,
+        status: "pending",
+        branch: payload.branch,
+        description: payload.description,
+        requestDate: new Date().toISOString(),
+        ledgerId: ledgerId, // Linking the float request to the ledger
+      });
+
+      floatRequestsToAdmin.value?.push(data.data);
+      console.log("Float request created and linked to ledger:", data.data);
+
+    } catch (error) {
+      console.error("Error in requestFloatToAdmin:", error);
+    }
   }
 
 
@@ -535,6 +570,7 @@ export const useBilling = defineStore("billing", () => {
     adjustFloatLedger,
     rejectFloatRequest,
     fetchFloatRequests,
+    requestFloatToAdmin,
     fetchTransactions,
     fetchFloatLedgers,
     fetchBackofficeUsers,

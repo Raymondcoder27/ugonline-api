@@ -139,6 +139,15 @@ export interface FloatRequest {
   ledgerId: string;
 }
 
+export interface RequestFloatToAdmin {
+  amount:number
+  branch:string
+  description:string
+  requestDate: string;
+  status: string;
+  // branch:string
+}
+
 export type TAccountVerificationType = (typeof AccountVerificationTypes)[number];
 
 export interface IResendVerificationPayload {
