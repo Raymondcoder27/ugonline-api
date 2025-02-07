@@ -383,7 +383,7 @@ export const useBilling = defineStore("billing", () => {
       //   till: floatRequest.till,
       //   approvedBy: "Manager One",
       // });
-      const { data } = await api.put(`/branch-manager/add-float-ledger-record/${requestId}`, {
+      const { data } = await api.put(`/branch-manager/update-float-ledger/${requestId}`, {
         requestId: floatRequest.id,
         date: new Date().toISOString(),
         description: floatRequest.description,
