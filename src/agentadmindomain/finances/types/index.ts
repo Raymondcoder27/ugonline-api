@@ -50,13 +50,15 @@ export interface FloatLedger {
 }
 
 export interface FloatRequest {
-  id: number;
+  id: string;
   requestDate: string;
   amount: number;
   status: string;
   requesterName: string;
   approvedBy: string | null;
   createdAt: string; 
+  ledgerId: string;
+  description: string;
 }
 
 //float assignment
@@ -90,7 +92,7 @@ export interface AccountsData {
 }
 
 export interface BackofficeUser {
-    id: number;
+    id: string;
     username: string;
     fullName: string;
     role: string;

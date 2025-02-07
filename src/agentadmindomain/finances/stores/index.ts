@@ -325,7 +325,7 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Step 2: Create a new Float Ledger Entry with reduced amount
-      const { data } = await api.post(`/agent-admin/float-ledgers`, {
+      const { data } = await api.post(`/agent-admin/add-float-ledger-record`, {
         requestId: floatRequest.id,
         date: new Date().toISOString(),
         description: floatRequest.description,

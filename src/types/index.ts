@@ -16,7 +16,7 @@ export type TopMenuLink = {
 };
 
 export type AllocateTillOperator = {
-  id: number;
+  id: string;
   dateAssigned: string;
   till: string;
   manager: string;

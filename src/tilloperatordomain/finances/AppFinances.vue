@@ -6,7 +6,7 @@ import moment from 'moment';
 import CreateTransaction from "@/tilloperatordomain/finances/components/CreateTransaction.vue"
 
 interface Transaction {
-  id: number;
+  id: string;
   trackingNumber: string;
   prn: string;
   service: string;

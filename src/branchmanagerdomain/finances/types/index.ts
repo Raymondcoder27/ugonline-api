@@ -63,7 +63,7 @@ export interface FloatLedger {
 //float assignment
 export interface FloatAllocation {
   // id: string;
-  id: number;
+  id: string;
   dateAssigned: string;
   amount: number;
   status: string;
@@ -92,7 +92,7 @@ export interface AccountsData {
 }
 
 export interface BackofficeUser {
-  id: number;
+  id: string;
   username: string;
   fullName: string;
   role: string;
@@ -102,7 +102,7 @@ export interface BackofficeUser {
 }
 
 // export interface BranchManager {
-//     id: number;
+//     id: string;
 //     username: string;
 //     fullName: string;
 //     role: string;
@@ -112,7 +112,7 @@ export interface BackofficeUser {
 //   }
 
 export interface TillOperator {
-  id: number;
+  id: string;
   username: string;
   fullName: string;
   role: string;

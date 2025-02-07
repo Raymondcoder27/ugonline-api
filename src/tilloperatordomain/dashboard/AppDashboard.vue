@@ -3,7 +3,7 @@ import { ref, watch, reactive } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 
 interface Service {
-  id: number;
+  id: string;
   service: string;
   description: string;
   // name: string;
