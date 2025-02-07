@@ -475,7 +475,7 @@ export const useBilling = defineStore("billing", () => {
       }
       // }
     } catch (error) {
-      console.error("Error approving float request:", error);
+      console.error("Error rejecting float request:", error);
     }
   }
 
