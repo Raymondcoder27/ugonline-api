@@ -55,6 +55,7 @@ function submit() {
     .editFloatRequest(id, payload)
     .then(() => {
       loading.value = true;
+      store.fetchFloatRequests();
       emit("requestEdited")
       // window.location.reload();
       notify.success("Edited");
