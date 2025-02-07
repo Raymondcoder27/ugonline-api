@@ -318,11 +318,11 @@ watch(
             :key="transaction.id"
             class="body-tr"
           >
-            <td class="text-left">
+            <!-- <td class="text-left">
               <label class="cursor-pointer hover:text-primary-700 mx-2">
                 <span class="hover:underline">{{ transaction.id }}</span>
               </label>
-            </td>
+            </td> -->
             <td class="text-left">{{ id + 1 }}</td>
 
             <td class="text-left">
