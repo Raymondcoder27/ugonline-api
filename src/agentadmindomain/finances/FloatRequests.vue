@@ -437,6 +437,18 @@ onMounted(() => {
                 </label>
                 <!-- </td> -->
               </div>
+              <div v-else-if="request.status === 'edited'">
+                <!-- <td> -->
+                <label>
+                  <span
+                    class="text-xs cursor-pointer rounded-md px-1 py-0.5 font-semibold text-green-700 bg-green-50 border border-green-300 hover:text-green-700 hover:bg-green-200"
+                  >
+                    <!-- <i class="fa-solid fa-clock text-gray-500"></i> -->
+                    Edited</span
+                  >
+                </label>
+                <!-- </td> -->
+              </div>
               <div v-else>
                 <!-- <td> -->
                 <label>
@@ -486,6 +498,23 @@ onMounted(() => {
                 </label>
                 <!-- </td> -->
               </div>
+              <div v-else-if="request.status === 'edited'">
+                <!-- <td> -->
+                <label>
+                  <span
+                    class="text-xs cursor-pointer rounded-md px-1 py-0.5 font-semibold text-white bg-blue-600 hover:text-blue-700 hover:bg-blue-200"
+                    @click="view(request)"
+                  >
+                    <!-- <i class="fa-solid fa-times-square"></i>
+                  Rejected</span
+                  > -->
+                    <i class="fa-solid fa-eye"></i>
+                    Details</span
+                  >
+                </label>
+                <!-- </td> -->
+              </div>
+
 
               <!-- Third Case: Fallback, no manager assigned -->
               <div v-else>
