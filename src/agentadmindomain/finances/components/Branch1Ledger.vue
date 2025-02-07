@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import AppModal from "@/components/AppModal.vue";
 import { onMounted, ref, reactive, watch, computed, type Ref } from "vue";
-// import { useBilling } from "@/branchmanagerdomain/finances/stores"; // Import the appropriate store
-// import { useBilling } from "@/branchmanagerdomain/finances/store"; // Import the appropriate store
-import { useBilling } from "@/branchmanagerdomain/finances/stores";
+import { useBilling } from "@/branchmanagerdomain/finances/stores"; // Import the appropriate store
 import { useDebounceFn } from "@vueuse/core";
 import type {
   Transaction,
@@ -29,7 +27,7 @@ const totalPages = computed(() => Math.ceil(totalRecords.value / limit.value));
 const pageInput = ref(1);
 const changePageSize = () => {
   page.value = 1;
-  fetchFloatLedgers();
+  fetchBranchFloatLedgers();
 };
 // const showPagination = computed(() => totalRecords.value >= limit.value);
 
@@ -41,11 +39,11 @@ const jumpToPage = () => {
   } else {
     page.value = pageInput.value;
   }
-  fetchFloatLedgers();
+  fetchBranchFloatLedgers();
 };
-function fetchFloatLedgers() {
+function fetchBranchFloatLedgers() {
   // branchStore
-  //   .fetchFloatLedgers(page.value, limit.value)
+  //   .fetchBranchFloatLedgers(page.value, limit.value)
   //   .then(() => (loading.value = false))
   //   .catch((error: ApiError) => {
   //     loading.value = false;
@@ -102,8 +100,8 @@ const filter = reactive({
 
 // Fetch billing data (transactions, float ledgers)
 onMounted(() => {
-  fetchFloatLedgers();
-  billingStore.fetchFloatLedgers(); // Fetch float ledgers
+  fetchBranchFloatLedgers();
+  billingStore.fetchBranchFloatLedgers(); // Fetch float ledgers
   // balanceStore.fetchTotalBalance(); // Fetch total balance
   // balanceStore.increaseTotalBalance(); // Increase balance by 100
 });
@@ -111,29 +109,6 @@ onMounted(() => {
 // function decreaseBalance() {
 //   balanceStore.decreaseTotalBalance(5000000); // Decrease by 5 million
 // }
-
-// Dynamically compute the balances for each transaction
-// const computedTransactions = computed(() => {
-//   // Ensure there is a valid starting balance and transactions
-//   if (store.floatLedgers.length === 0) {
-//     return [];
-//   }
-
-//   // Start with the balance before any transactions
-//   let runningBalance = balanceStore.totalBalance.current;
-
-//   // Reverse the transactions to process them chronologically
-//   const transactionsWithBalances = store.floatLedgers
-//   .slice()
-//   .reverse()
-//   .map((transaction) => {
-//     if (transaction.description === "Recharge") {
-//       // Set balance directly for recharge transactions
-//       runningBalance = transaction.amount;
-//     } else {
-//       // Adjust balance correctly for other transactions
-//       runningBalance += transaction.amount;
-//     }
 
 //     return {
 //       ...transaction,
@@ -171,7 +146,7 @@ const computedLedgerWithBalance = computed(() => {
   });
 });
 
-// function fetchFloatLedgers() {
+// function fetchBranchFloatLedgers() {
 //   filter.limit = limit.value;
 //   filter.page = page.value;
 
@@ -184,17 +159,17 @@ const computedLedgerWithBalance = computed(() => {
 //     });
 //   }
 
-//   store.fetchFloatLedgers(filter); // Fetch transactions based on filter
+//   store.fetchBranchFloatLedgers(filter); // Fetch transactions based on filter
 // }
 
 function next() {
   page.value += 1;
-  fetchFloatLedgers();
+  fetchBranchFloatLedgers();
 }
 
 function previous() {
   page.value -= 1;
-  fetchFloatLedgers();
+  fetchBranchFloatLedgers();
 }
 
 function open() {
@@ -212,7 +187,7 @@ function convertDateTime(date: string) {
 // Debounced filter update function
 const updateFilter = useDebounceFn(
   () => {
-    fetchFloatLedgers();
+    fetchBranchFloatLedgers();
   },
   300,
   { maxWait: 5000 }
@@ -283,7 +258,6 @@ watch(
             <th class="t-header">Type</th>
             <th class="text-right t-header">Amount</th>
             <th class="text-right t-header">Balance</th>
-            <!-- <th class="text-right t-header">Balance2</th> -->
           </tr>
         </thead>
         <thead v-if="loading">
@@ -303,20 +277,25 @@ watch(
             > -->
 
           <tr
-            v-for="transaction in computedLedgerWithBalance"
+            v-for="(transaction, id) in computedLedgerWithBalance"
             :key="transaction.id"
             class="body-tr"
           >
-            <td class="text-left">
+            <!-- <td class="text-left">
               <label class="cursor-pointer hover:text-primary-700 mx-2">
                 <span class="hover:underline">{{ transaction.id }}</span>
               </label>
-            </td>
-            <!-- <td class="text-left">{{ idx + 1 }}</td> -->
+            </td> -->
+            <td class="text-left">{{ id + 1 }}</td>
 
-            <td class="text-left">
+            <!-- <td class="text-left">
               <span class="text-xs">{{
                 convertDateTime(transaction.createdAt)
+              }}</span>
+            </td> -->
+            <td class="text-left">
+              <span class="text-xs">{{
+                convertDateTime(transaction.date)
               }}</span>
             </td>
             <td class="text-left">
@@ -444,3 +423,4 @@ watch(
 @import "@/assets/styles/table.css";
 @import "@/assets/styles/widgets.css";
 </style>
+@/branchmanagerdomain/finances/stores@/branchmanager/balance/stores

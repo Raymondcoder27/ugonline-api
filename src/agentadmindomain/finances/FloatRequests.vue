@@ -80,7 +80,7 @@ function fetchFloatRequests() {
 const paginatedFloatRequests = computed(() => {
   const start = (page.value - 1) * limit.value;
   const end = start + limit.value;
-  return billingStore.floatRequests.slice(start, end); // Adjust according to your page & limit
+  return billingStore.floatRequests?.slice(start, end); // Adjust according to your page & limit
 });
 
 const filter: IGoFilter = reactive({
