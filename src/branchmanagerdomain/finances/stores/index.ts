@@ -444,7 +444,7 @@ export const useBilling = defineStore("billing", () => {
         return;
       }
 
-      const { data } = await api.put("/till-operator/edit-float-request/" + requestId, {
+      const { data } = await api.put("/till-operator/update-float-request/" + requestId, {
         amount: payload.amount,
         till: payload.till,
         // status: "request edited",
