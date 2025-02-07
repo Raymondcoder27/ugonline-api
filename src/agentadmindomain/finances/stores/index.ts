@@ -135,10 +135,34 @@ export const useBilling = defineStore("billing", () => {
     floatLedgers.value = FloatLedgers;
   }
 
+  // async function fetchFloatLedgers() {
+  //   try {
+  //     const { data } = await api.get("/agent-admin-float-ledgers");
+  
+  //     if (data.data && data.data.length > 0) {
+  //       floatLedgers.value = [...dummyFloatLedgers, ...data.data]; // Keep dummy data first
+  //     } else {
+  //       console.warn("API returned empty float ledgers, keeping only dummy data.");
+  //       floatLedgers.value = dummyFloatLedgers; // Fallback to dummy data
+  //     }
+  
+  //     console.log("Float Ledgers:", floatLedgers.value);
+  //   } catch (error) {
+  //     console.error("Error fetching float ledgers:", error);
+  //     floatLedgers.value = dummyFloatLedgers; // Use dummy data if API call fails
+  //   }
+  // }
+
   async function fetchBackofficeUsers(filter: any) {
     // Simulate API call
     // You can adjust this based on the filtering criteria or paging
     backofficeUsers.value = BackofficeUsers;
+  }
+
+  async function fetchBranchFloatLedgers() {
+    const { data } = await api.get("/branch-manager/float-ledgers");
+    floatLedgers.value = data.data;
+    console.log("Float Ledgers:", floatLedgers.value);
   }
 
   async function fetchBranchManagers(filter: any) {
@@ -516,5 +540,6 @@ export const useBilling = defineStore("billing", () => {
     fetchFloatAllocations,
     allocateFloat,
     allocateFloatFromRequest,
+    fetchBranchFloatLedgers,
   };
 });
