@@ -139,7 +139,7 @@ const paginatedFloatLedgersWithBalance = computed(() => {
 });
 
 const latestBalance = computed(() => {
-  const transactions = paginatedFloatRequestsWithBalance.value;
+  const transactions = paginatedFloatLedgersWithBalance.value;
   if (transactions.length === 0) return 0;
   return transactions[transactions.length - 1].balance; // Get latest balance
 });
