@@ -151,10 +151,16 @@ export const useBilling = defineStore("billing", () => {
     floatAllocations.value = FloatAllocations;
   }
 
+  // async function fetchFloatRequests() {
+  //   // Simulate API call
+  //   // You can adjust this based on the filtering criteria or paging
+  //   floatRequests.value = FloatRequests;
+  // }
+
   async function fetchFloatRequests() {
-    // Simulate API call
-    // You can adjust this based on the filtering criteria or paging
-    floatRequests.value = FloatRequests;
+    const { data } = await api.get("/branch-manager/float-requests");
+    floatRequests.value = data.data;
+    console.log("Float Requests:", floatRequests.value);
   }
 
   // function submit() {
