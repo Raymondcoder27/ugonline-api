@@ -339,16 +339,29 @@ export const useBilling = defineStore("billing", () => {
       // floatRequest.approvedBy = "Manager One";
     }
   }
-    //edit float request amount and allocated the new amount inserted in the form
-    async function editFloatRequest(requestId: any, payload: any) {
-      try {
-        const floatRequest = floatRequests.value.find((request) => request.id === requestId);
-        if (!floatRequest) {
-          console.error("Float request not found for ID:", requestId);
-          return;
-        }
-  
-        const { data } = await api.put("/branch-manager/update-float-request/" + requestId, {
+  //edit float request amount and allocated the new amount inserted in the form
+  async function editFloatRequest(requestId: any, payload: any) {
+    try {
+      const floatRequest = floatRequests.value.find((request) => request.id === requestId);
+      if (!floatRequest) {
+        console.error("Float request not found for ID:", requestId);
+        return;
+      }
+
+      const { data } = await api.put("/branch-manager/update-float-request/" + requestId, {
+        amount: payload.amount,
+        till: payload.till,
+        // status: "request edited",
+        status: "edited",
+        description: payload.description,
+        approvedBy: "Manager One",
+      });
+      floatRequests.value = data.data;
+      console.log("Float Requests:", floatRequests.value);
+
+      // Approve the ledger entry if applicable
+      if (floatRequest.ledgerId) {
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
           amount: payload.amount,
           till: payload.till,
           // status: "request edited",
@@ -356,24 +369,11 @@ export const useBilling = defineStore("billing", () => {
           description: payload.description,
           approvedBy: "Manager One",
         });
-        floatRequests.value = data.data;
-        console.log("Float Requests:", floatRequests.value);
-  
-          // Approve the ledger entry if applicable
-          if (floatRequest.ledgerId) {
-            api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
-              amount: payload.amount,
-              till: payload.till,
-              // status: "request edited",
-              status: "edited",
-              description: payload.description,
-              approvedBy: "Manager One",
-            });
-          }
-      } catch (error) {
-        console.error("Error editing float request:", error);
       }
+    } catch (error) {
+      console.error("Error editing float request:", error);
     }
+  }
 
   // reject float request using passed in Id and set status to rejected
   function rejectFloatRequest(requestId: any) {
