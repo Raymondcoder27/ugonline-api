@@ -175,7 +175,7 @@ export const useBilling = defineStore("billing", () => {
   }
 
   async function fetchFloatRequestsToAdmin() {
-    const { data } = await api.get("/agent-admin/float-requests");
+    const { data } = await api.get("/branch-manager/float-requests");
     floatRequestsToAdmin.value = data.data;
     console.log("Float Requests:", floatRequestsToAdmin.value);
   }
@@ -191,14 +191,14 @@ export const useBilling = defineStore("billing", () => {
         branch: payload.branch,
       };
 
-      const ledgerResponse = await api.post("/agent-admin/add-float-ledger-record", ledgerEntry);
+      const ledgerResponse = await api.post("/branch-manager/add-float-ledger-record", ledgerEntry);
       const ledgerId = ledgerResponse.data.data.id; // Extracting ledger ID
 
       floatLedgers.value.push(ledgerResponse.data.data); // Store ledger entry in state
       console.log("Float ledger entry created:", ledgerResponse.data.data);
 
       // Step 2: Create Float Request (linking it to the ledger ID)
-      const { data } = await api.post("/agent-admin/request-float", {
+      const { data } = await api.post("/branch-manager/request-float", {
         amount: payload.amount,
         status: "pending",
         branch: payload.branch,
@@ -407,7 +407,7 @@ export const useBilling = defineStore("billing", () => {
   //     console.log("Approving float request for ID:", requestId);
 
 
-  //     const { data } = await api.put(`/agent-admin/approve-float-request/${requestId}`, {
+  //     const { data } = await api.put(`/branch-manager/approve-float-request/${requestId}`, {
   //       status: "approved",
   //       approvedBy: "Manager One",
   //       amount: floatRequest.amount,
@@ -431,7 +431,7 @@ export const useBilling = defineStore("billing", () => {
   //       const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
   //       if (ledgerEntry) {
-  //         await api.put(`/agent-admin/approve-float-ledger/${floatRequest.ledgerId}`, {
+  //         await api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, {
   //           ...ledgerEntry, // Retain all original fields
   //           status: "approved", // Only update status
   //         });
@@ -457,12 +457,12 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Approve the float request
-      await api.put(`/agent-admin/update-float-request/${requestId}`, { status: "approved", approvedBy: "Manager One" });
+      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "approved", approvedBy: "Manager One" });
       floatRequest.status = "approved";
 
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
       }
       // }
     } catch (error) {
@@ -479,7 +479,7 @@ export const useBilling = defineStore("billing", () => {
         return;
       }
 
-      const { data } = await api.put("/agent-admin/update-float-request/" + requestId, {
+      const { data } = await api.put("/branch-manager/update-float-request/" + requestId, {
         amount: payload.amount,
         till: payload.till,
         // status: "request edited",
@@ -492,7 +492,7 @@ export const useBilling = defineStore("billing", () => {
 
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
           amount: payload.amount,
           till: payload.till,
           // status: "request edited",
@@ -511,8 +511,8 @@ export const useBilling = defineStore("billing", () => {
   //approve the float request using the api
   //   async function approveFloatRequest(requestId: any) {
   //     console.log("Request ID:", requestId); // Debugging
-  //     // return api.post(`/agent-admin/approve-float-request/${requestId}`)
-  //     return api.post("/agent-admin/approve-float-request/"+requestId)
+  //     // return api.post(`/branch-manager/approve-float-request/${requestId}`)
+  //     return api.post("/branch-manager/approve-float-request/"+requestId)
   //         .then((response: AxiosResponse<ApiResponse<any>>) => {
   //             console.log("Approve Float Request response:", response.data);
   //             fetchFloatRequests();
@@ -537,12 +537,12 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Approve the float request
-      await api.put(`/agent-admin/update-float-request/${requestId}`, { status: "rejected", approvedBy: "Manager One" });
+      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "rejected", approvedBy: "Manager One" });
       floatRequest.status = "rejected";
 
       // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, { status: "rejected" });
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "rejected" });
       }
       // }
     } catch (error) {
