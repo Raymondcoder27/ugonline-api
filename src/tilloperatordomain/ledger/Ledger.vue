@@ -264,8 +264,13 @@ const paginatedFloatLedgersWithBalance = computed(() => {
   let runningBalance = 0;
 
   // Map through the paginated transactions and add the running balance
-  return paginatedTransactions.map((transaction) => {
-    runningBalance += transaction.amount;
+  // return paginatedTransactions.map((transaction) => {
+  //   runningBalance += transaction.amount;
+    return paginatedTransactions.map((transaction) => {
+    if (transaction.status === "approved" || transaction.status === "edited") {
+      runningBalance += transaction.amount; // Increase balance only if approved
+    // balanceStore.updateTotalBalance(runningBalance);
+    } 
     return {
       ...transaction,
       balance: runningBalance,
