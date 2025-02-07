@@ -355,7 +355,7 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Step 2: Approve the Float Request
-      const { data } = await api.put(`/branch-manager/update-float-request/${requestId}`, {
+      const { data } = await api.put(`/agent-admin/update-float-request/${requestId}`, {
         status: "approved",
         approvedBy: "Manager One",
         amount: floatRequest.amount,
@@ -373,7 +373,7 @@ export const useBilling = defineStore("billing", () => {
         const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
         if (ledgerEntry) {
-          await api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
+          await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
             ...ledgerEntry, // Retain all original fields
             status: "approved", // Only update status
           });
@@ -413,7 +413,7 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Send the API request with all required data
-      const { data } = await api.put(`/branch-manager/update-float-request/${requestId}`, {
+      const { data } = await api.put(`/agent-admin/update-float-request/${requestId}`, {
         status: "rejected",
         approvedBy: "Manager One",
         amount: floatRequest.amount, // Retrieve amount from the found request
@@ -437,7 +437,7 @@ export const useBilling = defineStore("billing", () => {
         const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
         if (ledgerEntry) {
-          await api.put(`/branch-manager/float-ledger/${floatRequest.ledgerId}`, {
+          await api.put(`/agent-admin/float-ledger/${floatRequest.ledgerId}`, {
             ...ledgerEntry, // Retain all original fields
             status: "rejected", // Only update status
           });
@@ -466,7 +466,7 @@ export const useBilling = defineStore("billing", () => {
         return;
       }
 
-      const { data } = await api.put("/branch-manager/update-float-request/" + requestId, {
+      const { data } = await api.put("/agent-admin/update-float-request/" + requestId, {
         amount: payload.amount,
         branch: payload.branch,
         // status: "request edited",
@@ -482,7 +482,7 @@ export const useBilling = defineStore("billing", () => {
         const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
         if (ledgerEntry) {
-          await api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
+          await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
             ...ledgerEntry, // Retain all original fields
             status: "edited", // Only update status
             amount: payload.amount,
