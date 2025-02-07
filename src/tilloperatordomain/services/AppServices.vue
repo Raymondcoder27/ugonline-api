@@ -116,10 +116,10 @@ const paginatedServices = computed(() => {
 //   store.fetchServices(filter); // Fetch services
 // }
 
-const paginatedFloatRequestsWithBalance = computed(() => {
+const paginatedFloatLedgersWithBalance = computed(() => {
   const start = (page.value - 1) * limit.value;
   const end = start + limit.value;
-  const paginatedTransactions = billingStore.floatRequests.slice(start, end);
+  const paginatedTransactions = billingStore.floatLedgers.slice(start, end);
 
   let runningBalance = 0;
 
