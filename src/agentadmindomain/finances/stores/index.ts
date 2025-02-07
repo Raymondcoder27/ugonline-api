@@ -95,6 +95,11 @@ export const useBilling = defineStore("billing", () => {
     { id: 3, dateAssigned: "2021-09-03", amount: 37000000, status: "failed", branch: "Branch 3" },
   ];
 
+  const dummyFloatLedgers: FloatLedger[] = [
+    { id: 1, date: "2021-09-01", description: "Recharge", amount: 300000000, balance: 300000000 },
+    // { id: 2, date: "2021-09-02", description: "Branch 1", amount: -20000000, balance: 300000000 },
+  ];
+
 
   // State variables
   const transactions = ref<Transaction[]>(Transactions); // Use  data for now
@@ -127,31 +132,31 @@ export const useBilling = defineStore("billing", () => {
     // totalBalance.value = 450000000; // Set a test value
   }
 
-  async function fetchFloatLedgers(filter: any) {
-    // Simulate API call
-    // const response = await fetch(`/api/float-ledgers?limit=${filter.limit}&page=${filter.page}`);
-    // const data = await response.json();
-    // Use  data for now
-    floatLedgers.value = FloatLedgers;
-  }
-
-  // async function fetchFloatLedgers() {
-  //   try {
-  //     const { data } = await api.get("/agent-admin-float-ledgers");
-  
-  //     if (data.data && data.data.length > 0) {
-  //       floatLedgers.value = [...dummyFloatLedgers, ...data.data]; // Keep dummy data first
-  //     } else {
-  //       console.warn("API returned empty float ledgers, keeping only dummy data.");
-  //       floatLedgers.value = dummyFloatLedgers; // Fallback to dummy data
-  //     }
-  
-  //     console.log("Float Ledgers:", floatLedgers.value);
-  //   } catch (error) {
-  //     console.error("Error fetching float ledgers:", error);
-  //     floatLedgers.value = dummyFloatLedgers; // Use dummy data if API call fails
-  //   }
+  // async function fetchFloatLedgers(filter: any) {
+  //   // Simulate API call
+  //   // const response = await fetch(`/api/float-ledgers?limit=${filter.limit}&page=${filter.page}`);
+  //   // const data = await response.json();
+  //   // Use  data for now
+  //   floatLedgers.value = FloatLedgers;
   // }
+
+  async function fetchFloatLedgers() {
+    try {
+      const { data } = await api.get("/agent-admin-float-ledgers");
+  
+      if (data.data && data.data.length > 0) {
+        floatLedgers.value = [...dummyFloatLedgers, ...data.data]; // Keep dummy data first
+      } else {
+        console.warn("API returned empty float ledgers, keeping only dummy data.");
+        floatLedgers.value = dummyFloatLedgers; // Fallback to dummy data
+      }
+  
+      console.log("Float Ledgers:", floatLedgers.value);
+    } catch (error) {
+      console.error("Error fetching float ledgers:", error);
+      floatLedgers.value = dummyFloatLedgers; // Use dummy data if API call fails
+    }
+  }
 
   async function fetchBackofficeUsers(filter: any) {
     // Simulate API call
