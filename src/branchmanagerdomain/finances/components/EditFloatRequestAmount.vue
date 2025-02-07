@@ -57,7 +57,7 @@ function submit() {
       loading.value = true;
       emit("requestEdited")
       // window.location.reload();
-      notify.error("Edited");
+      notify.success("Edited");
     })
     .catch((error: ApiError) => {
       loading.value = false;
