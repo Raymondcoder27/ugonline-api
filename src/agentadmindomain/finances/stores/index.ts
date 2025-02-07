@@ -283,69 +283,180 @@ export const useBilling = defineStore("billing", () => {
   //   console.log(`float request with id ${requestId} approved`);
   // };
 
-  async function reduceFloatLedger(requestId: any) {
-    //  This is local storage 
-    // end of local storage
+  // async function reduceFloatLedger(requestId: any) {
+  //   //  This is local storage 
+  //   // end of local storage
 
-    console.log("Approving float request with ID:", requestId);
-    // Simulate API call
-    // const response = await fetch(`/api/float-requests/${requestId}/approve`, {
-    //   method: "POST",
-    // });
-    // const data = await response.json();
+  //   console.log("Approving float request with ID:", requestId);
+  //   // Simulate API call
+  //   // const response = await fetch(`/api/float-requests/${requestId}/approve`, {
+  //   //   method: "POST",
+  //   // });
+  //   // const data = await response.json();
 
-    // use request in floatledgers array id to figure out amount 
-    const floatRequest = floatRequests.value.find(
-      (request) => request.id === requestId
-    );
-    if (!floatRequest) {
-      console.error("Float request not found");
-      return;
-    }
-    floatLedgers.value.push({
-      id: floatLedgers.value.length + 1,
-      date: new Date().toISOString(),
-      description: floatRequest.branch,
-      amount: -floatRequest.amount,
-      // balance: 300000000 - floatRequest.amount,
-    });
-  }
-
-
-  // const rejectFloatRequest = (requestId: any) => {
-  //   store.rejectFloatRequest(requestId);
-  //   store.fetchFloatRequests();
-  //   console.log(`float request with id ${requestId} rejected`);
-  // };
-
-
-
-  // const approveFloatRequest = (requestId: any) => {
-  //   store.approveFloatRequest(requestId);
-  // };
-
-  // const rejectFloatRequest = (requestId: any) => {
-  //   store.rejectFloatRequest(requestId);
-  // };
-
-  // approve float request using passed in Id and set status to approved
-  // function approveFloatRequest(requestId: any) {
-  //   const floatRequest = floatRequests.value.find((request) => request.id === requestId);
-  //   if (floatRequest) {
-  //     floatRequest.status = "Approved";
-  //     floatRequest.approvedBy = "Manager One";
+  //   // use request in floatledgers array id to figure out amount 
+  //   const floatRequest = floatRequests.value.find(
+  //     (request) => request.id === requestId
+  //   );
+  //   if (!floatRequest) {
+  //     console.error("Float request not found");
+  //     return;
   //   }
+  //   floatLedgers.value.push({
+  //     id: floatLedgers.value.length + 1,
+  //     date: new Date().toISOString(),
+  //     description: floatRequest.branch,
+  //     amount: -floatRequest.amount,
+  //     // balance: 300000000 - floatRequest.amount,
+  //   });
   // }
 
   // approve float request using passed in Id and set status to approved and modify the floatrequests array
-  function approveFloatRequest(requestId: any) {
-    console.log("changing status")
-    const floatRequest = floatRequests.value.find((request) => request.id === requestId);
-    if (floatRequest) {
-      floatRequest.status = "approved";
-      // floatRequest.approvedBy = "Manager One";
+  async function reduceFloatLedger(requestId: string) {
+    try {
+      console.log("Reducing float ledger for request ID:", requestId);
+
+      // Step 1: Find the corresponding float request
+      const floatRequest = floatRequests.value.find(request => request.id === requestId);
+
+      if (!floatRequest) {
+        console.error("Float request not found for ID:", requestId);
+        return;
+      }
+
+      // Step 2: Create a new Float Ledger Entry with reduced amount
+      const { data } = await api.post(`/agent-admin/float-ledgers`, {
+        requestId: floatRequest.id,
+        date: new Date().toISOString(),
+        description: floatRequest.description,
+        amount: -floatRequest.amount, // Negative to indicate reduction
+        status: "approved",
+        branch: floatRequest.branch,
+        approvedBy: "Admin One",
+      });
+
+      // Step 3: Update local state with new ledger entry
+      floatLedgers.value.push(data.data);
+      console.log("Float ledger reduced successfully:", data.data);
+
+    } catch (error) {
+      console.error("Error reducing float ledger:", error);
     }
   }
+
+  async function approveFloatRequest(requestId: string) {
+    try {
+      // Step 1: Find the float request
+      const floatRequest = floatRequests.value.find(request => request.id === requestId);
+
+      if (!floatRequest) {
+        console.error("Float request not found for ID:", requestId);
+        return;
+      }
+
+      // Step 2: Approve the Float Request
+      const { data } = await api.put(`/branch6-manager-float-requests/${requestId}`, {
+        status: "approved",
+        approvedBy: "Manager One",
+        amount: floatRequest.amount,
+        branch: floatRequest.branch,
+        description: floatRequest.description,
+        ledgerId: floatRequest.ledgerId, // Retain the ledger link
+      });
+
+      floatRequest.status = "approved";
+      console.log("Float request approved successfully:", data);
+
+      // Step 3: Approve the Float Ledger Record using `ledgerId`
+      if (floatRequest.ledgerId) {
+        // Retrieve the existing ledger entry to keep all fields
+        const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
+
+        if (ledgerEntry) {
+          await api.put(`/branch6-manager-float-ledgers/${floatRequest.ledgerId}`, {
+            ...ledgerEntry, // Retain all original fields
+            status: "approved", // Only update status
+          });
+
+          console.log("Float ledger record approved:", ledgerEntry);
+        } else {
+          console.error("Ledger entry not found for ID:", floatRequest.ledgerId);
+        }
+      } else {
+        console.error("Ledger ID not found in float request!");
+      }
+
+    } catch (error) {
+      console.error("Error approving float request:", error);
+    }
+  }
+
+
+
+
+  // reject float request using passed in Id and set status to rejected
+  // function rejectFloatRequest(requestId: any) {
+  //   const floatRequest = floatRequests.value.find((request) => request.id === requestId);
+  //   if (floatRequest) {
+  //     floatRequest.status = "rejected";
+  //   }
+  // }
+
+  async function rejectFloatRequest(requestId: string) {
+    try {
+      // Find the float request by ID
+      const floatRequest = floatRequests.value.find(request => request.id === requestId);
+
+      if (!floatRequest) {
+        console.error("Float request not found for ID:", requestId);
+        return;
+      }
+
+      // Send the API request with all required data
+      const { data } = await api.put(`/branch6-manager-float-requests/${requestId}`, {
+        status: "rejected",
+        approvedBy: "Manager One",
+        amount: floatRequest.amount, // Retrieve amount from the found request
+        // till: floatRequest.till,     // Retrieve till from the found request
+        branch: floatRequest.branch,     // Retrieve till from the found request
+        description: floatRequest.description,
+        ledgerId: floatRequest.ledgerId
+      });
+
+      //approve the record's status in the float ledger too
+      // api.put("/till-operator10-float-ledgers/" + requestId, {
+      //   status: "approved",
+      //   amount: floatRequest.amount,
+      //   till: floatRequest.till,
+      // });
+
+      // Update local state after successful API call
+      floatRequest.status = "rejected";
+      if (floatRequest.ledgerId) {
+        // Retrieve the existing ledger entry to keep all fields
+        const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
+
+        if (ledgerEntry) {
+          await api.put(`/branch6-manager-float-ledgers/${floatRequest.ledgerId}`, {
+            ...ledgerEntry, // Retain all original fields
+            status: "rejected", // Only update status
+          });
+
+          console.log("Float ledger record rejected:", ledgerEntry);
+        } else {
+          console.error("Ledger entry not found for ID:", floatRequest.ledgerId);
+        }
+      } else {
+        console.error("Ledger ID not found in float request!");
+      }
+
+      console.log("Float request rejected:", data);
+    } catch (error) {
+      console.error("Error rejecting float request:", error);
+    }
+  }
+
+
   //edit float request amount and allocated the new amount inserted in the form
   async function editFloatRequest(requestId: any, payload: any) {
     try {
@@ -355,41 +466,39 @@ export const useBilling = defineStore("billing", () => {
         return;
       }
 
-      const { data } = await api.put("/branch-manager/update-float-request/" + requestId, {
+      const { data } = await api.put("/branch6-manager-float-requests/" + requestId, {
         amount: payload.amount,
-        till: payload.till,
+        branch: payload.branch,
         // status: "request edited",
         status: "edited",
         description: payload.description,
         approvedBy: "Manager One",
+        ledgerId: floatRequest.ledgerId,
       });
       floatRequests.value = data.data;
       console.log("Float Requests:", floatRequests.value);
-
-      // Approve the ledger entry if applicable
       if (floatRequest.ledgerId) {
-        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, {
-          amount: payload.amount,
-          till: payload.till,
-          // status: "request edited",
-          status: "edited",
-          description: payload.description,
-          approvedBy: "Manager One",
-        });
+        // Retrieve the existing ledger entry to keep all fields
+        const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
+
+        if (ledgerEntry) {
+          await api.put(`/branch6-manager-float-ledgers/${floatRequest.ledgerId}`, {
+            ...ledgerEntry, // Retain all original fields
+            status: "edited", // Only update status
+            amount: payload.amount,
+          });
+
+          console.log("Float ledger record edited:", ledgerEntry);
+        } else {
+          console.error("Ledger entry not found for ID:", floatRequest.ledgerId);
+        }
+      } else {
+        console.error("Ledger ID not found in float request!");
       }
     } catch (error) {
       console.error("Error editing float request:", error);
     }
   }
-
-  // reject float request using passed in Id and set status to rejected
-  function rejectFloatRequest(requestId: any) {
-    const floatRequest = floatRequests.value.find((request) => request.id === requestId);
-    if (floatRequest) {
-      floatRequest.status = "rejected";
-    }
-  }
-
   return {
     transactions,
     totalAmount,
