@@ -74,7 +74,7 @@ function fetchFloatRequests() {
   // Fetch the services based on the page and limit
   const startIndex = (page.value - 1) * limit.value;
   const endIndex = startIndex + limit.value;
-  floatRequests.value = billingStore.floatRequests.slice(startIndex, endIndex);
+  floatRequests.value = billingStore.floatRequests?.slice(startIndex, endIndex);
   loading.value = false;
 }
 const paginatedFloatRequests = computed(() => {
