@@ -18,7 +18,7 @@ let form: FloatRequest = reactive({
   amount: "",
   status: "",
 });
-const emit = defineEmits(["cancel"]);
+const emit = defineEmits(["cancel", "requestEdited"]);
 
 onMounted(() => {
   let data = JSON.parse(<string>localStorage.getItem("floatRequestEdit"));
@@ -54,7 +54,8 @@ function submit() {
   store
     .editFloatRequest(id, payload)
     .then(() => {
-      loading.value = false;
+      loading.value = true;
+      emit("requestEdited")
       // window.location.reload();
       notify.error("Edited");
     })
