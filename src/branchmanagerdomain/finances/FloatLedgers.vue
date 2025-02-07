@@ -411,7 +411,7 @@ watch(
               </div>
 
               <!-- Second Case: Manager directly assigned to branch -->
-              <div v-else-if="transaction.status === 'failed'">
+              <div v-if="transaction.status === 'failed'">
                 <!-- <td> -->
                 <label>
                   <span
@@ -423,7 +423,7 @@ watch(
               </div>
 
               <!-- Third Case: Manager directly assigned to branch -->
-              <div v-else-if="transaction.status === 'edited'">
+              <div v-if="transaction.status === 'edited'">
                 <!-- <td> -->
                 <label>
                   <span
