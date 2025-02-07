@@ -21,10 +21,15 @@ function editFloatRequest(floatRequest: FloatRequest) {
 }
 function close() {
   modalOpen.value = false;
-  viewModalOpen.value = false;
-  editModalOpen.value = false;
 }
 
+function closeViewModal(){
+  viewModalOpen.value = false;
+}
+
+function closeEditModal(){
+  editModalOpen.value = false;
+}
 const balanceStore = useBalance();
 
 const billingStore = useBilling();
@@ -684,7 +689,7 @@ onMounted(() => {
   <AppModal v-model="editModalOpen" xl2>
     <!-- Put here whatever makes you smile -->
     <!-- Chances are high that you're starting with a form -->
-    <EditFloatRequestAmount @cancel="close" />
+    <EditFloatRequestAmount @cancel="close" @requestEdited="closeEditModal" />
     <!-- That's also okay -->
   </AppModal>
 </template>
