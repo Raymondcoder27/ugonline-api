@@ -426,12 +426,12 @@ export const useBilling = defineStore("billing", () => {
       floatRequest.status = "approved";
 
       // Approve the ledger entry if applicable
-      if (floatRequest.ledgerId) {
+      // if (floatRequest.ledgerId) {
         const ledgerEntry = tillFloatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
         if (ledgerEntry) {
           await api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
         }
-      }
+      // }
     } catch (error) {
       console.error("Error approving float request:", error);
     }
@@ -471,6 +471,7 @@ export const useBilling = defineStore("billing", () => {
     floatRequests,
     tillOperatorFloatBalance,
     floatRequestsToAdmin,
+    tillFloatLedgers,
     fetchFloatRequestsToAdmin,
     reduceFloatLedger,
     approveFloatRequest,
