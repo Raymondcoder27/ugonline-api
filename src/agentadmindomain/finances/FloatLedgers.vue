@@ -314,7 +314,7 @@ watch(
             > -->
 
           <tr
-            v-for="transaction, id in computedLedgerWithBalance"
+            v-for="(transaction, id) in computedLedgerWithBalance"
             :key="transaction.id"
             class="body-tr"
           >
