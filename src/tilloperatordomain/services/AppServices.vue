@@ -6,10 +6,12 @@ import AppModal from "@/components/AppModal.vue";
 import { useServicesStore } from "@/tilloperatordomain/services/stores";
 import { IGoFilter } from "@/types";
 import { useBalance } from "@/tilloperatordomain/balance/stores";
+import { useBilling } from "@/tilloperatordomain/ledger/stores";
 
 const balanceStore = useBalance();
 
 const store = useServicesStore();
+const billingStore = useBilling()
 
 const serviceFormModalOpen: Ref<boolean> = ref(false);
 const page: Ref<number> = ref(1);
@@ -114,6 +116,35 @@ const paginatedServices = computed(() => {
 //   store.fetchServices(filter); // Fetch services
 // }
 
+const paginatedFloatRequestsWithBalance = computed(() => {
+  const start = (page.value - 1) * limit.value;
+  const end = start + limit.value;
+  const paginatedTransactions = billingStore.floatRequests.slice(start, end);
+
+  let runningBalance = 0;
+
+  return paginatedTransactions.map((transaction) => {
+    if (transaction.status === "approved" || transaction.status === "edited") {
+      runningBalance += transaction.amount; // Increase balance only if approved
+      // balanceStore.updateTotalBalance(runningBalance);
+    }
+    return {
+      ...transaction,
+      balance: runningBalance, // Maintain the same balance if rejected
+    };
+
+    //update balance store with current balance
+    // balanceStore.updateTotalBalance(runningBalance);
+  });
+});
+
+const latestBalance = computed(() => {
+  const transactions = paginatedFloatRequestsWithBalance.value;
+  if (transactions.length === 0) return 0;
+  return transactions[transactions.length - 1].balance; // Get latest balance
+});
+
+
 onMounted(() => {
   balanceStore.fetchTotalBalance();
   fetchServices();
@@ -169,7 +200,8 @@ onMounted(() => {
     </div>
     <div class="font-semibold text-gray-500 text-sm mr-5">
       <!-- BALANCE: 15,000,000/= -->
-      {{ balanceStore.totalBalance.currentBalance.toLocaleString() }}/=
+      <!-- {{ balanceStore.totalBalance.currentBalance.toLocaleString() }}/= -->
+      {{ latestBalance.toLocaleString() }}/=
     </div>
   </div>
 
