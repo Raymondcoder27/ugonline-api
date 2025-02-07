@@ -369,10 +369,10 @@ export const useBilling = defineStore("billing", () => {
 
       // Step 3: Approve the Float Ledger Record using `ledgerId`
       if (floatRequest.ledgerId) {
-       
           await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
             // ...ledgerEntry, // Retain all original fields
             status: "approved", // Only update status
+            // amount: 
           });
       } else {
         console.error("Ledger ID not found in float request!");
