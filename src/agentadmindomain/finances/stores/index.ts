@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { Transaction, FloatLedger, BackofficeUser, BranchManager, FloatAllocation, FloatRequest } from "@/agentadmindomain/finances/types";
 import type { AllocateFloat } from "@/types";
+import api from "@/config/api"
 
 export const useBilling = defineStore("billing", () => {
   //  data for testing
