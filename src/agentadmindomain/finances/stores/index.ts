@@ -460,7 +460,7 @@ export const useBilling = defineStore("billing", () => {
         const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
         if (ledgerEntry) {
-          await api.put(`/agent-admin/float-ledger/${floatRequest.ledgerId}`, {
+          await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
             ...ledgerEntry, // Retain all original fields
             status: "rejected", // Only update status
           });
@@ -500,21 +500,23 @@ export const useBilling = defineStore("billing", () => {
       });
       floatRequests.value = data.data;
       console.log("Float Requests:", floatRequests.value);
+
+
       if (floatRequest.ledgerId) {
         // Retrieve the existing ledger entry to keep all fields
-        const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
+        // const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
-        if (ledgerEntry) {
+        // if (ledgerEntry) {
           await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
-            ...ledgerEntry, // Retain all original fields
+            // ...ledgerEntry, // Retain all original fields
             status: "edited", // Only update status
             amount: payload.amount,
           });
 
-          console.log("Float ledger record edited:", ledgerEntry);
-        } else {
-          console.error("Ledger entry not found for ID:", floatRequest.ledgerId);
-        }
+          // console.log("Float ledger record edited:", ledgerEntry);
+        // } else {
+        //   console.error("Ledger entry not found for ID:", floatRequest.ledgerId);
+        // }
       } else {
         console.error("Ledger ID not found in float request!");
       }
