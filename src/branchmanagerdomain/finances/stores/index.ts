@@ -363,35 +363,35 @@ export const useBilling = defineStore("billing", () => {
   // }
   async function reduceFloatLedger(requestId: string) {
     try {
-        console.log("Reducing float ledger for request ID:", requestId);
+      console.log("Reducing float ledger for request ID:", requestId);
 
-        // Step 1: Find the corresponding float request
-        const floatRequest = floatRequests.value.find(request => request.id === requestId);
+      // Step 1: Find the corresponding float request
+      const floatRequest = floatRequests.value.find(request => request.id === requestId);
 
-        if (!floatRequest) {
-            console.error("Float request not found for ID:", requestId);
-            return;
-        }
+      if (!floatRequest) {
+        console.error("Float request not found for ID:", requestId);
+        return;
+      }
 
-        // Step 2: Create a new Float Ledger Entry with reduced amount
-        const { data } = await api.post(`/branch-manager/float-ledgers`, {
-            requestId: floatRequest.id,
-            date: new Date().toISOString(),
-            description: floatRequest.description,
-            amount: -floatRequest.amount, // Negative to indicate reduction
-            status: "approved",
-            till: floatRequest.till,
-            approvedBy: "Manager One",
-        });
+      // Step 2: Create a new Float Ledger Entry with reduced amount
+      const { data } = await api.post(`/branch-manager/float-ledger`, {
+        requestId: floatRequest.id,
+        date: new Date().toISOString(),
+        description: floatRequest.description,
+        amount: -floatRequest.amount, // Negative to indicate reduction
+        status: "approved",
+        till: floatRequest.till,
+        approvedBy: "Manager One",
+      });
 
-        // Step 3: Update local state with new ledger entry
-        floatLedgers.value.push(data.data);
-        console.log("Float ledger reduced successfully:", data.data);
-        
+      // Step 3: Update local state with new ledger entry
+      floatLedgers.value.push(data.data);
+      console.log("Float ledger reduced successfully:", data.data);
+
     } catch (error) {
-        console.error("Error reducing float ledger:", error);
+      console.error("Error reducing float ledger:", error);
     }
-}
+  }
 
 
   // const rejectFloatRequest = (requestId: any) => {
