@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, type Ref, ref } from "vue";
+import { onMounted, reactive, type Ref, ref, defineEmits } from "vue";
 // import {useProviderStore} from "@/agentadmindomain/providers/stores";
 import { useBilling } from "@/agentadmindomain/finances/stores";
 // import type {CreateServiceProvider} from "@/agentadmindomain/providers/types";
@@ -69,7 +69,7 @@ function submit() {
     .editFloatRequest(id, payload)
     .then(() => {
       loading.value = false;
-      window.location.reload();
+      // window.location.reload();
       notify.error("Edited");
     })
     .catch((error: ApiError) => {

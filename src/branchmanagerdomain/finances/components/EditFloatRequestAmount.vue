@@ -13,7 +13,7 @@ const loading: Ref<boolean> = ref(false);
 const notify = useNotificationsStore();
 
 let form: FloatRequest = reactive({
-  name: "",
+  // name: "",
   till: "",
   amount: "",
   status: "",
@@ -23,7 +23,7 @@ const emit = defineEmits(["cancel"]);
 onMounted(() => {
   let data = JSON.parse(<string>localStorage.getItem("floatRequestEdit"));
 
-  form.name = data.name;
+  // form.name = data.name;
   form.till = data.till;
   form.amount = data.amount;
   form.status = data.status;
@@ -55,7 +55,7 @@ function submit() {
     .editFloatRequest(id, payload)
     .then(() => {
       loading.value = false;
-      window.location.reload();
+      // window.location.reload();
       notify.error("Edited");
     })
     .catch((error: ApiError) => {
