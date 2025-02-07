@@ -422,13 +422,13 @@ export const useBilling = defineStore("billing", () => {
       }
 
       // Approve the float request
-      await api.put(`/branch-manager/approve-float-request/${requestId}`, { status: "approved", approvedBy: "Manager One" });
+      await api.put(`/branch-manager/update-float-request/${requestId}`, { status: "approved", approvedBy: "Manager One" });
       floatRequest.status = "approved";
 
       // Approve the ledger entry if applicable
-      // if (floatRequest.ledgerId) {
-        api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
-        // }
+      if (floatRequest.ledgerId) {
+        api.put(`/branch-manager/update-float-ledger/${floatRequest.ledgerId}`, { status: "approved" });
+      }
       // }
     } catch (error) {
       console.error("Error approving float request:", error);
@@ -451,12 +451,34 @@ export const useBilling = defineStore("billing", () => {
   // }
 
   // reject float request using passed in Id and set status to rejected
-  function rejectFloatRequest(requestId: any) {
-    const floatRequest = floatRequests.value.find((request) => request.id === requestId);
-    if (floatRequest) {
+  // function rejectFloatRequest(requestId: any) {
+  //   const floatRequest = floatRequests.value.find((request) => request.id === requestId);
+  //   if (floatRequest) {
+  //     floatRequest.status = "rejected";
+  //   }
+  // }
+  async function rejectFloatRequest(requestId: string) {
+    try {
+      const floatRequest = floatRequests.value.find(request => request.id === requestId);
+      if (!floatRequest) {
+        console.error("Float request not found:", requestId);
+        return;
+      }
+
+      // Approve the float request
+      await api.put(`/branch-manager/approve-float-request/${requestId}`, { status: "rejected", approvedBy: "Manager One" });
       floatRequest.status = "rejected";
+
+      // Approve the ledger entry if applicable
+      if (floatRequest.ledgerId) {
+        api.put(`/branch-manager/approve-float-ledger/${floatRequest.ledgerId}`, { status: "rejected" });
+      }
+      // }
+    } catch (error) {
+      console.error("Error approving float request:", error);
     }
   }
+
 
   return {
     transactions,
