@@ -283,7 +283,7 @@ function convertDateTimeNullable(date?: string) {
 const approveFloatRequest = (requestId: any) => {
   if (requestId) {
     billingStore.approveFloatRequest(requestId).then(() => {
-      // billingStore.fetchFloatRequests();
+      billingStore.fetchFloatRequests();
       balanceStore.approveFloatRequest(requestId);
       billingStore.reduceFloatLedger(requestId);
       billingStore.allocateFloatFromRequest(requestId);
