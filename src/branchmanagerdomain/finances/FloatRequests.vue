@@ -264,18 +264,24 @@ function convertDateTimeNullable(date?: string) {
 
 // pass in the requestId
 const approveFloatRequest = (requestId: any) => {
-  billingStore.approveFloatRequest(requestId);
-  // billingStore.fetchFloatRequests();
-  balanceStore.approveFloatRequest(requestId);
-  billingStore.reduceFloatLedger(requestId);
-  billingStore.allocateFloatFromRequest(requestId);
-  console.log(`float request with id ${requestId} approved`);
+  if (requestId) {
+    billingStore.approveFloatRequest(requestId).then(() => {
+      // billingStore.fetchFloatRequests();
+      balanceStore.approveFloatRequest(requestId);
+      billingStore.reduceFloatLedger(requestId);
+      billingStore.allocateFloatFromRequest(requestId);
+      console.log(`float request with id ${requestId} approved`);
+    });
+  }
 };
 
 const rejectFloatRequest = (requestId: any) => {
-  billingStore.rejectFloatRequest(requestId);
-  billingStore.fetchFloatRequests();
-  console.log(`float request with id ${requestId} rejected`);
+  if (requestId) {
+    billingStore.rejectFloatRequest(requestId).then(() => {
+      billingStore.fetchFloatRequests();
+      console.log(`float request with id ${requestId} rejected`);
+    });
+  }
 };
 
 onMounted(() => {
