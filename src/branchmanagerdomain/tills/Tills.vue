@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppModal from "@/components/AppModal.vue";
 import { onMounted, ref, type Ref, watch, computed } from "vue";
-import CreateTill from "@/branchmanagerdomain/tills/components/CreateBranch.vue";
+import CreateTill from "@/branchmanagerdomain/tills/components/CreateTill.vue";
 import { useTillStore } from "@/branchmanagerdomain/tills/stores"; // Updated import
 import type { Till } from "@/branchmanagerdomain/tills/types"; // Assuming you have a till type
 import moment from "moment/moment";
@@ -542,7 +542,7 @@ onMounted(() => {
   <AppModal v-model="modalOpen" xl2>
     <!-- Put here whatever makes you smile -->
     <!-- Chances are high that you're starting with a form -->
-    <CreateBranch @tillCreated="close" @cancel="close" />
+    <CreateTill @tillCreated="close" @cancel="close" />
     <!-- That's also okay -->
   </AppModal>
 
