@@ -117,17 +117,7 @@ export const useBilling = defineStore("billing", () => {
   // }
 
 
-  async function addTill(newBranch: Till) {
-    try {
-      const { data } = await api.post("/add-till", newBranch);
-      // branches.value = response.data
-      // branches.value?.push(data.data);
-      tills.value?.push(data.data);
 
-    } catch (error) {
-      console.error("Error adding branch:", error);
-    }
-  }
 
 
   // Actions to fetch data
@@ -605,17 +595,6 @@ export const useBilling = defineStore("billing", () => {
     }
   }
 
-  async function fetchTills() {
-    isLoading.value = true;
-    try {
-      const { data } = await api.get("/tills");
-      tills.value = data.data;
-    } catch (error) {
-      console.error("Error fetching tills:", error);
-    } finally {
-      isLoading.value = false;
-    }
-  }
 
 
   return {
@@ -630,8 +609,7 @@ export const useBilling = defineStore("billing", () => {
     tillOperatorFloatBalance,
     floatRequestsToAdmin,
     tillFloatLedgers,
-    addTill,
-    fetchTills,
+    
     fetchFloatRequestsToAdmin,
     reduceFloatLedger,
     approveFloatRequest,

@@ -45,20 +45,20 @@ export const useTillStore = defineStore("useTill", () => {
   const isLoading: Ref<boolean> = ref(false);
   const managerAssignments: Ref<AssignManager[]> = ref([]);
 
-  const addTill= (newTill: Till) => {
-    tills.value?.push({
-      id: tills.value?.length + 1,
-      name: newTill.name,
-      location: newTill.location,
-      status: newTill.status,
-    })
+  // const addTill= (newTill: Till) => {
+  //   tills.value?.push({
+  //     id: tills.value?.length + 1,
+  //     name: newTill.name,
+  //     location: newTill.location,
+  //     status: newTill.status,
+  //   })
 
-    // allocate Till manager
-    // const manager = branchManagers.value.find((manager) => manager.id === newTill.managerId);
-    // if (manager) {
-    //   manager.Till = newTill.id;
-    // }
-  }
+  //   // allocate Till manager
+  //   // const manager = branchManagers.value.find((manager) => manager.id === newTill.managerId);
+  //   // if (manager) {
+  //   //   manager.Till = newTill.id;
+  //   // }
+  // }
 
   // const allocateManager = (payload: AllocateManager) => {
   //   const tillToUpdate = tills.value?.find(till = > till.id === payload.tillId);
@@ -113,24 +113,49 @@ export const useTillStore = defineStore("useTill", () => {
   
   
 
-  async function fetchTills(filter: any) {
-    // isLoading.value = true;
-    // try {
-      // Uncomment the following line to fetch data from the API once ready
-      // const { data } = await api.get(`/tills?page=${page}&limit=${limit}`);
+  // async function fetchTills(filter: any) {
+  //   // isLoading.value = true;
+  //   // try {
+  //     // Uncomment the following line to fetch data from the API once ready
+  //     // const { data } = await api.get(`/tills?page=${page}&limit=${limit}`);
       
-      // For now, use the  data for testing
-      tills.value = Tills; // Use  data for testing
+  //     // For now, use the  data for testing
+  //     tills.value = Tills; // Use  data for testing
 
-      // Uncomment below to assign the API data when it's available
-      // tills.value = data;
-    // } catch (error) {
-      // console.error(error);
-      // throw error;
-    // } finally {
-      // isLoading.value = false;
-    // }
+  //     // Uncomment below to assign the API data when it's available
+  //     // tills.value = data;
+  //   // } catch (error) {
+  //     // console.error(error);
+  //     // throw error;
+  //   // } finally {
+  //     // isLoading.value = false;
+  //   // }
+  // }
+
+  async function addTill(newBranch: Till) {
+    try {
+      const { data } = await api.post("/branch-manager/add-till", newBranch);
+      // branches.value = response.data
+      // branches.value?.push(data.data);
+      tills.value?.push(data.data);
+
+    } catch (error) {
+      console.error("Error adding branch:", error);
+    }
   }
+
+  async function fetchTills() {
+    isLoading.value = true;
+    try {
+      const { data } = await api.get("/branch-manager/tills");
+      tills.value = data.data;
+    } catch (error) {
+      console.error("Error fetching tills:", error);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
 
   return {
     tills,
