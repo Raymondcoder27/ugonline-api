@@ -24,7 +24,7 @@ function close() {
   modalOpen.value = false;
 }
 
-function closeOpenModal() {
+function closeViewModal() {
   viewModalOpen.value = false;
 }
 
