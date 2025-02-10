@@ -109,7 +109,7 @@ function submit() {
 
 <template>
   <div class="bg-white py-5">
-    <p class="text-xl font-bold">Add Branch</p>
+    <p class="text-xl font-bold">Add Till</p>
     <p class="text-sm text-gray-500">
       A designated location managed by a Super Agent to provide services to
       agents and the public.

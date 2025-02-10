@@ -5,7 +5,7 @@ import { ref } from "vue";
 import api from "@/config/api";
 import type { Transaction, FloatLedger, BackofficeUser, TillOperator, FloatAllocation, FloatRequest, RequestFloatToAdmin } from "@/branchmanagerdomain/finances/types";
 import type { AllocateFloat } from "@/types";
-import type { Till } from "@/branchmanagerdomain/tills/types"; 
+import type { Till } from "@/branchmanagerdomain/tills/types";
 
 export const useBilling = defineStore("billing", () => {
   //  data for testing
@@ -609,7 +609,7 @@ export const useBilling = defineStore("billing", () => {
     tillOperatorFloatBalance,
     floatRequestsToAdmin,
     tillFloatLedgers,
-    
+
     fetchFloatRequestsToAdmin,
     reduceFloatLedger,
     approveFloatRequest,
