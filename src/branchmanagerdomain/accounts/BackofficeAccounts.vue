@@ -15,9 +15,8 @@ import type {
 const editModalOpen: Ref<boolean> = ref(false);
 const viewModalOpen: Ref<boolean> = ref(false);
 
-
-  function editBackofficeAccount(backofficeAccount:Account) {
-  localStorage.setItem("backofficeAccount", JSON.stringify(backofficeAccount))
+function editBackofficeAccount(backofficeAccount: Account) {
+  localStorage.setItem("backofficeAccount", JSON.stringify(backofficeAccount));
   editModalOpen.value = true;
 }
 function close() {
@@ -427,14 +426,18 @@ watch(
 
   <!-- Modal -->
   <AppModal v-model="modalOpen" xl2>
-    <CreateAccount @tillOperatorAccountCreated="close" @cancel="close" @backOfficeAccountCreated="close" />
+    <CreateAccount
+      @tillOperatorAccountCreated="close"
+      @cancel="close"
+      @backOfficeAccountCreated="close"
+    />
   </AppModal>
   <!-- /Modal -->
 
   <AppModal v-model="editModalOpen" xl2>
     <!-- Put here whatever makes you smile -->
     <!-- Chances are high that you're starting with a form -->
-    <EditBackOfficeAccount  @cancel="closeEditModal"/>
+    <EditBackOfficeAccount @cancel="closeEditModal" />
     <!-- That's also okay -->
   </AppModal>
 </template>
