@@ -97,7 +97,7 @@ function open(till: Till) {
 function edit(till: Till) {
   editModalOpen.value = true;
   // localStorage.setItem("branch", JSON.stringify(till));
-  console.log("Branch to edit: ", till);
+  console.log("Till to edit: ", till);
 }
 
 //configure branch
@@ -139,7 +139,13 @@ function deleteTill(tillId: string) {
 
 function close() {
   modalOpen.value = false;
+}
+
+function closeViewModal() {
   editModalOpen.value = false;
+}
+
+function closeAssignModal(){
   assignOperatorModalOpen.value = false;
 }
 
