@@ -101,7 +101,7 @@ function submit() {
   };
   loading.value = true;
   store.addTill(payload); // Simply add the branch
-  notify.success("Branch Created");
+  notify.success("Till Created");
   emit("branchCreated");
   loading.value = false;
 }
