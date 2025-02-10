@@ -257,6 +257,9 @@ export const useAccounts = defineStore("user-management", () => {
     });
   }
 
+  const isLoading: Ref<boolean> = ref(false);
+
+
   // const assignManager = (payload: AssignManager) => {
   //   const tillToUpdate = tills.value?.find(till => till.id === payload.tillId);
   //   if (branchToUpdate) {
@@ -357,6 +360,23 @@ export const useAccounts = defineStore("user-management", () => {
   //     alert(`User with ID ${userId} not found.`);
   //   }
   // };
+
+    // Branch Manager Accounts
+    const createTillOperatorAccount = async (payload: ManagerAccount) => {
+      isLoading.value = true;
+      try {
+        const { data } = await api.post("/branch-manager/create-till-operator-account", payload);
+        tillOperators.value.push(data.data);
+        return data;
+      } catch (err) {
+        error.value = "Failed to create branch manager account";
+        throw err;
+      } finally {
+        isLoading.value = false;
+      }
+    };
+
+
   async function assignOperator(userId: string, tillId: string) {
     console.log('User ID:', userId); // Debugging log
     console.log('Till ID:', tillId); // Debugging log
@@ -367,7 +387,7 @@ export const useAccounts = defineStore("user-management", () => {
 
     // if (user && branch) {
     if (user && till) {
-      const { data } = await api.post("/create", {
+      const { data } = await api.post("/create-till-operator-account", {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -419,6 +439,7 @@ export const useAccounts = defineStore("user-management", () => {
     backofficeAccounts,
     tillOperators,
     tillOperatorAllocations,
+    createTillOperatorAccount,
     assignOperator,
     createAccount,
     fetchBackofficeAccounts,
