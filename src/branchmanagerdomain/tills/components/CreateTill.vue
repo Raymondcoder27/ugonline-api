@@ -100,7 +100,7 @@ function submit() {
     name: form.name,
   };
   loading.value = true;
-  store.addBranch(payload); // Simply add the branch
+  store.addTill(payload); // Simply add the branch
   notify.success("Branch Created");
   emit("branchCreated");
   loading.value = false;
