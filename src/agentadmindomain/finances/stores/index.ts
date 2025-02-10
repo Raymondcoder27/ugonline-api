@@ -143,14 +143,14 @@ export const useBilling = defineStore("billing", () => {
   async function fetchFloatLedgers() {
     try {
       const { data } = await api.get("/agent-admin-float-ledgers");
-  
+
       if (data.data && data.data.length > 0) {
         floatLedgers.value = [...dummyFloatLedgers, ...data.data]; // Keep dummy data first
       } else {
         console.warn("API returned empty float ledgers, keeping only dummy data.");
         floatLedgers.value = dummyFloatLedgers; // Fallback to dummy data
       }
-  
+
       console.log("Float Ledgers:", floatLedgers.value);
     } catch (error) {
       console.error("Error fetching float ledgers:", error);
@@ -400,11 +400,11 @@ export const useBilling = defineStore("billing", () => {
 
       // Step 3: Approve the Float Ledger Record using `ledgerId`
       if (floatRequest.ledgerId) {
-          await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
-            // ...ledgerEntry, // Retain all original fields
-            status: "approved", // Only update status
-            // amount: 
-          });
+        await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
+          // ...ledgerEntry, // Retain all original fields
+          status: "approved", // Only update status
+          // amount: 
+        });
       } else {
         console.error("Ledger ID not found in float request!");
       }
@@ -507,13 +507,13 @@ export const useBilling = defineStore("billing", () => {
         // const ledgerEntry = floatLedgers.value.find(ledger => ledger.id === floatRequest.ledgerId);
 
         // if (ledgerEntry) {
-          await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
-            // ...ledgerEntry, // Retain all original fields
-            status: "edited", // Only update status
-            amount: payload.amount,
-          });
+        await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
+          // ...ledgerEntry, // Retain all original fields
+          status: "edited", // Only update status
+          amount: payload.amount,
+        });
 
-          // console.log("Float ledger record edited:", ledgerEntry);
+        // console.log("Float ledger record edited:", ledgerEntry);
         // } else {
         //   console.error("Ledger entry not found for ID:", floatRequest.ledgerId);
         // }
