@@ -59,7 +59,7 @@ const store = useTillStore();
 const loading: Ref<boolean> = ref(false);
 const notify = useNotificationsStore();
 
-type BranchForm = {
+type TillForm = {
   id: string;
   name: string;
 };
@@ -69,7 +69,7 @@ const form = reactive({
   name: "",
 });
 
-const emit = defineEmits(["cancel", "branchCreated"]);
+const emit = defineEmits(["cancel", "tillCreated"]);
 
 onMounted(() => {
   loading.value = true;
@@ -102,7 +102,7 @@ function submit() {
   loading.value = true;
   store.addTill(payload); // Simply add the branch
   notify.success("Till Created");
-  emit("branchCreated");
+  emit("tillCreated");
   loading.value = false;
 }
 </script>
