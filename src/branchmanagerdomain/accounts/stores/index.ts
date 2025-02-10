@@ -97,7 +97,9 @@ export const useAccounts = defineStore("user-management", () => {
   const userAccounts: Ref<Account[]> = ref([UserAccounts]);
   const backofficeAccounts: Ref<Account[]> = ref([BackofficeAccounts]);
   // const tillOperatorAccounts: Ref<TillOperatorAccount[]> = ref([TillOperatorAccounts]);
-  const tillOperators: Ref<TillOperatorAccount[]> = ref([TillOperatorAccounts]);
+  // const tillOperators: Ref<TillOperatorAccount[]> = ref([TillOperatorAccounts]);
+  const tillOperators: Ref<TillOperatorAccount[]> = ref([]);
+
   const tillOperatorAllocations: Ref<AllocateTillOperator[]> = ref([]);
 
 
@@ -323,7 +325,38 @@ export const useAccounts = defineStore("user-management", () => {
   //   }
   // };
 
-  const assignOperator = (userId: string, tillId: string) => {
+  // const assignOperator = (userId: string, tillId: string) => {
+  //   console.log('User ID:', userId); // Debugging log
+  //   console.log('Till ID:', tillId); // Debugging log
+
+  //   const user = backofficeAccounts.value?.find((account) => account.id === userId); // Find user by `userId`
+
+  //   const till = tillStore.tills?.find((till: Till) => till.id === tillId);
+
+  //   // if (user && till) {
+  //   if (user && till) {
+  //     tillOperators.value.push({
+  //       firstName: user.firstName,
+  //       lastName: user.lastName,
+  //       email: user.email,
+  //       phone: user.phone,
+  //       role: user.role,
+  //       status: user.status,
+  //       createdAt: new Date().toISOString(),
+  //       emailVerified: true,
+  //       phoneVerified: true,
+  //       activatedAt: new Date().toISOString(),
+  //       till: till.name, // Include tillId
+  //     });
+  //     // saveManagerToLocalStorage(); // Save to local storage
+  //     console.log(`Manager assigned to Till ${till.name}`);
+  //     console.log(`Manager assigned to Till ${tillId}`);
+  //   } else {
+  //     console.warn(`User with ID ${userId} not found.`);
+  //     alert(`User with ID ${userId} not found.`);
+  //   }
+  // };
+  async function assignOperator(userId: string, tillId: string) {
     console.log('User ID:', userId); // Debugging log
     console.log('Till ID:', tillId); // Debugging log
 
@@ -331,9 +364,9 @@ export const useAccounts = defineStore("user-management", () => {
 
     const till = tillStore.tills?.find((till: Till) => till.id === tillId);
 
-    // if (user && till) {
+    // if (user && branch) {
     if (user && till) {
-      tillOperators.value.push({
+      const { data } = await api.post("/till-operators", {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -344,25 +377,12 @@ export const useAccounts = defineStore("user-management", () => {
         emailVerified: true,
         phoneVerified: true,
         activatedAt: new Date().toISOString(),
-        till: till.name, // Include tillId
+        till: till.name, // Include branchId
       });
-      // tillOperatorAccounts.value.push(assignedManager);
-      // localStorageTillOperator.value.push({
-      //   firstName: user.firstName,
-      //   lastName: user.lastName,
-      //   email: user.email,
-      //   phone: user.phone,
-      //   role: user.role,
-      //   status: user.status,
-      //   createdAt: new Date().toISOString(),
-      //   emailVerified: true,
-      //   phoneVerified: true,
-      //   activatedAt: new Date().toISOString(),
-      //   till: till.name, // Include tillId
-      // }) // Update the local storage reference
-      // saveManagerToLocalStorage(); // Save to local storage
-      console.log(`Manager assigned to Till ${till.name}`);
-      console.log(`Manager assigned to Till ${tillId}`);
+
+      tillOperators.value?.push(data.data);
+      console.log(`Manager assigned to branch ${till.name}`);
+      console.log(`Manager assigned to branch ${tillId}`);
     } else {
       console.warn(`User with ID ${userId} not found.`);
       alert(`User with ID ${userId} not found.`);

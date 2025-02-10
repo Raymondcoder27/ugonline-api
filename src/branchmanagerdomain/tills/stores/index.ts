@@ -79,9 +79,9 @@ export const useTillStore = defineStore("useTill", () => {
   // };
   async function assignManager(payload: AssignManager) {
     try {
-      await api.post("/agent-admin/assign-branch-manager", payload);
+      await api.post("/branch-manager/assign-till-operator", payload);
       const tillToUpdate = tills.value?.find(till => till.id === payload.tillId);
-      if (branchToUpdate) {
+      if (tillToUpdate) {
         tillToUpdate.manager = payload.managerId;
       }
     } catch (error) {
