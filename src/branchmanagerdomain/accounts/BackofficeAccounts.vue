@@ -22,7 +22,13 @@ const viewModalOpen: Ref<boolean> = ref(false);
 }
 function close() {
   modalOpen.value = false;
+}
+
+function closeOpenModal() {
   viewModalOpen.value = false;
+}
+
+function closeEditModal() {
   editModalOpen.value = false;
 }
 
@@ -421,7 +427,7 @@ watch(
 
   <!-- Modal -->
   <AppModal v-model="modalOpen" xl2>
-    <CreateAccount @tillOperatorAccountCreated="close" @cancel="close" />
+    <CreateAccount @tillOperatorAccountCreated="close" @cancel="close" @backOfficeAccountCreated="close" />
   </AppModal>
   <!-- /Modal -->
 
