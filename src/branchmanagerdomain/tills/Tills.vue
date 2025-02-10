@@ -36,7 +36,7 @@ const tills: Ref<any[]> = ref([]);
 let status = ref("");
 const notify = useNotificationsStore();
 
-const totalRecords = computed(() => tillStore?.tills.length); // Total tills
+const totalRecords = computed(() => tillStore.tills?.length); // Total tills
 const totalPages = computed(() => Math.ceil(totalRecords.value / limit.value));
 const pageInput = ref(1);
 const changePageSize = () => {
@@ -526,7 +526,7 @@ onMounted(() => {
           > -->
           <button
             class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
-            @click="deleteBranch(till)"
+            @click="deleteTill(till)"
           >
             <i class="fa-solid fa-check-circle mx-1"></i> Confirm
           </button>

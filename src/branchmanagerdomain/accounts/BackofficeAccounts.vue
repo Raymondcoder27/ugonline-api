@@ -19,6 +19,7 @@ function editBackofficeAccount(backofficeAccount: Account) {
   localStorage.setItem("backofficeAccount", JSON.stringify(backofficeAccount));
   editModalOpen.value = true;
 }
+
 function close() {
   modalOpen.value = false;
 }
