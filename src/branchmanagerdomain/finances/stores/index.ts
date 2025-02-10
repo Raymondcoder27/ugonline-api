@@ -5,6 +5,7 @@ import { ref } from "vue";
 import api from "@/config/api";
 import type { Transaction, FloatLedger, BackofficeUser, TillOperator, FloatAllocation, FloatRequest, RequestFloatToAdmin } from "@/branchmanagerdomain/finances/types";
 import type { AllocateFloat } from "@/types";
+import type { Till } from "@/branchmanagerdomain/tills/types"; 
 
 export const useBilling = defineStore("billing", () => {
   //  data for testing
@@ -114,6 +115,19 @@ export const useBilling = defineStore("billing", () => {
   // if (floatRequests) {
   //   floatRequests.value = floatRequests;
   // }
+
+
+  async function addTill(newBranch: Till) {
+    try {
+      const { data } = await api.post("/add-till", newBranch);
+      // branches.value = response.data
+      // branches.value?.push(data.data);
+      tills.value?.push(data.data);
+
+    } catch (error) {
+      console.error("Error adding branch:", error);
+    }
+  }
 
 
   // Actions to fetch data
@@ -616,6 +630,7 @@ export const useBilling = defineStore("billing", () => {
     tillOperatorFloatBalance,
     floatRequestsToAdmin,
     tillFloatLedgers,
+    addTill,
     fetchFloatRequestsToAdmin,
     reduceFloatLedger,
     approveFloatRequest,
