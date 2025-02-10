@@ -69,14 +69,25 @@ export const useTillStore = defineStore("useTill", () => {
   //   }
   // };
 
-  const assignManager = (payload: AssignManager) => {
-    const tillToUpdate = tills.value?.find(till => till.id === payload.tillId);
-    if (tillToUpdate) {
-      tillToUpdate.manager = payload.managerId;
-    } else {
-      console.warn(`Till with ID ${payload.tillId} not found.`);
+  // const assignManager = (payload: AssignManager) => {
+  //   const tillToUpdate = tills.value?.find(till => till.id === payload.tillId);
+  //   if (tillToUpdate) {
+  //     tillToUpdate.manager = payload.managerId;
+  //   } else {
+  //     console.warn(`Till with ID ${payload.tillId} not found.`);
+  //   }
+  // };
+  async function assignManager(payload: AssignManager) {
+    try {
+      await api.post("/agent-admin/assign-branch-manager", payload);
+      const tillToUpdate = tills.value?.find(till => till.id === payload.tillId);
+      if (branchToUpdate) {
+        tillToUpdate.manager = payload.managerId;
+      }
+    } catch (error) {
+      console.error("Error assigning manager:", error);
     }
-  };
+  }
   
   // push new assigned manager managerAccounts array
   // const assignManager = (payload: AssignManager) => {
