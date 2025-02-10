@@ -9,6 +9,7 @@ import { AxiosError } from "axios";
 import type { AccountResponseInterface, AccountsData, IResendVerificationPayload } from "@/branchmanagerdomain/accounts/types";
 import type { Till } from "@/branchmanagerdomain/tills/types";
 import { useTillStore } from "@/branchmanagerdomain/tills/stores";
+import api from "@/config/api"
 
 
 export const useAccounts = defineStore("user-management", () => {
@@ -366,7 +367,7 @@ export const useAccounts = defineStore("user-management", () => {
 
     // if (user && branch) {
     if (user && till) {
-      const { data } = await api.post("/till-operators", {
+      const { data } = await api.post("/create", {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
