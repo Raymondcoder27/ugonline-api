@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, type Ref, ref } from "vue";
+import { onMounted, reactive, type Ref, ref, defineEmits } from "vue";
 import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
 // import { useAccountStore } from "@/branchmanagerdomain/auth/stores";
 import type { Account } from "@/branchmanagerdomain/types";
