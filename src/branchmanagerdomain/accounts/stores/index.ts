@@ -200,26 +200,26 @@ export const useAccounts = defineStore("user-management", () => {
 
 
 
-  // add backoffice account, push to the backoffice account array
-  const addBackOfficeAccount = (newBackoffice: BackOfficeAccount) => {
-    backofficeAccounts.value.push(
-      {
-        // id:  floatAllocations.value.length + 1,
-        id: backofficeAccounts.value.length + 1,
-        firstName: newBackoffice.firstName,
-        lastName: newBackoffice.lastName,
-        middleNames: newBackoffice.middleNames,
-        username: newBackoffice.username,
-        phone: newBackoffice.phone,
-        emailVerified: true,
-        phoneVerified: true,
-        role: newBackoffice.role,
-        createdAt: new Date().toISOString(),
-        status: "Active",
-        email: newBackoffice.email
-      }
-    ); // Directly add the backoffice to the array
-  }
+  // // add backoffice account, push to the backoffice account array
+  // const addBackOfficeAccount = (newBackoffice: BackOfficeAccount) => {
+  //   backofficeAccounts.value.push(
+  //     {
+  //       // id:  floatAllocations.value.length + 1,
+  //       id: backofficeAccounts.value.length + 1,
+  //       firstName: newBackoffice.firstName,
+  //       lastName: newBackoffice.lastName,
+  //       middleNames: newBackoffice.middleNames,
+  //       username: newBackoffice.username,
+  //       phone: newBackoffice.phone,
+  //       emailVerified: true,
+  //       phoneVerified: true,
+  //       role: newBackoffice.role,
+  //       createdAt: new Date().toISOString(),
+  //       status: "Active",
+  //       email: newBackoffice.email
+  //     }
+  //   ); // Directly add the backoffice to the array
+  // }
 
   // const addTillOperator = (newManager: TillOperator) => {
   //   tillOperatorAccounts.value.push(newManager); // Directly add the tillOperator to the array
@@ -232,16 +232,56 @@ export const useAccounts = defineStore("user-management", () => {
   }
 
   // Fetch  backoffice accounts
-  const fetchBackofficeAccounts = async (filter: IGoFilter) => {
-    // Here you would normally process the filter if you had real data
-    backofficeAccounts.value = BackofficeAccounts;
-  }
+  // const fetchBackofficeAccounts = async (filter: IGoFilter) => {
+  //   // Here you would normally process the filter if you had real data
+  //   backofficeAccounts.value = BackofficeAccounts;
+  // }
 
   // Fetch  tillOperator accounts
-  const fetchTillOperators = async (filter: IGoFilter) => {
-    // Here you would normally process the filter if you had real data
-    tillOperators.value = TillOperatorAccounts;
-  }
+  // const fetchTillOperators = async (filter: IGoFilter) => {
+  //   // Here you would normally process the filter if you had real data
+  //   tillOperators.value = TillOperatorAccounts;
+  // }
+
+  const fetchTillOperators = async () => {
+    isLoading.value = true;
+    try {
+      const { data } = await api.get("/branch-manager/branch-manager-accounts");
+      tillOperators.value = data.data;
+    } catch (err) {
+      error.value = "Failed to fetch branch managers";
+      throw err;
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  const addBackOfficeAccount = async (payload: BackOfficeAccount) => {
+    isLoading.value = true;
+    try {
+      const { data } = await api.post("/agent-admin/create-back-office-account", payload);
+      backofficeAccounts.value.push(data.data);
+      return data.data;
+    } catch (err) {
+      error.value = "Failed to create back office account";
+      throw err;
+    } finally {
+      isLoading.value = false;
+    }
+  };
+  // Fetch Accounts
+  const fetchBackofficeAccounts = async () => {
+    isLoading.value = true;
+    try {
+      const { data } = await api.get("/branch-manager/back-office-accounts");
+      backofficeAccounts.value = data.data;
+    } catch (err) {
+      error.value = "Failed to fetch back office accounts";
+      throw err;
+    } finally {
+      isLoading.value = false;
+    }
+  };
 
   // Simulating resend account verification
   const resendAccountVerification = async (payload: IResendVerificationPayload) => {
