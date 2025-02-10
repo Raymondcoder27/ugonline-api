@@ -259,7 +259,7 @@ export const useAccounts = defineStore("user-management", () => {
   const addBackOfficeAccount = async (payload: BackOfficeAccount) => {
     isLoading.value = true;
     try {
-      const { data } = await api.post("/agent-admin/create-back-office-account", payload);
+      const { data } = await api.post("/branch-manager/create-back-office-account", payload);
       backofficeAccounts.value.push(data.data);
       return data.data;
     } catch (err) {
@@ -427,7 +427,7 @@ export const useAccounts = defineStore("user-management", () => {
 
     // if (user && branch) {
     if (user && till) {
-      const { data } = await api.post("/create-till-operator-account", {
+      const { data } = await api.post("/branch-manager/create-till-operator-account", {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
