@@ -631,6 +631,7 @@ export const useBilling = defineStore("billing", () => {
     floatRequestsToAdmin,
     tillFloatLedgers,
     addTill,
+    fetchTills,
     fetchFloatRequestsToAdmin,
     reduceFloatLedger,
     approveFloatRequest,
