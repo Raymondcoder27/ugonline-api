@@ -17,11 +17,9 @@ import { useAccountStore } from "../auth/stores";
 import { useBilling } from "@/branchmanagerdomain/finances/stores";
 import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
 
-
 const billingStore = useBilling();
 
 const showTillCloseModal = ref(false);
-
 
 const accountStore = useAccounts();
 const tillStore = useTillStore(); // Updated store
@@ -145,7 +143,7 @@ function closeViewModal() {
   editModalOpen.value = false;
 }
 
-function closeAssignModal(){
+function closeAssignModal() {
   assignOperatorModalOpen.value = false;
 }
 
@@ -302,11 +300,7 @@ onMounted(() => {
             v-for="(till, idx) in tillStore.tills"
             :key="idx"
           > -->
-          <tr
-            class="body-tr"
-            v-for="(till, idx) in paginatedTills"
-            :key="idx"
-          >
+          <tr class="body-tr" v-for="(till, idx) in paginatedTills" :key="idx">
             <!-- <td width="10px">{{ idx + 1 }}.</td> -->
             <td>
               <label
@@ -398,9 +392,7 @@ onMounted(() => {
   <span>{{ branch.status }}</span>
 </td> -->
             <td class="text-left">
-              <span class="text-xs">{{
-                convertDateTime(till.createdAt)
-              }}</span>
+              <span class="text-xs">{{ convertDateTime(till.createdAt) }}</span>
             </td>
             <td class="text-right">
               <!-- <i
@@ -503,9 +495,8 @@ onMounted(() => {
     </div>
   </div>
 
-
-   <!-- Approve Modal -->
-   <AppModal v-model="showTillCloseModal" xl>
+  <!-- Approve Modal -->
+  <AppModal v-model="showTillCloseModal" xl>
     <div class="flex">
       <div class="w-full">
         <div class="flex">
