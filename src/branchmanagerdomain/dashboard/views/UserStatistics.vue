@@ -2,6 +2,9 @@
 import BarChart from "@/branchmanagerdomain/analytics/components/BarChart.vue";
 import LineChart from "@/branchmanagerdomain/analytics/components/LineChart.vue";
 import PieChart from "@/branchmanagerdomain/analytics/components/PieChart.vue";
+// import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
+// const accountStore = useAccounts();
+const totalTillOperators = accountStore.tillOperators?.length || 0;
 
 import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
 const accountStore = useAccounts();
@@ -9,7 +12,10 @@ const totalBranchManagers = accountStore.managerAccounts?.length || 0;
 const totalBackOfficeAccounts = accountStore.backofficeAccounts?.length || 0;
 
 import type { Ref } from "vue";
-import type { GraphData, Statistic } from "@/branchmanagerdomain/analytics/types/chart";
+import type {
+  GraphData,
+  Statistic,
+} from "@/branchmanagerdomain/analytics/types/chart";
 import { ref } from "vue";
 
 const userTypeDistribution: Ref<Array<GraphData>> = ref([
@@ -138,7 +144,8 @@ function labelExtractor(data: Statistic[]) {
             </div> -->
             <div class="w-2/12 count">
               <p class="text-xl font-bold py-2">
-                {{ Number(13).toLocaleString() }}
+                <!-- {{ Number(13).toLocaleString() }} -->
+                {{ totalTillOperators }}
               </p>
               <p class="text-xs">Till Operators</p>
             </div>
