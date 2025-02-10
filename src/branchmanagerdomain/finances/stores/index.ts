@@ -104,6 +104,10 @@ export const useBilling = defineStore("billing", () => {
   // const floatRequestsToAdmin = ref<FloatRequest[]>(dummyFloatRequestsToAdmin);
   const floatRequestsToAdmin = ref<FloatRequest[]>([]);
 
+  const tills: Ref<Till[] | undefined> = ref([]);
+  const till: Ref<Till | undefined> = ref();
+  const isLoading: Ref<boolean> = ref(false);
+
 
   // const floatRequests = JSON.parse(localStorage.getItem('floatRequestToBranchManagerLocalStorage') || '[]');
 
@@ -584,6 +588,18 @@ export const useBilling = defineStore("billing", () => {
       // }
     } catch (error) {
       console.error("Error rejecting float request:", error);
+    }
+  }
+
+  async function fetchTills() {
+    isLoading.value = true;
+    try {
+      const { data } = await api.get("/tills");
+      tills.value = data.data;
+    } catch (error) {
+      console.error("Error fetching tills:", error);
+    } finally {
+      isLoading.value = false;
     }
   }
 
