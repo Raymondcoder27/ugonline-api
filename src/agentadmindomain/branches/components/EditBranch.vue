@@ -59,7 +59,7 @@ let form: ManagerAccount = reactive({
   // emailVerified: "",
   phoneVerified: "",
   activatedAt: "",
-})
+});
 
 const emit = defineEmits(["cancel", "managerAssigned"]);
 
@@ -77,8 +77,7 @@ const emit = defineEmits(["cancel", "managerAssigned"]);
 onMounted(() => {
   //   let data = JSON.parse(<string>localStorage.getItem("provider"))
   // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
-    let data = JSON.parse(<string>localStorage.getItem("branch"));
-
+  let data = JSON.parse(<string>localStorage.getItem("branch"));
 
   form.branch = data.branch;
   form.name = data.name;
@@ -123,15 +122,15 @@ function submit(userId: string) {
   //   branchId: branchId,
   // };
   // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
-    let data = JSON.parse(<string>localStorage.getItem("branch"));
+  let data = JSON.parse(<string>localStorage.getItem("branch"));
 
   let id = data.id;
   let payload = {
     branch: form.branch,
-    firstName: form.firstName,
-    lastName: form.lastName,
-    email: form.email,
-    phone: form.phone,
+    // firstName: form.firstName,
+    // lastName: form.lastName,
+    // email: form.email,
+    // phone: form.phone,
     // inquiry_phone_number: form.inquiryPhoneNumber,
     // physical_address: form.physicalAddress,
     // username: form.username,
@@ -156,10 +155,10 @@ function submit(userId: string) {
       of Uganda.
     </p> -->
     <form @submit.prevent="submit" class="pt-5">
-      <!-- <div class="flex">
+      <div class="flex">
         <div class="cell-full">
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1"
-            >Provider Name</label
+            >Branch Name</label
           >
           <input
             type="text"
@@ -168,7 +167,7 @@ function submit(userId: string) {
             required
           />
         </div>
-      </div> -->
+      </div>
 
       <!-- <div class="flex">
         <div class="cell-full">
@@ -185,7 +184,7 @@ function submit(userId: string) {
         </div>
       </div> -->
 
-      <div class="flex">
+      <!-- <div class="flex">
         <div class="cell">
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1"
             >First Name</label
@@ -208,10 +207,10 @@ function submit(userId: string) {
             required
           />
         </div>
-      </div>
+      </div> -->
 
       <!-- <p class="text-sm font-bold pt-5">Provider Inquiry Details</p> -->
-      <div class="flex">
+      <!-- <div class="flex">
         <div class="cell">
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1"
             >Email Address</label
@@ -232,7 +231,7 @@ function submit(userId: string) {
             class="noFocus form-element e-input w-full"
           />
         </div>
-      </div>
+      </div> -->
       <!-- <div class="flex">
         <div class="cell-full">
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1"
