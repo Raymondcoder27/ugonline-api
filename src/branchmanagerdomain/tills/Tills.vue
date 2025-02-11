@@ -8,7 +8,7 @@ import moment from "moment/moment";
 import router from "@/router";
 import { useProviderStore } from "@/branchmanagerdomain/entities/stores";
 import AssignTillOperator from "@/branchmanagerdomain/tills/components/AssignTillOperator.vue";
-import EditTill from "@/branchmanagerdomain/tills/components/EditTill.vue";
+import EditTill from "@/branchmanagerdomain/tills/components/EditTill2.vue";
 // import CategorySelector from "@/branchmanagerdomain/settings/components/CategorySelector.vue";
 import { useNotificationsStore } from "@/stores/notifications";
 import type { ApiError } from "@/types";
