@@ -142,7 +142,7 @@ export const useBilling = defineStore("billing", () => {
 
   async function fetchFloatLedgers() {
     try {
-      const { data } = await api.get("/agent-admin-float-ledgers");
+      const { data } = await api.get("/agent-admin/float-ledgers");
 
       if (data.data && data.data.length > 0) {
         floatLedgers.value = [...dummyFloatLedgers, ...data.data]; // Keep dummy data first
