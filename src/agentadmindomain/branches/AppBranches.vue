@@ -89,7 +89,7 @@ function editBranch(branch: Branch) {
   branchStore.branches?.forEach((branch) => {
     const manager = getManagerByBranch(branch.name);
     if (manager) {
-      branch.manager = manager;
+      branch.manager = manager.email;
     }
   });
   localStorage.setItem("branch", JSON.stringify(branch));
