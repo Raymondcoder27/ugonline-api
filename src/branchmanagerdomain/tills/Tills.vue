@@ -19,7 +19,7 @@ import { useAccounts } from "@/branchmanagerdomain/accounts/stores";
 
 const billingStore = useBilling();
 
-const showTillCloseModal = ref(false);
+// const showTillCloseModal = ref(false);
 
 const accountStore = useAccounts();
 const tillStore = useTillStore(); // Updated store
@@ -443,7 +443,7 @@ onMounted(() => {
               > -->
               <span
                 class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
-                @click="deleteTill(till.id)"
+                @click="tillCloseModal(till)"
               >
                 <!-- <i
                   class="fa-solid fa-store-slash"
