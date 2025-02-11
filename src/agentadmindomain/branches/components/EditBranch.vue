@@ -76,7 +76,9 @@ const emit = defineEmits(["cancel", "managerAssigned"]);
 
 onMounted(() => {
   //   let data = JSON.parse(<string>localStorage.getItem("provider"))
-  let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+  // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+    let data = JSON.parse(<string>localStorage.getItem("branch"));
+
 
   form.branch = data.branch;
   form.name = data.name;
@@ -120,7 +122,8 @@ function submit(userId: string) {
   //   userId: userId,
   //   branchId: branchId,
   // };
-  let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+  // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+    let data = JSON.parse(<string>localStorage.getItem("branch"));
 
   let id = data.id;
   let payload = {
