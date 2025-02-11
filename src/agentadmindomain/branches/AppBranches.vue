@@ -136,7 +136,7 @@ function convertDateTime(date: string) {
 //   }
 // }
 async function deleteBranch(branch: Branch) {
-  console.log("delete button clicked")
+  console.log("delete button clicked");
   try {
     const branches = await branchStore.fetchBranches();
     branches.value = branches.value.filter((b) => b.id !== branch.id);
