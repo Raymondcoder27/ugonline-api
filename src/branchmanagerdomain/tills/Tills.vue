@@ -135,7 +135,7 @@ function assignOperator(till: Till) {
 
 function deleteTill(tillId: string) {
   tillStore.deleteTill(tillId); // Assuming this is a mutation to remove the branch
-  // tillStore.tills = tillStore.tills.filter((b) => b.id !== branchId); // Manually update the store
+  tillStore.tills = tillStore.tills?.filter((b) => b.id !== tillId); // Manually update the store
   // fetchTills(); // Refetch the tills after deleting, if needed
   notify.success("Branch Deleted");
 }
@@ -530,7 +530,7 @@ onMounted(() => {
           > -->
           <button
             class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
-            @click="deleteTill(till)"
+            @click="deleteTill(selectedTill)"
           >
             <i class="fa-solid fa-check-circle mx-1"></i> Confirm
           </button>
