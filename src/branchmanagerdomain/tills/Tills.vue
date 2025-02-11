@@ -56,14 +56,14 @@ const jumpToPage = () => {
   fetchTills();
 };
 
-// Helper function to get manager by branch
+// Helper function to get operator by branch
 const getOperatorByTill = (tillName) => {
   return accountStore.tillOperators.find(
     (operator) => operator.till === tillName
   );
 };
 
-//Helper function to get manager by backoffice account
+//Helper function to get operator by backoffice account
 // const getBackOfficeAccount = (branchName) => {
 //   return accountStore.backofficeAccounts.find(
 //     (backofficeAccount) => backofficeAccount.branch = branchName
@@ -93,6 +93,12 @@ function open(till: Till) {
 
 // edit branch
 function edit(till: Till) {
+  tillStore.tills?.forEach((till) => {
+    const operator = getOperatorByTill(till.name);
+    if (operator) {
+      till.operator = operator.email;
+    }
+  });
   editModalOpen.value = true;
   localStorage.setItem("till", JSON.stringify(till));
   console.log("Till to edit: ", till);
@@ -182,7 +188,7 @@ const paginatedTills = computed(() => {
   return tillStore.tills?.slice(start, end); // Adjust according to your page & limit
 });
 
-// Helper function to assign managers to tills
+// Helper function to assign operators to tills
 const assignOperatorsToTills = () => {
   tillStore.tills?.forEach((till) => {
     const operator = getOperatorByTill(till.name);
@@ -217,7 +223,7 @@ onMounted(() => {
   <div class="w-full shadow-lg bg-white rounded p-2 flex flex-col min-h-[85vh]">
     <div class="flex">
       <div class="w-full py-1 text-primary-700">
-         <i
+        <i
           class="bg-primary-100 border border-primary-200 p-2 rounded-full fa-solid fa-code-branch"
         ></i>
         <!--<i
@@ -339,7 +345,7 @@ onMounted(() => {
             </td> -->
 
             <td class="text-black-700 text-left">
-              <!-- First Case: Manager linked via `getOperatorByTill()` -->
+              <!-- First Case: operator linked via `getOperatorByTill()` -->
               <div v-if="getOperatorByTill(till.name)">
                 <label>
                   {{ getOperatorByTill(till.name).firstName }}
@@ -347,14 +353,14 @@ onMounted(() => {
                 </label>
               </div>
 
-              <!-- Second Case: Manager directly assigned to till -->
+              <!-- Second Case: operator directly assigned to till -->
               <div v-else-if="till.operator">
                 <label>
                   {{ till.operator.firstName }} {{ till.operator.lastName }}
                 </label>
               </div>
 
-              <!-- Third Case: Fallback, no manager assigned -->
+              <!-- Third Case: Fallback, no operator assigned -->
               <!-- <div v-else>
                 <button
                   class="bg-red-200 rounded-sm text-xs font-semibold text-red-700 px-1.5 py-1 hover:underline"
@@ -554,7 +560,7 @@ onMounted(() => {
   </AppModal>
   <!-- /Modal -->
 
-  <!-- Assign Manager Modal -->
+  <!-- Assign operator Modal -->
   <AppModal v-model="assignOperatorModalOpen" xl2>
     <!-- Put here whatever makes you smile -->
     <!-- Chances are high that you're starting with a form -->

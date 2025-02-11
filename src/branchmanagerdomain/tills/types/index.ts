@@ -20,6 +20,7 @@ export type Till = {
   name: string;
   location: string;
   status: string;
-  manager: string;
+  // manager: string;
+  operator: string;
   createdAt: string;
 };
