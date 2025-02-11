@@ -58,9 +58,9 @@ const jumpToPage = () => {
 // Helper function to get manager by branch
 const getManagerByBranch = (branchName) => {
   // return accountStore.managerAccounts.find(
-    console.log(accountStore.managerAccounts);
+  console.log(accountStore.managerAccounts);
 
-    return accountStore.managerAccounts?.find(
+  return accountStore.managerAccounts?.find(
     (manager) => manager.branch === branchName
   );
 };
@@ -94,14 +94,16 @@ async function fetchBranches() {
   loading.value = true;
   try {
     await branchStore.fetchBranches();
-    branches.value = branchStore.branches?.slice((page.value - 1) * limit.value, page.value * limit.value);
+    branches.value = branchStore.branches?.slice(
+      (page.value - 1) * limit.value,
+      page.value * limit.value
+    );
   } catch (error) {
     notify.error(error.response?.data?.message || "Error fetching branches");
   } finally {
     loading.value = false;
   }
 }
-
 
 function open(branch: Branch) {
   router.push({ name: "branch-details", params: { id: branch.id } });
@@ -133,13 +135,12 @@ function convertDateTime(date: string) {
 async function deleteBranch(branch: Branch) {
   try {
     await branchStore.deleteBranch(branch.id);
-    branches.value = branches.value.filter(b => b.id !== branch.id);
+    branches.value = branches.value.filter((b) => b.id !== branch.id);
     notify.success("Branch Deleted");
   } catch (error) {
     notify.error(error.response?.data?.message || "Error deleting branch");
   }
 }
-
 
 // function deleteBranch(branch: Branch) {
 //     branchStore.deleteBranch(branch.id);
@@ -196,7 +197,7 @@ const paginatedBranches = computed(() => {
   const start = (page.value - 1) * limit.value;
   const end = start + limit.value;
   // return branchStore.branches.slice(start, end); // Adjust according to your page & limit
-  return branchStore.fetchBranches()
+  return branchStore.fetchBranches();
 });
 
 // Helper function to assign managers to branches
@@ -216,15 +217,17 @@ const branchManagers = computed(() => {
   }, {} as Record<string, any>);
 });
 
-
 const searchQuery = ref("");
 const filteredBranches = computed(() => {
-  return branches.value.filter(branch => 
-    branch.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-    (branch.manager && branch.manager.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()))
+  return branches.value.filter(
+    (branch) =>
+      branch.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      (branch.manager &&
+        branch.manager.firstName
+          .toLowerCase()
+          .includes(searchQuery.value.toLowerCase()))
   );
 });
-
 
 // const branchManagerFloatBalance = ref(0);
 
@@ -334,7 +337,7 @@ onMounted(() => {
           </tr>
         </thead>
         <tbody>
-           <!-- <tr
+          <!-- <tr
             class="body-tr"
             v-for="(branch, idx) in filteredBranches"
             :key="idx"
@@ -344,7 +347,7 @@ onMounted(() => {
             v-for="(branch, idx) in branchStore.branches"
             :key="idx"
           >
-          <!--
+            <!--
           <tr
             class="body-tr"
             v-for="(branch, idx) in paginatedBranches"

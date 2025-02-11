@@ -59,7 +59,7 @@ function submit() {
     branch: form.branch,
     amount: form.amount,
     status: form.status,
-    description: "Edited",
+    description: form.description,
     // display_name:form.displayName,
     // inquiry_email:form.inquiryEmail,
     // provider_type:form.providerType,
