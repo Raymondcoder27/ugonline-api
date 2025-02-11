@@ -83,11 +83,12 @@ function cancel() {
 
 onMounted(() => {
   //   let data = JSON.parse(<string>localStorage.getItem("provider"))
-  // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
-  let data = JSON.parse(<string>localStorage.getItem("branch"));
+  let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+  // let data = JSON.parse(<string>localStorage.getItem("branch"));
 
   // form.branch = data.branch;
   form.name = data.name;
+  form.manager = data.manager;
   // form.firstName = data.firstName;
   // form.lastName = data.lastName;
   // form.email = data.email;
