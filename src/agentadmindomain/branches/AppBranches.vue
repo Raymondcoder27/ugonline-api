@@ -141,7 +141,7 @@ function deleteBranch(branch: Branch) {
     branches.value = branches.value.filter((b) => b.id !== branch.id);
     notify.success("Branch Deleted");
   } catch (error) {
-    notify.error(error.response?.data?.message || "Error deleting branch");
+    notify.error(error.response?.data?.message || "Error closing branch");
   }
 }
 // async function deleteBranch(branch: Branch) {
