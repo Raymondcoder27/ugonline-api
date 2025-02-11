@@ -44,8 +44,7 @@ const changePageSize = () => {
 };
 const showPagination = computed(() => totalRecords.value >= limit.value);
 
-
-function branchCloseModal(branch: Branch){
+function branchCloseModal(branch: Branch) {
   localStorage.setItem("branch", JSON.stringify(branch));
   showBranchCloseModal.value = true;
 }
@@ -464,7 +463,7 @@ onMounted(() => {
                 class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
                 @click="branchCloseModal(branch)"
               >
-              <!-- <span
+                <!-- <span
                 class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
                 @click="deleteBranch(branch)"
               > -->
