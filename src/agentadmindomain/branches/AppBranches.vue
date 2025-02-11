@@ -29,6 +29,8 @@ const page: Ref<number> = ref(1);
 const limit: Ref<number> = ref(8);
 const loading: Ref<boolean> = ref(false);
 const selectedBranch: Ref<string> = ref("");
+  const selectedBranchToClose = ref<Branch | null>(null);
+
 const branches: Ref<any[]> = ref([]);
 // let providerId = ref("");
 let status = ref("");
@@ -45,7 +47,8 @@ const changePageSize = () => {
 const showPagination = computed(() => totalRecords.value >= limit.value);
 
 function branchCloseModal(branch: Branch) {
-  localStorage.setItem("branch", JSON.stringify(branch));
+  // localStorage.setItem("branch", JSON.stringify(branch));
+  selectedBranchToClose.value = branch;
   showBranchCloseModal.value = true;
 }
 
@@ -112,15 +115,28 @@ function convertDateTime(date: string) {
   return moment(date).format("DD-MM-YYYY HH:mm:ss");
 }
 
-async function deleteBranch(branch: Branch) {
+// async function deleteBranch(branch: Branch) {
+//   try {
+//     await branchStore.deleteBranch(branch.id);
+//     branches.value = branches.value.filter((b) => b.id !== branch.id);
+//     notify.success("Branch Deleted");
+//   } catch (error) {
+//     notify.error(error.response?.data?.message || "Error deleting branch");
+//   }
+// }
+async function deleteBranch(branch: Branch | null) {
+  if (!branch) return; // Defensive check
+
   try {
     await branchStore.deleteBranch(branch.id);
     branches.value = branches.value.filter((b) => b.id !== branch.id);
     notify.success("Branch Deleted");
-  } catch (error) {
+    showBranchCloseModal.value = false; // Close the modal
+  } catch (error: any) {
     notify.error(error.response?.data?.message || "Error deleting branch");
   }
 }
+
 // function deleteBranch(branch: Branch) {
 //   try {
 //     branches.value = branches.value.filter((b) => b.id !== branch.id);
@@ -575,7 +591,7 @@ onMounted(() => {
           </button>
           <button
             class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
-            @click="deleteBranch(branch)"
+            @click="deleteBranch(selectedBranchToClose)"
           >
             <i class="fa-solid fa-check-circle mx-1"></i> Confirm
           </button>
