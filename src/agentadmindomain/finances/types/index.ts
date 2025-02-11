@@ -47,6 +47,7 @@ export interface FloatLedger {
   amount: number;
   balance: number;
   createdAt: string; 
+  branch: string;
 }
 
 export interface FloatRequest {

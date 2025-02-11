@@ -48,6 +48,7 @@ export interface FloatLedger {
   balance: number;
   createdAt: string;
   status: string;
+  till: string;
 }
 
 // export interface FloatRequest {

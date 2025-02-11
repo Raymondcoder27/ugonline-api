@@ -286,6 +286,38 @@ export const useBilling = defineStore("billing", () => {
     }
   }
 
+  async function reduceFloatLedgerAfterEdit(payload: FloatLedger) {
+    try {
+      console.log("The payload:", payload);
+
+      // // Step 1: Find the corresponding float request
+      // const floatRequest = floatRequests.value.find(request => request.id === requestId);
+
+      // if (!floatRequest) {
+      //   console.error("Float request not found for ID:", requestId);
+      //   return;
+      // }
+
+      // Step 2: Create a new Float Ledger Entry with reduced amount
+      const { data } = await api.post(`/agent-admin/add-float-ledger-record`, {
+        requestId: payload.id,
+        date: new Date().toISOString(),
+        description: payload.description,
+        amount: -payload.amount, // Negative to indicate reduction
+        status: "edited",
+        branch: payload.branch,
+        approvedBy: "Admin One",
+      });
+
+      // Step 3: Update local state with new ledger entry
+      floatLedgers.value.push(data.data);
+      console.log("Float ledger reduced successfully:", data.data);
+
+    } catch (error) {
+      console.error("Error reducing float ledger:", error);
+    }
+  }
+
   async function approveFloatRequest(requestId: string) {
     try {
       // Step 1: Find the float request
@@ -314,7 +346,7 @@ export const useBilling = defineStore("billing", () => {
         await api.put(`/agent-admin/update-float-ledger/${floatRequest.ledgerId}`, {
           // ...ledgerEntry, // Retain all original fields
           status: "approved", // Only update status
-          // amount: 
+          amount: floatRequest.amount
         });
       } else {
         console.error("Ledger ID not found in float request!");
@@ -446,6 +478,7 @@ export const useBilling = defineStore("billing", () => {
     floatRequests,
     branchManagerFloatBalance,
     reduceFloatLedger,
+    reduceFloatLedgerAfterEdit,
     approveFloatRequest,
     adjustFloatLedger,
     rejectFloatRequest,

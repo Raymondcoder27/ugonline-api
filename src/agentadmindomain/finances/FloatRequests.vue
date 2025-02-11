@@ -269,9 +269,9 @@ const approveFloatRequest = (requestId: any) => {
   if (requestId) {
     billingStore.approveFloatRequest(requestId).then(() => {
       // balanceStore.approveFloatRequest(requestId);
-      billingStore.fetchFloatRequests();
+      // billingStore.fetchFloatRequests();
       billingStore.reduceFloatLedger(requestId);
-      billingStore.allocateFloatFromRequest(requestId);
+      // billingStore.allocateFloatFromRequest(requestId);
       console.log(`float request with id ${requestId} approved`);
       billingStore.fetchFloatRequests();
     });
