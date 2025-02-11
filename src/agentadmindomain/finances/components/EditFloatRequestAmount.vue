@@ -38,7 +38,7 @@ onMounted(() => {
   let data = JSON.parse(<string>localStorage.getItem("floatRequestEdit"));
 
   // form.name = data.name;
-  form.id  = data.id
+  form.id = data.id;
   form.branch = data.branch;
   form.amount = data.amount;
   form.status = data.status;
@@ -59,7 +59,7 @@ function submit() {
     branch: form.branch,
     amount: form.amount,
     status: form.status,
-    description: "edited",
+    description: "Edited",
     // display_name:form.displayName,
     // inquiry_email:form.inquiryEmail,
     // provider_type:form.providerType,
@@ -72,7 +72,7 @@ function submit() {
     .then(() => {
       loading.value = true;
       // store.fetchFloatRequests();
-      console.log("the id of new ledger record:", id)
+      console.log("the id of new ledger record:", id);
       store.reduceFloatLedgerAfterEdit(payload);
       emit("requestEdited");
       // window.location.reload();
