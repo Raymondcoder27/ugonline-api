@@ -16,6 +16,7 @@ const form = reactive({
   location: "",
   manager: "",
   status: "",
+  tillOperator: "",
   createdAt: "",
 });
 // const till: Ref<Till| undefined> = reactive({
@@ -56,8 +57,9 @@ function submit() {
     id: till.value.id,
     name: till.value.name,
     location: till.value.location,
-    manager: till.value.manager,
-    status: till.value.status,
+    tillOperator: till.value.tillOperator,
+    // status: till.value.status,
+    status: "Active",
   };
 
   // Simulate saving the edited Till(assuming it updates the store)
@@ -132,7 +134,7 @@ onMounted(() => {
         <input
           type="text"
           id="manager"
-          v-model="form.manager"
+          v-model="form.tillOperator"
           class="form-element e-input w-full"
         />
       </div>
