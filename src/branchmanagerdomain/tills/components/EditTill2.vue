@@ -26,7 +26,7 @@ const form = reactive({
 //   status: "",
 //   createdAt: "",
 // });
-const emit = defineEmits(["cancel"]);
+const emit = defineEmits(["cancel", "tillEdited"]);
 // Fetch the Tilldata from the store
 // onMounted(async () => {
 //   loading.value = true;
@@ -63,7 +63,7 @@ function submit() {
   // Simulate saving the edited Till(assuming it updates the store)
   tillStore.addTill(payload); // If you were adding a new Tillor you can update it via another method
   loading.value = false;
-
+  emit("tillEdited");
   // Show success notification
   notify.success("Tilledited successfully");
 }

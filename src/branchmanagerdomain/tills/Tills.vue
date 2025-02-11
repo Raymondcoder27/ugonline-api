@@ -144,7 +144,7 @@ function close() {
   modalOpen.value = false;
 }
 
-function closeViewModal() {
+function closeEditModal() {
   editModalOpen.value = false;
 }
 
@@ -549,7 +549,7 @@ onMounted(() => {
 
   <AppModal v-model="editModalOpen" xl2>
     <!-- Put here whatever makes you smile -->
-    <EditTill @cancel="close" />
+    <EditTill @cancel="close" @tillEdited="closeEditModal" />
     <!-- That's also okay -->
   </AppModal>
   <!-- /Modal -->
