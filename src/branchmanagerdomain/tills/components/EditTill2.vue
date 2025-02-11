@@ -2,15 +2,15 @@
 import { ref, reactive, defineEmits, onMounted, type Ref } from "vue";
 import { useTillStore } from "@/branchmanagerdomain/tills/stores";
 import { useNotificationsStore } from "@/stores/notifications";
-// import type { Branch } from "@/branchmanagerdomain/branches/types";
+// import type { Till} from "@/branchmanagerdomain/tills/types";
 
-const branchStore = useTillStore();
+const tillStore = useTillStore();
 const notify = useNotificationsStore();
 
 const loading: Ref<boolean> = ref(false);
-const selectedTillId: Ref<string> = ref(""); // ID of the branch to be edited
+const selectedTillId: Ref<string> = ref(""); // ID of the Tillto be edited
 
-const branch = reactive({
+const till = reactive({
   id: "",
   name: "",
   location: "",
@@ -18,7 +18,7 @@ const branch = reactive({
   status: "",
   createdAt: "",
 });
-// const branch: Ref<Branch | undefined> = reactive({
+// const till: Ref<Till| undefined> = reactive({
 //   id: "",
 //   name: "",
 //   location: "",
@@ -27,29 +27,30 @@ const branch = reactive({
 //   createdAt: "",
 // });
 const emit = defineEmits(["cancel"]);
-// Fetch the branch data from the store
+// Fetch the Tilldata from the store
 onMounted(async () => {
   loading.value = true;
 
-  // Fetch the list of branches
-  await branchStore.fetchBranches({});
+  // Fetch the list of tills
+  // await tillStore.fetchTills({});
+  await tillStore.fetchTills();
 
-  // Assuming that a selected branch ID is passed to the component (e.g., from a parent component or route)
+  // Assuming that a selected TillID is passed to the component (e.g., from a parent component or route)
   const tillId = selectedTillId.value; // Set this to the appropriate value
 
-  // Get the branch to edit
-  const selectedBranch = branchStore.branches.value?.find(
+  // Get the Tillto edit
+  const selectedTill = tillStore.tills.value?.find(
     (b) => b.id === Number(tillId)
   );
-  // const selectedBranch = branchStore.branches?.find(b => b.id === Number(tillId));
-  if (selectedBranch) {
-    till.value = { ...selectedBranch }; // Clone the branch to avoid mutating the store directly
+  // const selectedTill = tillStore.tills?.find(b => b.id === Number(tillId));
+  if (selectedTill) {
+    till.value = { ...selectedTill }; // Clone the Tillto avoid mutating the store directly
   }
 
   loading.value = false;
 });
 
-// Handle form submission to save the updated branch
+// Handle form submission to save the updated Till
 function submit() {
   const payload = {
     id: till.value.id,
@@ -59,12 +60,12 @@ function submit() {
     status: till.value.status,
   };
 
-  // Simulate saving the edited branch (assuming it updates the store)
-  branchStore.addBranch(payload); // If you were adding a new branch or you can update it via another method
+  // Simulate saving the edited Till(assuming it updates the store)
+  tillStore.addTill(payload); // If you were adding a new Tillor you can update it via another method
   loading.value = false;
 
   // Show success notification
-  notify.success("Branch edited successfully");
+  notify.success("Tilledited successfully");
 }
 
 // Handle the cancel action
@@ -79,12 +80,12 @@ function cancel() {
   </div>
 
   <div v-else class="bg-white py-5">
-    <p class="text-xl font-bold">Edit Branch</p>
+    <p class="text-xl font-bold">Edit Till</p>
     <form @submit.prevent="submit" class="pt-5">
-      <!-- Branch Name -->
+      <!-- TillName -->
       <div class="flex flex-col my-2">
         <label for="name" class="text-neutral-600 text-xs font-bold mb-1"
-          >Branch Name</label
+          >TillName</label
         >
         <input
           type="text"
@@ -95,7 +96,7 @@ function cancel() {
         />
       </div>
 
-      <!-- Branch Location -->
+      <!-- TillLocation -->
       <div class="flex flex-col my-2">
         <label for="location" class="text-neutral-600 text-xs font-bold mb-1"
           >Location</label
@@ -109,7 +110,7 @@ function cancel() {
         />
       </div>
 
-      <!-- Branch Manager -->
+      <!-- TillManager -->
       <div class="flex flex-col my-2">
         <label for="manager" class="text-neutral-600 text-xs font-bold mb-1"
           >Manager</label
@@ -122,7 +123,7 @@ function cancel() {
         />
       </div>
 
-      <!-- Branch Status -->
+      <!-- TillStatus -->
       <div class="flex flex-col my-2">
         <label for="status" class="text-neutral-600 text-xs font-bold mb-1"
           >Status</label
@@ -203,4 +204,4 @@ button {
 .cell-full {
   @apply w-full px-1 my-2;
 }
-</style>@/branchmanagerdomain/tills/stores@/branchmanager/tills/stores
+</style>
