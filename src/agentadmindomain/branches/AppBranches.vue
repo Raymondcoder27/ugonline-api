@@ -143,7 +143,7 @@ async function deleteBranch(branch: Branch) {
     // branchStore.fetchBranches()
     notify.success("Branch Deleted");
   } catch (error) {
-    notify.error(error.response?.data?.message || "Error deleting branch");
+    notify.error(error.response?.data?.message || "Error closing branch");
   }
 }
 
