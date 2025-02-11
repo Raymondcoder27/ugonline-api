@@ -115,13 +115,13 @@ onMounted(() => {
         <label for="location" class="text-neutral-600 text-xs font-bold mb-1"
           >Location</label
         >
-        <input
+        <!-- <input
           type="text"
           id="location"
           v-model="form.location"
           class="form-element e-input w-full"
           required
-        />
+        /> -->
       </div>
 
       <!-- TillManager -->
