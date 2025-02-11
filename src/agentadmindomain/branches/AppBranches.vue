@@ -110,9 +110,9 @@ function open(branch: Branch) {
 }
 
 // edit branch
-function edit(branch: Branch) {
-  editModalOpen.value = true;
+function editBranch(branch: Branch) {
   localStorage.setItem("branch", JSON.stringify(branch));
+  editModalOpen.value = true;
   console.log("Branch to edit: ", branch);
 }
 
@@ -461,7 +461,7 @@ onMounted(() => {
               <span
                 class="p-1 mx-1 rounded-md text-white bg-blue-600 hover:bg-blue-200 hover:text-blue-600"
               >
-                <i class="fa-solid fa-pen" @click="edit(branch)"></i>
+                <i class="fa-solid fa-pen" @click="editBranch(branch)"></i>
                 Edit
               </span>
 

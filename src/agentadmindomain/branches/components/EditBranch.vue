@@ -82,10 +82,10 @@ onMounted(() => {
 
   form.branch = data.branch;
   form.name = data.name;
-  form.firstName = data.firstName;
-  form.lastName = data.lastName;
-  form.email = data.email;
-  form.phone = data.phone;
+  // form.firstName = data.firstName;
+  // form.lastName = data.lastName;
+  // form.email = data.email;
+  // form.phone = data.phone;
   // form.username = data.username;
 });
 
