@@ -126,9 +126,18 @@ function convertDateTime(date: string) {
   return moment(date).format("DD-MM-YYYY HH:mm:ss");
 }
 
-async function deleteBranch(branch: Branch) {
+// async function deleteBranch(branch: Branch) {
+//   try {
+//     await branchStore.deleteBranch(branch.id);
+//     branches.value = branches.value.filter((b) => b.id !== branch.id);
+//     notify.success("Branch Deleted");
+//   } catch (error) {
+//     notify.error(error.response?.data?.message || "Error deleting branch");
+//   }
+// }
+function deleteBranch(branch: Branch) {
   try {
-    await branchStore.deleteBranch(branch.id);
+    // await branchStore.deleteBranch(branch.id);
     branches.value = branches.value.filter((b) => b.id !== branch.id);
     notify.success("Branch Deleted");
   } catch (error) {
