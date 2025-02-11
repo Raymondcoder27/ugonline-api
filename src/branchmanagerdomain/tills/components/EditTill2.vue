@@ -8,7 +8,7 @@ const branchStore = useBranchStore();
 const notify = useNotificationsStore();
 
 const loading: Ref<boolean> = ref(false);
-const selectedBranchId: Ref<string> = ref(""); // ID of the branch to be edited
+const selectedTillId: Ref<string> = ref(""); // ID of the branch to be edited
 
 const branch = reactive({
   id: "",
@@ -35,15 +35,15 @@ onMounted(async () => {
   await branchStore.fetchBranches({});
 
   // Assuming that a selected branch ID is passed to the component (e.g., from a parent component or route)
-  const branchId = selectedBranchId.value; // Set this to the appropriate value
+  const tillId = selectedTillId.value; // Set this to the appropriate value
 
   // Get the branch to edit
   const selectedBranch = branchStore.branches.value?.find(
-    (b) => b.id === Number(branchId)
+    (b) => b.id === Number(tillId)
   );
-  // const selectedBranch = branchStore.branches?.find(b => b.id === Number(branchId));
+  // const selectedBranch = branchStore.branches?.find(b => b.id === Number(tillId));
   if (selectedBranch) {
-    branch.value = { ...selectedBranch }; // Clone the branch to avoid mutating the store directly
+    till.value = { ...selectedBranch }; // Clone the branch to avoid mutating the store directly
   }
 
   loading.value = false;
@@ -52,11 +52,11 @@ onMounted(async () => {
 // Handle form submission to save the updated branch
 function submit() {
   const payload = {
-    id: branch.value.id,
-    name: branch.value.name,
-    location: branch.value.location,
-    manager: branch.value.manager,
-    status: branch.value.status,
+    id: till.value.id,
+    name: till.value.name,
+    location: till.value.location,
+    manager: till.value.manager,
+    status: till.value.status,
   };
 
   // Simulate saving the edited branch (assuming it updates the store)
@@ -89,7 +89,7 @@ function cancel() {
         <input
           type="text"
           id="name"
-          v-model="branch.name"
+          v-model="till.name"
           class="form-element e-input w-full"
           required
         />
@@ -103,7 +103,7 @@ function cancel() {
         <input
           type="text"
           id="location"
-          v-model="branch.location"
+          v-model="till.location"
           class="form-element e-input w-full"
           required
         />
@@ -117,7 +117,7 @@ function cancel() {
         <input
           type="text"
           id="manager"
-          v-model="branch.manager"
+          v-model="till.manager"
           class="form-element e-input w-full"
         />
       </div>
@@ -128,7 +128,7 @@ function cancel() {
           >Status</label
         >
         <select
-          v-model="branch.status"
+          v-model="till.status"
           id="status"
           class="form-element e-input w-full"
           required
