@@ -71,7 +71,7 @@ export const useBranchStore = defineStore("useBranch", () => {
       await api.delete(`/agent-admin/close-branch/${branchId}`);
       branches.value = branches.value?.filter((b) => b.id !== branchId);
     } catch (error) {
-      console.error("Error deleting branch:", error);
+      console.error("Error closing branch:", error);
     }
   }
 

@@ -126,26 +126,26 @@ function convertDateTime(date: string) {
   return moment(date).format("DD-MM-YYYY HH:mm:ss");
 }
 
-// async function deleteBranch(branch: Branch) {
-//   try {
-//     await branchStore.deleteBranch(branch.id);
-//     branches.value = branches.value.filter((b) => b.id !== branch.id);
-//     notify.success("Branch Deleted");
-//   } catch (error) {
-//     notify.error(error.response?.data?.message || "Error deleting branch");
-//   }
-// }
 async function deleteBranch(branch: Branch) {
-  console.log("delete button clicked");
   try {
-    const branches = await branchStore.fetchBranches();
+    await branchStore.deleteBranch(branch.id);
     branches.value = branches.value.filter((b) => b.id !== branch.id);
-    // branchStore.fetchBranches()
     notify.success("Branch Deleted");
   } catch (error) {
-    notify.error(error.response?.data?.message || "Error closing branch");
+    notify.error(error.response?.data?.message || "Error deleting branch");
   }
 }
+// async function deleteBranch(branch: Branch) {
+//   console.log("delete button clicked");
+//   try {
+//     const branches = await branchStore.fetchBranches();
+//     branches.value = branches.value.filter((b) => b.id !== branch.id);
+//     // branchStore.fetchBranches()
+//     notify.success("Branch Deleted");
+//   } catch (error) {
+//     notify.error(error.response?.data?.message || "Error closing branch");
+//   }
+// }
 
 // function deleteBranch(branch: Branch) {
 //     branchStore.deleteBranch(branch.id);
