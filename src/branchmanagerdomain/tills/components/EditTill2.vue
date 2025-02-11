@@ -112,18 +112,18 @@ onMounted(() => {
       </div>
 
       <!-- TillLocation -->
-      <div class="flex flex-col my-2">
+      <!-- <div class="flex flex-col my-2">
         <label for="location" class="text-neutral-600 text-xs font-bold mb-1"
           >Location</label
         >
-        <!-- <input
+        <input
           type="text"
           id="location"
           v-model="form.location"
           class="form-element e-input w-full"
           required
-        /> -->
-      </div>
+        />
+      </div> -->
 
       <!-- TillManager -->
       <div class="flex flex-col my-2">
