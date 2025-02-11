@@ -8,7 +8,7 @@ import moment from "moment/moment";
 import router from "@/router";
 import { useProviderStore } from "@/agentadmindomain/entities/stores";
 import AssignBranchManager from "@/agentadmindomain/branches/components/AssignBranchManager.vue";
-import EditBranch from "@/agentadmindomain/branches/components/EditBranch.vue";
+import EditBranch from "@/agentadmindomain/branches/components/EditBranch2.vue";
 // import CategorySelector from "@/agentadmindomain/settings/components/CategorySelector.vue";
 import { useNotificationsStore } from "@/stores/notifications";
 import type { ApiError } from "@/types";
@@ -163,10 +163,10 @@ function close() {
 function closeViewModal() {
   editModalOpen.value = false;
 }
-
-function closeEditModal() {
+function closeManagerAssignmentModal() {
   assignManagerModalOpen.value = false;
 }
+
 
 function next() {
   page.value += 1;
@@ -604,7 +604,7 @@ onMounted(() => {
     <!-- Chances are high that you're starting with a form -->
     <AssignBranchManager
       :branchId="selectedBranch"
-      @managerAssigned="close"
+      @managerAssigned="closeManagerAssignmentModal"
       @cancel="close"
     />
     <!-- That's also okay -->

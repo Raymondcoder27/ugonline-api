@@ -32,14 +32,14 @@ onMounted(async () => {
   loading.value = true;
 
   // Fetch the list of branches
-  await branchStore.fetchBranches({});
+  await branchStore.fetchBranches();
 
   // Assuming that a selected branch ID is passed to the component (e.g., from a parent component or route)
   const branchId = selectedBranchId.value; // Set this to the appropriate value
 
   // Get the branch to edit
   const selectedBranch = branchStore.branches.value?.find(
-    (b) => b.id === Number(branchId)
+    (b) => b.id === String(branchId)
   );
   // const selectedBranch = branchStore.branches?.find(b => b.id === Number(branchId));
   if (selectedBranch) {
