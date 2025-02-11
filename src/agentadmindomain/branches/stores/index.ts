@@ -54,7 +54,7 @@ export const useBranchStore = defineStore("useBranch", () => {
     }
   }
 
-  async function editBranch(branchId: number, updatedData: Partial<Branch>) {
+  async function editBranch(branchId: string, updatedData: Partial<Branch>) {
     try {
       await api.put(`/agent-admin/edit-branch-details/${branchId}`, updatedData);
       const branchIndex = branches.value?.findIndex(branch => branch.id === branchId);
@@ -66,7 +66,7 @@ export const useBranchStore = defineStore("useBranch", () => {
     }
   }
 
-  async function deleteBranch(branchId: number) {
+  async function deleteBranch(branchId: string) {
     try {
       await api.delete(`/agent-admin/close-branch/${branchId}`);
       branches.value = branches.value?.filter((b) => b.id !== branchId);
