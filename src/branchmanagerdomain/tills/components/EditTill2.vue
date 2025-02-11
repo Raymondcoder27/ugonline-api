@@ -10,7 +10,7 @@ const notify = useNotificationsStore();
 const loading: Ref<boolean> = ref(false);
 const selectedTillId: Ref<string> = ref(""); // ID of the Tillto be edited
 
-const till = reactive({
+const form = reactive({
   id: "",
   name: "",
   location: "",
@@ -28,27 +28,27 @@ const till = reactive({
 // });
 const emit = defineEmits(["cancel"]);
 // Fetch the Tilldata from the store
-onMounted(async () => {
-  loading.value = true;
+// onMounted(async () => {
+//   loading.value = true;
 
-  // Fetch the list of tills
-  // await tillStore.fetchTills({});
-  await tillStore.fetchTills();
+//   // Fetch the list of tills
+//   // await tillStore.fetchTills({});
+//   await tillStore.fetchTills();
 
-  // Assuming that a selected TillID is passed to the component (e.g., from a parent component or route)
-  const tillId = selectedTillId.value; // Set this to the appropriate value
+//   // Assuming that a selected TillID is passed to the component (e.g., from a parent component or route)
+//   const tillId = selectedTillId.value; // Set this to the appropriate value
 
-  // Get the Tillto edit
-  const selectedTill = tillStore.tills.value?.find(
-    (b) => b.id === Number(tillId)
-  );
-  // const selectedTill = tillStore.tills?.find(b => b.id === Number(tillId));
-  if (selectedTill) {
-    till.value = { ...selectedTill }; // Clone the Tillto avoid mutating the store directly
-  }
+//   // Get the Tillto edit
+//   const selectedTill = tillStore.tills.value?.find(
+//     (b) => b.id === Number(tillId)
+//   );
+//   // const selectedTill = tillStore.tills?.find(b => b.id === Number(tillId));
+//   if (selectedTill) {
+//     till.value = { ...selectedTill }; // Clone the Tillto avoid mutating the store directly
+//   }
 
-  loading.value = false;
-});
+//   loading.value = false;
+// });
 
 // Handle form submission to save the updated Till
 function submit() {
@@ -72,6 +72,20 @@ function submit() {
 function cancel() {
   emit("cancel");
 }
+onMounted(() => {
+  //   let data = JSON.parse(<string>localStorage.getItem("provider"))
+  // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+  let data = JSON.parse(<string>localStorage.getItem("till"));
+
+  // form.branch = data.branch;
+  form.name = data.name;
+  form.operator = data.operator;
+  // form.firstName = data.firstName;
+  // form.lastName = data.lastName;
+  // form.email = data.email;
+  // form.phone = data.phone;
+  // form.username = data.username;
+});
 </script>
 
 <template>
@@ -90,7 +104,7 @@ function cancel() {
         <input
           type="text"
           id="name"
-          v-model="till.name"
+          v-model="form.name"
           class="form-element e-input w-full"
           required
         />
@@ -104,7 +118,7 @@ function cancel() {
         <input
           type="text"
           id="location"
-          v-model="till.location"
+          v-model="form.location"
           class="form-element e-input w-full"
           required
         />
@@ -113,12 +127,12 @@ function cancel() {
       <!-- TillManager -->
       <div class="flex flex-col my-2">
         <label for="manager" class="text-neutral-600 text-xs font-bold mb-1"
-          >Manager</label
+          >Operator</label
         >
         <input
           type="text"
           id="manager"
-          v-model="till.manager"
+          v-model="form.manager"
           class="form-element e-input w-full"
         />
       </div>
@@ -129,7 +143,7 @@ function cancel() {
           >Status</label
         >
         <select
-          v-model="till.status"
+          v-model="form.status"
           id="status"
           class="form-element e-input w-full"
           required
