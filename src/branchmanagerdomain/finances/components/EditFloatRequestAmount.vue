@@ -27,6 +27,7 @@ onMounted(() => {
   form.till = data.till;
   form.amount = data.amount;
   form.status = data.status;
+  form.description = "Edited";
   //   form.displayName = data.displayName
   //   form.physicalAddress = data.physicalAddress
   //   form.inquiryEmail = data.inquiryEmail
@@ -44,6 +45,7 @@ function submit() {
     till: "Till 1",
     amount: form.amount,
     status: form.status,
+    description: form.description,
     // display_name:form.displayName,
     // inquiry_email:form.inquiryEmail,
     // provider_type:form.providerType,
@@ -56,7 +58,7 @@ function submit() {
     .then(() => {
       loading.value = true;
       console.log("now adding edited float ledger record");
-      store.reduceFloatLedger(id);
+      store.reduceFloatLedgerAfterEdit(payload);
       store.fetchFloatRequests();
       emit("requestEdited");
       // window.location.reload();
