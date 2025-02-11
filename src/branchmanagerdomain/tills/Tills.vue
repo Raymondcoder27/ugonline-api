@@ -83,7 +83,7 @@ function fetchTills() {
   // Fetch the services based on the page and limit
   const startIndex = (page.value - 1) * limit.value;
   const endIndex = startIndex + limit.value;
-  tills.value = tillStore.tills.slice(startIndex, endIndex);
+  tills.value = tillStore.tills?.slice(startIndex, endIndex);
   loading.value = false;
 }
 
@@ -94,9 +94,14 @@ function open(till: Till) {
 // edit branch
 function edit(till: Till) {
   editModalOpen.value = true;
-  // localStorage.setItem("branch", JSON.stringify(till));
+  localStorage.setItem("till", JSON.stringify(till));
   console.log("Till to edit: ", till);
 }
+
+// function editBackofficeAccount(backofficeAccount: Account) {
+//   localStorage.setItem("backofficeAccount", JSON.stringify(backofficeAccount));
+//   editModalOpen.value = true;
+// }
 
 //configure branch
 function configure(till: Till) {

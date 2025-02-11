@@ -321,11 +321,27 @@ watch(
             >
               <span>{{ transaction.amount.toLocaleString() }}</span>
             </td>
-            <td class="text-left text-gray-800">
-              <!-- <button @click="decreaseBalance">Decrease Balance</button> -->
-              <!-- <span>{{ balanceStore.totalBalance.current }}</span> -->
+            <!-- <td class="text-left text-gray-800">
               <span>{{ transaction.balance.toLocaleString() }}</span>
-            </td>
+            </td> -->
+
+            <td class="text-left text-gray-800">
+                <span v-if="transaction.status === 'approved'">
+                  {{ transaction.balance.toLocaleString() }}
+                </span>
+                <span v-if="transaction.status === 'rejected'">
+                  {{ transaction.balance.toLocaleString() }}
+                </span>
+                <span v-if="transaction.status === 'edited'">
+                  {{ transaction.balance.toLocaleString() }}
+                </span>
+                <span
+                  v-if="transaction.status === 'pending'"
+                  class="italic text-gray-500"
+                >
+                  --{{ transaction.balance.toLocaleString() }}--
+                </span>
+              </td>
           </tr>
         </tbody>
         <!-- <tfoot>
