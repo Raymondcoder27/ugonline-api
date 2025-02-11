@@ -86,6 +86,12 @@ function open(branch: Branch) {
 
 // edit branch
 function editBranch(branch: Branch) {
+  branchStore.branches?.forEach((branch) => {
+    const manager = getManagerByBranch(branch.name);
+    if (manager) {
+      branch.manager = manager;
+    }
+  });
   localStorage.setItem("branch", JSON.stringify(branch));
   editModalOpen.value = true;
   console.log("Branch to edit: ", branch);
