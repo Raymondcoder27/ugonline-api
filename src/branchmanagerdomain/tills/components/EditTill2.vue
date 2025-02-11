@@ -15,7 +15,7 @@ const form = reactive({
   name: "",
   location: "",
   manager: "",
-  status: "",
+  status: "Active",
   tillOperator: "",
   createdAt: "",
 });
@@ -58,8 +58,7 @@ function submit() {
     name: till.value.name,
     location: till.value.location,
     tillOperator: till.value.tillOperator,
-    // status: till.value.status,
-    status: "Active",
+    status: till.value.status,
   };
 
   // Simulate saving the edited Till(assuming it updates the store)
