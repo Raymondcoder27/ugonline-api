@@ -100,7 +100,7 @@ onMounted(() => {
       <!-- TillName -->
       <div class="flex flex-col my-2">
         <label for="name" class="text-neutral-600 text-xs font-bold mb-1"
-          >TillName</label
+          >Till Name</label
         >
         <input
           type="text"
