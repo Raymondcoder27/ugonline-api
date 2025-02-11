@@ -127,6 +127,7 @@ function submit(userId: string) {
 
   loading.value = true;
   branchStore.addBranch(payload); // If you were adding a new branch or you can update it via another method
+  // branchStore.editBranch(payload)
   loading.value = false;
   // accountStore.assignManager(payload.id, payload.branchId);
   // accountStore.assignManager(id, payload.branch);
