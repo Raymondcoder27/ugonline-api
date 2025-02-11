@@ -45,6 +45,26 @@ const changePageSize = () => {
 };
 const showPagination = computed(() => totalRecords.value >= limit.value);
 
+const selectedTillToClose = ref<Till | null>(null);
+const showTillCloseModal: Ref<boolean> = ref(false);
+function tillCloseModal(till: Till) {
+  // localStorage.setItem("branch", JSON.stringify(branch));
+  selectedTillToClose.value = till;
+  showTillCloseModal.value = true;
+}
+// async function deleteTill(till: Till | null) {
+//   if (!till) return; // Defensive check
+
+//   try {
+//     await tillStore.deleteTill(till.id);
+//     tills.value = tills.value.filter((b) => b.id !== till.id);
+//     notify.success("Till Deleted");
+//     showTillCloseModal.value = false; // Close the modal
+//   } catch (error: any) {
+//     notify.error(error.response?.data?.message || "Error deleting branch");
+//   }
+// }
+
 const jumpToPage = () => {
   if (pageInput.value > totalPages.value) {
     page.value = totalPages.value;
@@ -417,10 +437,14 @@ onMounted(() => {
                 <i class="fa-solid fa-pen"></i>
                 Edit
               </span>
-              <span
+              <!-- <span
                 class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
                 @click="showTillCloseModal = true"
-              >
+              > -->
+              <span
+                class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
+                @click="deleteTill(till)"
+              ></span>
                 <!-- <i
                   class="fa-solid fa-store-slash"
                   @click="deleteBranch(till)"
@@ -512,7 +536,7 @@ onMounted(() => {
         <div class="flex">
           <span class="mx-auto text-center justify-center">
             <i
-              class="mx-auto fa-solid fa-exclamation-circle text-3xl text-danger"
+              class="mx-auto fa-solid fa-exclamation-circle text-3xl text-red-700"
             ></i>
           </span>
         </div>
@@ -525,7 +549,7 @@ onMounted(() => {
               @click="showApproveModal = false"
             > -->
           <button
-            class="bg-gray-600 hover:bg-gray-500 w-1/2 rounded text-white"
+            class="bg-red-600 hover:bg-red-800 w-1/2 rounded text-white"
             @click="showTillCloseModal = false"
           >
             <i class="fa-solid fa-times-circle mx-1"></i> Cancel
@@ -536,7 +560,7 @@ onMounted(() => {
           > -->
           <button
             class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
-            @click="deleteTill(selectedTill)"
+            @click="deleteTill(selectedTillToClose)"
           >
             <i class="fa-solid fa-check-circle mx-1"></i> Confirm
           </button>
