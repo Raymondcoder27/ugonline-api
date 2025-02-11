@@ -108,8 +108,17 @@ export const useTillStore = defineStore("useTill", () => {
   // };
 
 
-  const deleteTill = (tillId: string) => {
-    tills.value = tills.value?.filter((b) => b.id !== tillId); 
+  // const deleteTill = (tillId: string) => {
+  //   tills.value = tills.value?.filter((b) => b.id !== tillId); 
+  // }
+
+  async function deleteTill(tillId: string) {
+    try {
+      await api.delete(`/branch-manager/close-till/${tillId}`);
+      tills.value = tills.value?.filter((b) => b.id !==tillId);
+    } catch (error) {
+      console.error("Error closing till:", error);
+    }
   }
 
   // const service = subscribedServices.value?.find((s) => s.id === serviceId);
