@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { onMounted, reactive, type Ref, ref, defineEmits } from "vue";
-import { useProviderStore } from "@/agentadmindomain/providers/stores";
+// import { useProviderStore } from "@/agentadmindomain/providers/stores";
 import { useAccounts } from "@/agentadmindomain/accounts/stores";
-import type { CreateServiceProvider } from "@/agentadmindomain/providers/types";
-import type { AssignManager } from "@/types";
+// import type { CreateServiceProvider } from "@/agentadmindomain/providers/types";
+// import type { AssignManager } from "@/types";
 import { useNotificationsStore } from "@/stores/notifications";
 import type { ApiError } from "@/types";
-import { ManagerAccount } from "@/types/index";
+// import { ManagerAccount } from "@/types/index";
+import { useBranchStore } from "@/agentadmindomain/branches/stores";
+const branchStore = useBranchStore();
 
 // const store = useProviderStore();
 const accountStore = useAccounts();
@@ -74,20 +76,6 @@ const emit = defineEmits(["cancel", "managerAssigned"]);
 //   form.username = data.username
 // })
 
-onMounted(() => {
-  //   let data = JSON.parse(<string>localStorage.getItem("provider"))
-  // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
-  let data = JSON.parse(<string>localStorage.getItem("branch"));
-
-  form.branch = data.branch;
-  form.name = data.name;
-  // form.firstName = data.firstName;
-  // form.lastName = data.lastName;
-  // form.email = data.email;
-  // form.phone = data.phone;
-  // form.username = data.username;
-});
-
 // function submit(){
 //   loading.value = true
 //   let data = JSON.parse(<string>localStorage.getItem("provider"))
@@ -124,9 +112,10 @@ function submit(userId: string) {
   // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
   let data = JSON.parse(<string>localStorage.getItem("branch"));
 
-  let id = data.id;
+  // let id = data.id;
   let payload = {
     branch: form.branch,
+
     // firstName: form.firstName,
     // lastName: form.lastName,
     // email: form.email,
@@ -137,14 +126,30 @@ function submit(userId: string) {
   };
 
   loading.value = true;
+  branchStore.addBranch(payload); // If you were adding a new branch or you can update it via another method
+  loading.value = false;
   // accountStore.assignManager(payload.id, payload.branchId);
-  accountStore.assignManager(id, payload.branch);
+  // accountStore.assignManager(id, payload.branch);
   // store.assignManager(userId);
   // notify.success(`User successfully ${payload.userId} assigned to branch`);
-  notify.success(`User successfully assigned to branch`);
+  notify.success(`Branch name changed successfully`);
   emit("managerAssigned");
   loading.value = false;
 }
+
+onMounted(() => {
+  //   let data = JSON.parse(<string>localStorage.getItem("provider"))
+  // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+  let data = JSON.parse(<string>localStorage.getItem("branch"));
+
+  form.branch = data.branch;
+  form.name = data.name;
+  // form.firstName = data.firstName;
+  // form.lastName = data.lastName;
+  // form.email = data.email;
+  // form.phone = data.phone;
+  // form.username = data.username;
+});
 </script>
 
 <template>
@@ -160,9 +165,15 @@ function submit(userId: string) {
           <label class="block uppercase text-neutral-600 text-xs font-bold mb-1"
             >Branch Name</label
           >
-          <input
+          <!-- <input
             type="text"
             v-model="form.branch"
+            class="noFocus form-element e-input w-full"
+            required
+          /> -->
+           <input
+            type="text"
+            v-model="form.name"
             class="noFocus form-element e-input w-full"
             required
           />
