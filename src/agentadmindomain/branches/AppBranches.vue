@@ -65,31 +65,6 @@ const getManagerByBranch = (branchName) => {
   );
 };
 
-//Helper function to get manager by backoffice account
-// const getBackOfficeAccount = (branchName) => {
-//   return accountStore.backofficeAccounts.find(
-//     (backofficeAccount) => backofficeAccount.branch = branchName
-//   );
-// };
-
-// function fetchBranches() {
-//   // branchStore
-//   //   .fetchBranches(page.value, limit.value)
-//   //   .then(() => (loading.value = false))
-//   //   .catch((error: ApiError) => {
-//   //     loading.value = false;
-//   //     notify.error(error.response.data.message);
-//   //   });
-
-//   loading.value = true;
-//   // Fetch the services based on the page and limit
-//   const startIndex = (page.value - 1) * limit.value;
-//   const endIndex = startIndex + limit.value;
-//   // branches.value = branchStore.branches?.slice(startIndex, endIndex);
-//   branches.value = branchStore.fetchBranches();
-//   loading.value = false;
-// }
-
 async function fetchBranches() {
   loading.value = true;
   try {
@@ -137,13 +112,17 @@ function convertDateTime(date: string) {
 // }
 function deleteBranch(branch: Branch) {
   try {
-    // await branchStore.deleteBranch(branch.id);
+    if (!Array.isArray(branches.value)) {
+      // Fallback: if branches.value is undefined, set it to an empty array
+      branches.value = [];
+    }
     branches.value = branches.value.filter((b) => b.id !== branch.id);
     notify.success("Branch Deleted");
-  } catch (error) {
+  } catch (error: any) {
     notify.error(error.response?.data?.message || "Error closing branch");
   }
 }
+
 // async function deleteBranch(branch: Branch) {
 //   console.log("delete button clicked");
 //   try {
