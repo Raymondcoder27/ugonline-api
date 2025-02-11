@@ -88,7 +88,7 @@ export const useTillStore = defineStore("useTill", () => {
       console.error("Error assigning manager:", error);
     }
   }
-  
+
   // push new assigned manager managerAccounts array
   // const assignManager = (payload: AssignManager) => {
   //   managerAssignments.value.push({
@@ -102,7 +102,7 @@ export const useTillStore = defineStore("useTill", () => {
   //   managerAccounts
 
 
-   // Delete Till from the store
+  // Delete Till from the store
   //  const deleteTill = (tillId: string) => {
   //   tills.value = tills.value?.filter((Till) => till.id !== tillId); // Remove the Till by ID
   // };
@@ -115,7 +115,7 @@ export const useTillStore = defineStore("useTill", () => {
   async function deleteTill(tillId: string) {
     try {
       await api.delete(`/branch-manager/close-till/${tillId}`);
-      tills.value = tills.value?.filter((b) => b.id !==tillId);
+      tills.value = tills.value?.filter((b) => b.id !== tillId);
     } catch (error) {
       console.error("Error closing till:", error);
     }
@@ -128,17 +128,17 @@ export const useTillStore = defineStore("useTill", () => {
   //   subscribedServices.value = subscribedServices.value?.filter((s) => s.id !== serviceId);
   // }
 
-  
-  
-  
-  
+
+
+
+
 
   // async function fetchTills(filter: any) {
   //   // isLoading.value = true;
   //   // try {
   //     // Uncomment the following line to fetch data from the API once ready
   //     // const { data } = await api.get(`/tills?page=${page}&limit=${limit}`);
-      
+
   //     // For now, use the  data for testing
   //     tills.value = Tills; // Use  data for testing
 
