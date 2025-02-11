@@ -566,7 +566,7 @@ onMounted(() => {
     <!-- Chances are high that you're starting with a form -->
     <AssignTillOperator
       :tillId="selectedTill"
-      @operatorAssigned="close"
+      @operatorAssigned="closeAssignModal"
       @cancel="close"
     />
     <!-- That's also okay -->

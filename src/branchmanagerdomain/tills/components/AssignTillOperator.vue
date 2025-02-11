@@ -147,7 +147,7 @@ const filteredManagers = computed(() => {
   </div> -->
 
   <div class="bg-white p-6 rounded-lg">
-    <p class="text-xl font-bold mb-2">Assign Manager</p>
+    <p class="text-xl font-bold mb-2">Assign Till Operator</p>
     <p class="text-sm text-gray-500 mb-4">
       Select a till operators from the table to assign them to a branch.
     </p>
