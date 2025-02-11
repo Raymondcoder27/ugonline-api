@@ -29,7 +29,7 @@ const page: Ref<number> = ref(1);
 const limit: Ref<number> = ref(8);
 const loading: Ref<boolean> = ref(false);
 const selectedBranch: Ref<string> = ref("");
-  const selectedBranchToClose = ref<Branch | null>(null);
+const selectedBranchToClose = ref<Branch | null>(null);
 
 const branches: Ref<any[]> = ref([]);
 // let providerId = ref("");
@@ -124,6 +124,19 @@ function convertDateTime(date: string) {
 //     notify.error(error.response?.data?.message || "Error deleting branch");
 //   }
 // }
+// async function deleteBranch(branch: Branch | null) {
+//   if (!branch) return; // Defensive check
+
+//   try {
+//     await branchStore.deleteBranch(branch.id);
+//     branches.value = branches.value.filter((b) => b.id !== branch.id);
+//     notify.success("Branch Deleted");
+//     showBranchCloseModal.value = false; // Close the modal
+//   } catch (error: any) {
+//     notify.error(error.response?.data?.message || "Error deleting branch");
+//   }
+// }
+
 async function deleteBranch(branch: Branch | null) {
   if (!branch) return; // Defensive check
 
@@ -136,22 +149,6 @@ async function deleteBranch(branch: Branch | null) {
     notify.error(error.response?.data?.message || "Error deleting branch");
   }
 }
-
-// function deleteBranch(branch: Branch) {
-//   try {
-//     branches.value = branches.value.filter((b) => b.id !== branch.id);
-//     notify.success("Branch Deleted");
-//     fetchBranches()
-//   } catch (error: any) {
-//     notify.error(error.response?.data?.message || "Error closing branch");
-//   }
-// }
-
-// function deleteBranch(branch: Branch) {
-//     branchStore.deleteBranch(branch.id);
-//     fetchBranches();  // Refetch the branches after deleting
-//     notify.success("Branch Deleted");
-//   }
 
 function assignManager(branch: Branch) {
   // Logic to open the modal or start the process
