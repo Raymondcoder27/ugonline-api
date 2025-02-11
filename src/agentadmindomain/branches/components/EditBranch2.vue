@@ -10,7 +10,15 @@ const notify = useNotificationsStore();
 const loading: Ref<boolean> = ref(false);
 const selectedBranchId: Ref<string> = ref(""); // ID of the branch to be edited
 
-const branch = reactive({
+// const branch = reactive({
+//   id: "",
+//   name: "",
+//   location: "",
+//   manager: "",
+//   status: "",
+//   createdAt: "",
+// });
+const form = reactive({
   id: "",
   name: "",
   location: "",
@@ -26,28 +34,29 @@ const branch = reactive({
 //   status: "",
 //   createdAt: "",
 // });
+
 const emit = defineEmits(["cancel"]);
 // Fetch the branch data from the store
-onMounted(async () => {
-  loading.value = true;
+// onMounted(async () => {
+//   loading.value = true;
 
-  // Fetch the list of branches
-  await branchStore.fetchBranches();
+//   // Fetch the list of branches
+//   await branchStore.fetchBranches();
 
-  // Assuming that a selected branch ID is passed to the component (e.g., from a parent component or route)
-  const branchId = selectedBranchId.value; // Set this to the appropriate value
+//   // Assuming that a selected branch ID is passed to the component (e.g., from a parent component or route)
+//   const branchId = selectedBranchId.value; // Set this to the appropriate value
 
-  // Get the branch to edit
-  const selectedBranch = branchStore.branches.value?.find(
-    (b) => b.id === String(branchId)
-  );
-  // const selectedBranch = branchStore.branches?.find(b => b.id === Number(branchId));
-  if (selectedBranch) {
-    branch.value = { ...selectedBranch }; // Clone the branch to avoid mutating the store directly
-  }
+//   // Get the branch to edit
+//   const selectedBranch = branchStore.branches.value?.find(
+//     (b) => b.id === String(branchId)
+//   );
+//   // const selectedBranch = branchStore.branches?.find(b => b.id === Number(branchId));
+//   if (selectedBranch) {
+//     branch.value = { ...selectedBranch }; // Clone the branch to avoid mutating the store directly
+//   }
 
-  loading.value = false;
-});
+//   loading.value = false;
+// });
 
 // Handle form submission to save the updated branch
 function submit() {
@@ -71,6 +80,20 @@ function submit() {
 function cancel() {
   emit("cancel");
 }
+
+onMounted(() => {
+  //   let data = JSON.parse(<string>localStorage.getItem("provider"))
+  // let data = JSON.parse(<string>localStorage.getItem("branchManagerAccount"));
+  let data = JSON.parse(<string>localStorage.getItem("branch"));
+
+  // form.branch = data.branch;
+  form.name = data.name;
+  // form.firstName = data.firstName;
+  // form.lastName = data.lastName;
+  // form.email = data.email;
+  // form.phone = data.phone;
+  // form.username = data.username;
+});
 </script>
 
 <template>
@@ -89,7 +112,7 @@ function cancel() {
         <input
           type="text"
           id="name"
-          v-model="branch.name"
+          v-model="form.name"
           class="form-element e-input w-full"
           required
         />
@@ -103,7 +126,7 @@ function cancel() {
         <input
           type="text"
           id="location"
-          v-model="branch.location"
+          v-model="form.location"
           class="form-element e-input w-full"
           required
         />
@@ -117,7 +140,7 @@ function cancel() {
         <input
           type="text"
           id="manager"
-          v-model="branch.manager"
+          v-model="form.manager"
           class="form-element e-input w-full"
         />
       </div>
@@ -128,7 +151,7 @@ function cancel() {
           >Status</label
         >
         <select
-          v-model="branch.status"
+          v-model="form.status"
           id="status"
           class="form-element e-input w-full"
           required
