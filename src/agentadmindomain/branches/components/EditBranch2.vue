@@ -23,7 +23,7 @@ const form = reactive({
   name: "",
   location: "",
   manager: "",
-  status: "",
+  status: "Active",
   createdAt: "",
 });
 // const branch: Ref<Branch | undefined> = reactive({
