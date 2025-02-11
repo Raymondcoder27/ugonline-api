@@ -121,14 +121,14 @@ function convertDateTime(date: string) {
 
 // function deleteBranch(branch: Till) {
 //   tillStore.deleteBranch(branch.id);
-//   notify.success("Branch Deleted");
+//   notify.success("Till deleted");
 //   fetchTills();
 // }
 
 // function deleteBranch(branch: Till) {
 //     tillStore.deleteBranch(branch.id);
 //     fetchTills();  // Refetch the tills after deleting
-//     notify.success("Branch Deleted");
+//     notify.success("Till deleted");
 //   }
 
 function assignOperator(till: Till) {
@@ -143,7 +143,7 @@ function deleteTill(tillId: string) {
   tillStore.deleteTill(tillId); // Assuming this is a mutation to remove the branch
   tillStore.tills = tillStore.tills?.filter((b) => b.id !== tillId); // Manually update the store
   // fetchTills(); // Refetch the tills after deleting, if needed
-  notify.success("Branch Deleted");
+  notify.success("Till deleted");
 }
 
 function close() {
