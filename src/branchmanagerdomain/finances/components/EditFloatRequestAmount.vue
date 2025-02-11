@@ -56,8 +56,9 @@ function submit() {
     .then(() => {
       loading.value = true;
       store.reduceFloatLedger(id);
+      console.log("now adding edited float ledger record");
       store.fetchFloatRequests();
-      emit("requestEdited")
+      emit("requestEdited");
       // window.location.reload();
       notify.success("Edited");
     })
