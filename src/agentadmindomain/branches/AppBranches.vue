@@ -167,7 +167,6 @@ function closeManagerAssignmentModal() {
   assignManagerModalOpen.value = false;
 }
 
-
 function next() {
   page.value += 1;
   fetchBranches();
