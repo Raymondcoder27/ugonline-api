@@ -139,17 +139,18 @@ function convertDateTime(date: string) {
   return moment(date).format("DD-MM-YYYY HH:mm:ss");
 }
 
-// function deleteBranch(branch: Till) {
-//   tillStore.deleteBranch(branch.id);
-//   notify.success("Till deleted");
-//   fetchTills();
-// }
+async function deleteTill(till: Till | null) {
+  if (!till) return; // Defensive check
 
-// function deleteBranch(branch: Till) {
-//     tillStore.deleteBranch(branch.id);
-//     fetchTills();  // Refetch the tills after deleting
-//     notify.success("Till deleted");
-//   }
+  try {
+    await tillStore.deleteTill(till.id);
+    tills.value = tills.value.filter((b) => b.id !== till.id);
+    notify.success("Till Deleted");
+    showTillCloseModal.value = false; // Close the modal
+  } catch (error: any) {
+    notify.error(error.response?.data?.message || "Error deleting till");
+  }
+}
 
 function assignOperator(till: Till) {
   // Logic to open the modal or start the process
@@ -159,12 +160,12 @@ function assignOperator(till: Till) {
   assignOperatorModalOpen.value = true;
 }
 
-function deleteTill(tillId: string) {
-  tillStore.deleteTill(tillId); // Assuming this is a mutation to remove the branch
-  tillStore.tills = tillStore.tills?.filter((b) => b.id !== tillId); // Manually update the store
-  // fetchTills(); // Refetch the tills after deleting, if needed
-  notify.success("Till deleted");
-}
+// function deleteTill(tillId: string) {
+//   tillStore.deleteTill(tillId); // Assuming this is a mutation to remove the branch
+//   tillStore.tills = tillStore.tills?.filter((b) => b.id !== tillId); // Manually update the store
+//   // fetchTills(); // Refetch the tills after deleting, if needed
+//   notify.success("Till deleted");
+// }
 
 function close() {
   modalOpen.value = false;
