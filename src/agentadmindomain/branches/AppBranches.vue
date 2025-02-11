@@ -33,7 +33,7 @@ const branches: Ref<any[]> = ref([]);
 // let providerId = ref("");
 let status = ref("");
 const notify = useNotificationsStore();
-const showBranchCloseModal = ref(false);
+const showBranchCloseModal: Ref<boolean> = ref(false);
 
 const totalRecords = computed(() => branchStore.branches.length); // Total branches
 const totalPages = computed(() => Math.ceil(totalRecords.value / limit.value));
@@ -43,6 +43,12 @@ const changePageSize = () => {
   fetchBranches();
 };
 const showPagination = computed(() => totalRecords.value >= limit.value);
+
+
+function branchCloseModal(branch: Branch){
+  localStorage.setItem("branch", JSON.stringify(branch));
+  showBranchCloseModal.value = true;
+}
 
 const jumpToPage = () => {
   if (pageInput.value > totalPages.value) {
@@ -107,36 +113,21 @@ function convertDateTime(date: string) {
   return moment(date).format("DD-MM-YYYY HH:mm:ss");
 }
 
-// async function deleteBranch(branch: Branch) {
-//   try {
-//     await branchStore.deleteBranch(branch.id);
-//     branches.value = branches.value.filter((b) => b.id !== branch.id);
-//     notify.success("Branch Deleted");
-//   } catch (error) {
-//     notify.error(error.response?.data?.message || "Error deleting branch");
-//   }
-// }
-function deleteBranch(branch: Branch) {
+async function deleteBranch(branch: Branch) {
   try {
-    if (!Array.isArray(branches.value)) {
-      // Fallback: if branches.value is undefined, set it to an empty array
-      branches.value = [];
-    }
+    await branchStore.deleteBranch(branch.id);
     branches.value = branches.value.filter((b) => b.id !== branch.id);
     notify.success("Branch Deleted");
-  } catch (error: any) {
-    notify.error(error.response?.data?.message || "Error closing branch");
+  } catch (error) {
+    notify.error(error.response?.data?.message || "Error deleting branch");
   }
 }
-
-// async function deleteBranch(branch: Branch) {
-//   console.log("delete button clicked");
+// function deleteBranch(branch: Branch) {
 //   try {
-//     const branches = await branchStore.fetchBranches();
 //     branches.value = branches.value.filter((b) => b.id !== branch.id);
-//     // branchStore.fetchBranches()
 //     notify.success("Branch Deleted");
-//   } catch (error) {
+//     fetchBranches()
+//   } catch (error: any) {
 //     notify.error(error.response?.data?.message || "Error closing branch");
 //   }
 // }
@@ -471,8 +462,12 @@ onMounted(() => {
 
               <span
                 class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
-                @click="showBranchCloseModal = true"
+                @click="branchCloseModal(branch)"
               >
+              <!-- <span
+                class="rounded-md p-1 mx-1 text-white bg-red-700 hover:bg-red-200 hover:text-red-700"
+                @click="deleteBranch(branch)"
+              > -->
                 <!-- <i
                   class="fa-solid fa-store-slash"
                   @click="deleteBranch(branch)"
@@ -568,19 +563,17 @@ onMounted(() => {
         </p>
         <div class="flex w-1/2 gap-2 justify-center mx-auto">
           <!-- <button
-              class="bg-gray-600 hover:bg-gray-500 w-1/2 rounded text-white"
-              @click="showApproveModal = false"
-            > -->
-          <button
             class="bg-gray-600 hover:bg-gray-500 w-1/2 rounded text-white"
             @click="showBranchCloseModal = false"
           >
             <i class="fa-solid fa-times-circle mx-1"></i> Cancel
+          </button> -->
+          <button
+            class="bg-red-600 hover:bg-red-800 w-1/2 rounded text-white"
+            @click="showBranchCloseModal = false"
+          >
+            <i class="fa-solid fa-times-circle mx-1"></i> Cancel
           </button>
-          <!-- <button
-            class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
-            @click="showBranchCloseModal = true"
-          > -->
           <button
             class="bg-green-700 text-white p-1 w-1/2 rounded hover:bg-green-800"
             @click="deleteBranch(branch)"
