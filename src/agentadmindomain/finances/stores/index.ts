@@ -9,34 +9,6 @@ import api from "@/config/api"
 export const useBilling = defineStore("billing", () => {
   //  data for testing
 
-  // use this for  transactions
-  // <tr class="text-left">
-  //           <!-- <th>#</th> -->
-  //           <th>Tracking Number</th>
-  //           <th>Service</th>
-  //           <th>Provider</th>
-  //           <th>Till</th>
-  //           <!-- <th>Transaction Type</th> -->
-  //           <th>Fee</th>
-  //           <!-- <th>Status</th> -->
-  //           <th>Date</th>
-  //           <!-- <th>Actions</th> -->
-  //         </tr>
-
-  // const Transactions: Transaction[] = [
-  //   { id: 1, trackingNumber: "TA123456",
-  //     service: "Company Name Reservation", provider: "URSB", till: "Till 001",
-  //     fee: 25000, date: "2021-09-01", status: "success" 
-  //   },
-  //   { id: 2, trackingNumber: "TB123457",
-  //     service: "Create Postal Account", provider: "Posta Uganda",
-  //      till: "Till 002", fee: 20000, date: "2021-09-02", status: "failed"
-  //     },
-  //   { id: 3, trackingNumber: "TC123458",
-  //     service: "National ID registration", provider: "NIRA",
-  //      till: "Till 003", fee: 35000, date: "2021-09-03", status: "pending" },
-  // ];
-
   const Transactions: Transaction[] = [
     {
       id: 1, trackingNumber: "TA123456",
@@ -54,14 +26,6 @@ export const useBilling = defineStore("billing", () => {
       till: "Till 003", fee: 35000, date: "2021-09-03", status: "pending"
     },
   ];
-
-
-  // use this for  float requests
-  // <th class="text-left">Date</th>
-  // <th class="text-left">Name</th>
-  // <th class="text-left">Branch</th>
-  // <th class="text-left">Amount</th>
-  // <th class="text-left">Actions</th>
 
   const FloatRequests: FloatRequest[] = [
     { id: 1, requestDate: "2021-09-01", amount: 10000000, status: "pending", branch: "Branch 1", approvedBy: null },
@@ -194,24 +158,6 @@ export const useBilling = defineStore("billing", () => {
     console.log("Float Requests:", floatRequests.value);
   }
 
-  // function submit() {
-  //   let payload = {
-  //     amount: form.firstName,
-  //     branchId: form.branchId,
-  //   };
-  //   loading.value = true;
-  //   store
-  //     .allocateFloat(payload)
-  //     .then(() => {
-  //       loading.value = false;
-  //       notify.success(`Float assigned to ${form.branchId}.`);
-  //       emit("cancel");
-  //     })
-  //     .catch(() => {
-  //       loading.value = false;
-  //     });
-  // }
-
   // allocate float function, push to the float allocation array
   function allocateFloat(payload: AllocateFloat) {
     floatAllocations.value.push({
@@ -305,42 +251,7 @@ export const useBilling = defineStore("billing", () => {
   //   localStorage.setItem('allocateFloatFromRequestToLocalStorage', JSON.stringify(allocateFloatFromRequestToLocalStorage.value))
   // }
 
-  // pass in the requestId
-  // const approveFloatRequest = (requestId: any) => {
-  //   store.approveFloatRequest(requestId);
-  //   store.fetchFloatRequests();
-  //   balanceStore.approveFloatRequest(requestId);
-  //   store.reduceFloatLedger(requestId); 
-  //   console.log(`float request with id ${requestId} approved`);
-  // };
-
-  // async function reduceFloatLedger(requestId: any) {
-  //   //  This is local storage 
-  //   // end of local storage
-
-  //   console.log("Approving float request with ID:", requestId);
-  //   // Simulate API call
-  //   // const response = await fetch(`/api/float-requests/${requestId}/approve`, {
-  //   //   method: "POST",
-  //   // });
-  //   // const data = await response.json();
-
-  //   // use request in floatledgers array id to figure out amount 
-  //   const floatRequest = floatRequests.value.find(
-  //     (request) => request.id === requestId
-  //   );
-  //   if (!floatRequest) {
-  //     console.error("Float request not found");
-  //     return;
-  //   }
-  //   floatLedgers.value.push({
-  //     id: floatLedgers.value.length + 1,
-  //     date: new Date().toISOString(),
-  //     description: floatRequest.branch,
-  //     amount: -floatRequest.amount,
-  //     // balance: 450000000 - floatRequest.amount,
-  //   });
-  // }
+ 
 
   // approve float request using passed in Id and set status to approved and modify the floatrequests array
   async function reduceFloatLedger(requestId: string) {
