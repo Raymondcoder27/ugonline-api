@@ -120,7 +120,7 @@ onMounted(() => {
       </div>
 
       <!-- Branch Location -->
-      <div class="flex flex-col my-2">
+      <!-- <div class="flex flex-col my-2">
         <label for="location" class="text-neutral-600 text-xs font-bold mb-1"
           >Location</label
         >
@@ -131,7 +131,7 @@ onMounted(() => {
           class="form-element e-input w-full"
           required
         />
-      </div>
+      </div> -->
 
       <!-- Branch Manager -->
       <div class="flex flex-col my-2">
