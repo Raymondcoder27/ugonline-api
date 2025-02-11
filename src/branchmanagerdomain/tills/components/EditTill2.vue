@@ -66,7 +66,7 @@ function submit() {
   loading.value = false;
   emit("tillEdited");
   // Show success notification
-  notify.success("Tilledited successfully");
+  notify.success("Till edited successfully");
 }
 
 // Handle the cancel action
@@ -80,7 +80,7 @@ onMounted(() => {
 
   // form.branch = data.branch;
   form.name = data.name;
-  form.operator = data.operator;
+  form.tillOperator = data.operator;
   // form.firstName = data.firstName;
   // form.lastName = data.lastName;
   // form.email = data.email;
