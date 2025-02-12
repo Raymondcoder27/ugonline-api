@@ -96,7 +96,10 @@ const paginatedFloatRequests = computed(() => {
   const end = start + limit.value;
 
   if (!Array.isArray(billingStore.floatRequests)) {
-    console.error("billingStore.floatRequests is not an array:", billingStore.floatRequests);
+    console.error(
+      "billingStore.floatRequests is not an array:",
+      billingStore.floatRequests
+    );
     return [];
   }
 
@@ -495,6 +498,7 @@ onMounted(() => {
                 <!-- <label> -->
                 <span
                   class="text-xs cursor-pointer rounded-md px-1 py-0.5 font-semibold text-white bg-blue-600 hover:text-blue-700 hover:bg-blue-200"
+                  @click="view(request)"
                 >
                   <!-- <i class="fa-solid fa-check"></i>
                   Approved</span
