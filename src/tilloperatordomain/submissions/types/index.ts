@@ -20,17 +20,20 @@ export interface Submission {
   provider: string;
   fee: number;
   date: string;
+  applicant: string;
+  trackingNumber: string;
+  status: string;
 }
 
 export type Transaction = {
-    id: string;
-    branchName: string;
-    manager: string;
-    transactionType: string;
-    status: string;
-    date: string;
-    amount: number;
-  };
+  id: string;
+  branchName: string;
+  manager: string;
+  transactionType: string;
+  status: string;
+  date: string;
+  amount: number;
+};
 
 export interface FloatLedger {
   id: string;
@@ -38,7 +41,7 @@ export interface FloatLedger {
   description: string;
   amount: number;
   balance: number;
-  createdAt: string; 
+  createdAt: string;
 }
 
 export interface FloatRequest {
@@ -48,7 +51,7 @@ export interface FloatRequest {
   status: string;
   requesterName: string;
   approvedBy: string | null;
-  createdAt: string; 
+  createdAt: string;
 }
 
 export interface FloatManagement {
@@ -79,17 +82,17 @@ export interface IResendVerificationPayload {
 
 
 export type IGoFilter = {
-    limit: number;
-    offset: number;
-    page: number;
-    sort: Array<{
-      field: string;
-      order: string;
-    }>;
-    filter: Array<{
-      field: string;
-      operand: string;
-      operator: string;
-    }>;
-  };
+  limit: number;
+  offset: number;
+  page: number;
+  sort: Array<{
+    field: string;
+    order: string;
+  }>;
+  filter: Array<{
+    field: string;
+    operand: string;
+    operator: string;
+  }>;
+};
 
