@@ -6,6 +6,7 @@ import CreateAccount from "@/branchmanagerdomain/accounts/components/CreateAccou
 import EditBackOfficeAccount from "@/branchmanagerdomain/accounts/components/EditBackOfficeAccount.vue";
 import moment from "moment";
 import type { IGoFilter } from "@/types";
+import type {Account} from "@/types"
 import { useDebounceFn } from "@vueuse/core";
 import type {
   IResendVerificationPayload,
