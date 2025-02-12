@@ -59,7 +59,7 @@ onMounted(() => {
   // let data = JSON.parse(<string>localStorage.getItem("branchManagerbackofficeAccount"))
   let data = JSON.parse(<string>localStorage.getItem("backofficeAccount"));
 
-  form.name = data.name;
+  // form.name = data.name;
   form.firstName = data.firstName;
   form.lastName = data.lastName;
   form.middleNames = data.middleNames;
@@ -87,7 +87,7 @@ function submit() {
     .editBackofficeAccount(id, payload)
     .then(() => {
       loading.value = false;
-      window.location.reload();
+      // window.location.reload();
       notify.error("Edited");
     })
     .catch((error: ApiError) => {

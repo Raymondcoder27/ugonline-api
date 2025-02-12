@@ -249,8 +249,8 @@ onMounted(() => {
 <template>
   <div class="">
     <!-- Header -->
-    <div class="max-w-7xl mx-auto bg-white p-2 flex flex-col min-h-[85vh]">
-      <div class="flex my-1">
+    <div class="max-w-7xl mx-auto bg-white px-2 flex flex-col min-h-[85vh]">
+      <div class="flex">
         <table class="table w-full">
           <thead>
             <tr class="header-tr">
