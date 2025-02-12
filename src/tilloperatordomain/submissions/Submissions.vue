@@ -7,6 +7,7 @@ import { useNotificationsStore } from "@/stores/notifications";
 
 import ServiceForm from "@/tilloperatordomain/services/components/ServiceForm.vue";
 import AppModal from "@/components/AppModal.vue";
+import { Transaction } from "@/tilloperatordomain/submissions/types";
 import moment from "moment/moment";
 
 const serviceFormModalOpen: Ref<boolean> = ref(false);
@@ -451,10 +452,11 @@ watch(
             >
               <td>{{ idx + 1 }}</td>
               <td class="rounded-md font-semibold text-red-700">
-                <span
+                <!-- <span
                   @click="transactionDetails(transaction.id)"
                   class="hover:underline"
-                >
+                > -->
+                <span @click="view(transaction)" class="hover:underline">
                   {{ transaction.trackingNumber }}
                 </span>
                 <!-- make it copy to clipboard -->
@@ -734,7 +736,7 @@ watch(
 
     <!-- Modal -->
     <AppModal v-model="modalOpen" xl4>
-      <p class="text-xl font-bold">Transaction Details</p>
+      <p class="text-xl font-bold">Transaction Detail</p>
       <div class="flex">
         <div class="w-full">
           <table class="w-12">
